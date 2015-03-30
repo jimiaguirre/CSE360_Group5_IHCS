@@ -1,5 +1,6 @@
 package edu.asu.se.group5.business;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -16,6 +17,21 @@ public class HealthCareManagementSystem {
 	
 	public static void main(String[] args) {
 		int flag = 0;
+		
+		int[] curCon = {1,3,5,1,7};
+		int[] thresh = {10,1,2,3,2};
+		
+		//testing initial conditions.
+		Patient p = new Patient();
+		p.setName("Jimi");
+		p.setCurrentCondition(curCon);
+		p.setAssessmentEvaluationThreshold(thresh);
+		
+		int[] data = evaluate(p);
+		
+		for(int i = 0; i < data.length; i++)
+			System.out.format("%s, ",data[i]);
+		
 		
 		while(flag!=1){
 			System.out.println("\n\nPlease choose the option");
@@ -37,12 +53,19 @@ public class HealthCareManagementSystem {
 				case 4: System.out.println("Have a nice day");
 						System.exit(0);
 						break;
+				case 5:
+					getPatientData();
+					
 			}
 		}
 		scanIn.close(); 
+		
+		
+		
 	}
 	
-	public static void displayDetailsOfPatient() {
+	public static void displayDetailsOfPatient() 
+	{
 		System.err.println("Enter patient's id");
 		int referenceNumber = Integer.parseInt(scanIn.nextLine());
 		Patient p = patientList.get(referenceNumber);
@@ -55,7 +78,7 @@ public class HealthCareManagementSystem {
 			System.out.println("Patient's Email id :" + p.getEmailId());
 			System.out.println("Patient's doctor :" + p.getDoctorAssigned());
 		}
-	}
+	}		
 
 	public static void registerDoctor() {
 		String userName = "";
@@ -142,6 +165,38 @@ public class HealthCareManagementSystem {
 		referenceNumberGenerator++;
 		
 		System.out.println(userName + " is added to the system with reference number " + p1.getReferenceNumber() + ". \n thanks for your time");
+	}
+	
+	public static int[] evaluate(Patient patient)
+	{
+		int[] evaluationData[] = {patient.getCurrentCondition(), patient.getAssessmentEvaluationThreshold(), new int[]{0,0,0,0,0}};		
+				
+		for(int arrayIndex = 0; arrayIndex < Array.getLength(evaluationData[0]); arrayIndex++)
+		{	
+			//if threshold exceeded, then place 1 to signify specified action must be taken.
+			if(evaluationData[0][arrayIndex] >= evaluationData[1][arrayIndex])
+				evaluationData[2][arrayIndex] = 1;
+			
+			//may need to implement average for further evaluation.
+			if(evaluationData[0][arrayIndex] < evaluationData[1][arrayIndex])
+				evaluationData[2][arrayIndex] = 0;
+		}
+		
+		return  evaluationData[2];
+	}
+	
+	public static Patient getPatientData() 
+	{
+		System.err.println("Enter patient's id");
+		int referenceNumber = Integer.parseInt(scanIn.nextLine());
+		Patient p = patientList.get(referenceNumber);
+		if(p == null)
+		{
+			System.out.println("Patient with this id is not present in the system");				
+		}
+		else
+			System.out.println(p.getName());
+		return p;
 	}
 	
 	

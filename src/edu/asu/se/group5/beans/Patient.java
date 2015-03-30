@@ -8,7 +8,8 @@ public class Patient extends Member{
 	private String emailId;
 	private String doctorAssigned;
 	private String underlyingCondition;
-	private int assessmentEvaluationThreshold; 
+	private int[] assessmentEvaluationThreshold;
+	private int[] currentCondition;
 	
 	@Override
 	public String register() {
@@ -73,11 +74,24 @@ public class Patient extends Member{
 	public void setUnderlyingCondition(String underlyingCondition) {
 		this.underlyingCondition = underlyingCondition;
 	}
-	public int getAssessmentEvaluationThreshold() {
+	//return the assessment threshold for a given patient
+	public int[] getAssessmentEvaluationThreshold() {
 		return assessmentEvaluationThreshold;
 	}
-	public void setAssessmentEvaluationThreshold(int assessmentEvaluationThreshold) {
+	//for Health care provider use, to set and update the threshold for a given patient.
+	public void setAssessmentEvaluationThreshold(int[] assessmentEvaluationThreshold) {
 		this.assessmentEvaluationThreshold = assessmentEvaluationThreshold;
+	}
+	//set the current patient condition
+	public void setCurrentCondition(int[] currentCondition)
+	{
+		//to do: update patient history within database.
+		this.currentCondition = currentCondition;
+	}
+	//return the patients current condition
+	public int[] getCurrentCondition()
+	{
+		return this.currentCondition;
 	}
 	
 	
