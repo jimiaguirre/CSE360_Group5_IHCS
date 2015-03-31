@@ -1,8 +1,10 @@
 package edu.asu.se.group5.business;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -18,19 +20,70 @@ public class HealthCareManagementSystem {
 	public static void main(String[] args) {
 		int flag = 0;
 		
-		int[] curCon = {1,3,5,1,7};
-		int[] thresh = {10,1,2,3,2};
+		int[] curCon = new int[5];
+		int[] thresh = {0,0,0,0,0};
 		
-		//testing initial conditions.
-		Patient p = new Patient();
-		p.setName("Jimi");
-		p.setCurrentCondition(curCon);
-		p.setAssessmentEvaluationThreshold(thresh);
 		
+		Random generator = new Random();
+		
+		//utilize overloaded constructor to create Member objects.
+		HealthserviceProvider doctor = new HealthserviceProvider("Doctor J", "docj@doctor.com", "docPassword", "(555) 555-1512", referenceNumberGenerator++, "Cardiology");		
+		Patient p = new Patient("Jimi Aguirre", "Doctor J", "jimi@jimiaguirre.com", "patientPassword", "(555) 555-1212", "Heart Surgery", referenceNumberGenerator++);
+		
+		//utilize overloaded toString to display member details
+		System.out.format("%s%s",doctor,p);
+		
+		//populate a list of 10 RANDOM health conditions to simulate past medical condition update submissions
+		//Random data to be used in std. dev. calculations		
+		ArrayList<int[]> pHistory = new ArrayList<int[]>();		
+		for (int historyIndex = 0; historyIndex < 10; historyIndex++)
+		{
+			for(int conditionIndex = 0; conditionIndex < curCon.length; conditionIndex++)
+				curCon[conditionIndex] = generator.nextInt(((10 - 0) + 1) - 0);
+			p.setCurrentCondition(Arrays.copyOf(curCon, curCon.length));						
+		}						
+		
+		//verify list contains 10 random data entries
+		pHistory = p.getConditionHistory();
+		System.out.format("Condition History Size: %s%n", pHistory.size());//verify size
+			
+		//print each element of each ArrayList Entry
+		for (int historyIndex = 0; historyIndex < pHistory.size(); historyIndex++)
+		{
+			System.out.format("History [%s]: {", historyIndex+1);
+			for(int conditionIndex = 0; conditionIndex < pHistory.get(historyIndex).length; conditionIndex++)
+				System.out.format("%s, ", pHistory.get(historyIndex)[conditionIndex]);
+			System.out.format("}%n");
+		}
+				
+		
+		//doctor updates patient thresh values
+		doctor.updateThreshold(p, new int[]{5,4,7,3,7});		
+		
+		//evaluate patient given data
+		//p.setCurrentCondition(new int[]{5,2,10,4,6});//can use this known current condition to test std. deviation calculation
+		
+		//store results of evaluation
 		int[] data = evaluate(p);
 		
+		
+		//display most recent data, the results in eval, an std. dev.
+		System.out.format("Current Condition:%15s","");		
+		for(int i = 0; i < curCon.length; i++)
+			System.out.format("%d, ",curCon[i]);
+		
+		
+		System.out.format("%nAssessment Evaluation Threshold:%1s","");		
+		for(int i = 0; i < p.getAssessmentEvaluationThreshold().length; i++)
+			System.out.format("%d, ",p.getAssessmentEvaluationThreshold()[i]);
+		
+		System.out.format("%nEvaluation Results:%14s","");		
 		for(int i = 0; i < data.length; i++)
 			System.out.format("%s, ",data[i]);
+		System.out.println();
+				
+		
+		
 		
 		
 		while(flag!=1){
@@ -167,8 +220,10 @@ public class HealthCareManagementSystem {
 		System.out.println(userName + " is added to the system with reference number " + p1.getReferenceNumber() + ". \n thanks for your time");
 	}
 	
+	//evaluate a given patient
 	public static int[] evaluate(Patient patient)
 	{
+		//Array of int[] containing data needed for assessment evaluation
 		int[] evaluationData[] = {patient.getCurrentCondition(), patient.getAssessmentEvaluationThreshold(), new int[]{0,0,0,0,0}};		
 				
 		for(int arrayIndex = 0; arrayIndex < Array.getLength(evaluationData[0]); arrayIndex++)
@@ -182,9 +237,46 @@ public class HealthCareManagementSystem {
 				evaluationData[2][arrayIndex] = 0;
 		}
 		
+		
+		//testing std.dev method to verify results, can be used in threshold eval. above to
+		//trigger appropriate course of action
+		System.out.println(calculateStdDev(patient.getCurrentCondition()));
+		
 		return  evaluationData[2];
 	}
 	
+	//std dev calculator
+	//uses each element of the current condition array to calculate std dev. based on all severity ratings
+	//provided by the patient
+	public static double calculateStdDev(int[] patientData)
+	{
+		double result = 0;
+		double[] calc = new double[patientData.length];		
+		double average = calculateAverage(toDoubleArray(patientData));
+		double test = 0;
+		
+		System.out.println("AVG:"+average);
+
+		for(int index = 0; index < patientData.length; index++)
+		{		
+			calc[index] = Math.pow(patientData[index]-average, 2); 
+			System.out.format("diff[%s]: %s%n ",index,calc[index]);
+		}		
+		result = Math.sqrt(calculateAverage(calc));						
+		return result;
+	}
+	//helper function for calculating average
+	public static double calculateAverage(double[] input)
+	{
+		double result = 0;
+		for(int index = 0; index < input.length; index++)
+			result += input[index];
+		result /= (input.length);
+		
+		return result;
+	}
+	
+	//if patient exists, retrieve patient object from database
 	public static Patient getPatientData() 
 	{
 		System.err.println("Enter patient's id");
@@ -197,6 +289,17 @@ public class HealthCareManagementSystem {
 		else
 			System.out.println(p.getName());
 		return p;
+	}
+	
+	//helper method to convert int[] double []
+	public static double[] toDoubleArray(int[] array)
+	{
+		double[] result = new double[array.length];
+		
+		for(int index=0; index < array.length; index++)
+			result[index] = array[index];
+		
+		return result;
 	}
 	
 	

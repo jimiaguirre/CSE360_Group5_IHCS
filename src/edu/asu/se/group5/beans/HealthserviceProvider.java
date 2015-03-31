@@ -8,8 +8,21 @@ public class HealthserviceProvider extends Member{
 	private String password;
 	private String phone;
 	private String emailId;
+	private String medicalField;
 	private List<Integer> patientList;
 	private int numberOfPatients;
+	
+	public HealthserviceProvider()
+	{
+		this("name", "email", "password", "phone", 0000, "default field");
+	}
+	
+	public HealthserviceProvider(String name, String email, String password, String phone, int referenceNumber, String medicalField)
+	{
+		super(name,email,password,phone,referenceNumber);
+		this.medicalField = medicalField;
+	}
+	
 	@Override
 	public String register() {
 		// TODO Auto-generated method stub
@@ -21,9 +34,9 @@ public class HealthserviceProvider extends Member{
 		return null;
 	}
 	
-	public String updateThreshold(Patient patient, int[] thresholdArray){
-		// TODO Auto-generated method stub
-		return null;
+	public void updateThreshold(Patient patient, int[] thresholdArray)
+	{		
+		patient.setAssessmentEvaluationThreshold(thresholdArray);
 	}
 	
 	public String getPatientHistory(Patient patient){
@@ -82,5 +95,10 @@ public class HealthserviceProvider extends Member{
 	}
 	public void setNumberOfPatients(int numberOfPatients) {
 		this.numberOfPatients = numberOfPatients;
+	}
+	
+	public String toString()
+	{
+		return String.format("<Medical Field: %s>%n%s", this.medicalField, super.toString());
 	}
 }

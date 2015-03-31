@@ -12,6 +12,21 @@ public abstract class Member {
 	
 	public abstract String register();
 	public abstract String sendMessage();
+	
+	public Member()
+	{
+		this("name", "default@email.com", "defaultPassword", "(000) 000-0000", 0000);
+	}
+	
+	public Member(String name, String email, String password, String phone, int referenceNumber)
+	{
+		this.name = name;
+		this.emailId = email;
+		this.password = password;
+		this.phone = phone;
+		this.referenceNumber = referenceNumber;
+	}
+	
 	public int getReferenceNumber() {
 		return referenceNumber;
 	}
@@ -47,6 +62,11 @@ public abstract class Member {
 	}
 	public void setHistory(List<String> history) {
 		this.history = history;
+	}
+	
+	public String toString()
+	{								
+		return String.format("--Name: %s%n--Ref. #: %s%n--Email: %s%n--Password: %s%n%n", this.name, this.referenceNumber, this.emailId, this.password);
 	}
 	
 	
