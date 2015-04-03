@@ -7,8 +7,10 @@ public abstract class Member {
 	private String name;
 	private String phone;
 	private String emailId;
-	private String password;
+	//private String password;
+	private char[] password;
 	private List<String> history;
+	private boolean activeSession;
 	
 	public abstract String register();
 	public abstract String sendMessage();
@@ -22,7 +24,7 @@ public abstract class Member {
 	{
 		this.name = name;
 		this.emailId = email;
-		this.password = password;
+		this.password = password.toCharArray();
 		this.phone = phone;
 		this.referenceNumber = referenceNumber;
 	}
@@ -51,11 +53,41 @@ public abstract class Member {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public String getPassword() {
+	public char[] getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	
+	public boolean authenticate(String input)
+	{
+		boolean valid = true;
+		boolean active = true;
+				
+		char[] t = input.toCharArray();					
+		while(valid && active)
+		{
+			for(int index = 0; index < this.password.length; index++)
+			{
+				if(this.password[index] != input.charAt(index))
+				{
+					valid = false;					
+					break;
+				}
+			//System.out.format("%s, %s --> %b%n", this.password[index], input.charAt(index), valid);
+			}
+			active = false;
+		}
+		
+		if(valid) {logIn();}
+		
+		return valid;
+	}
+	
+	public void logIn(){ this.activeSession = true;}
+	public void logOff(){ this.activeSession = false;}
+	
+	public void setPassword(String password) 
+	{	
+		this.password = password.toCharArray();
 	}
 	public List<String> getHistory() {
 		return history;
@@ -69,6 +101,5 @@ public abstract class Member {
 		return String.format("--Name: %s%n--Ref. #: %s%n--Email: %s%n--Password: %s%n%n", this.name, this.referenceNumber, this.emailId, this.password);
 	}
 	
-	
-	
+		
 }

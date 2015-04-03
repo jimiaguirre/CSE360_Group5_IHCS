@@ -9,13 +9,22 @@ import java.util.Scanner;
 import java.util.Set;
 
 import edu.asu.se.group5.beans.HealthserviceProvider;
+import edu.asu.se.group5.beans.Member;
 import edu.asu.se.group5.beans.Patient;
 
 public class HealthCareManagementSystem {
-	private static HashMap<Integer,Patient> patientList = new HashMap<Integer,Patient>();
-	private static HashMap<Integer,HealthserviceProvider> doctorList = new HashMap<Integer,HealthserviceProvider>();
+	//private static HashMap<Integer,Patient> patientList = new HashMap<Integer,Patient>();
+	//private static HashMap<Integer,HealthserviceProvider> doctorList = new HashMap<Integer,HealthserviceProvider>();
+	
+	private static HashMap<Integer,ArrayList<Object>> patientList = new HashMap<Integer,ArrayList<Object>>();
+	private static HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();
+	
+	
+	
 	private static int referenceNumberGenerator = 1001;  
 	static Scanner scanIn = new Scanner(System.in);
+	
+	
 	
 	public static void main(String[] args) {
 		int flag = 0;
@@ -28,7 +37,34 @@ public class HealthCareManagementSystem {
 		
 		//utilize overloaded constructor to create Member objects.
 		HealthserviceProvider doctor = new HealthserviceProvider("Doctor J", "docj@doctor.com", "docPassword", "(555) 555-1512", referenceNumberGenerator++, "Cardiology");		
+		
+		ArrayList<Object> vals = new ArrayList<Object>();
 		Patient p = new Patient("Jimi Aguirre", "Doctor J", "jimi@jimiaguirre.com", "patientPassword", "(555) 555-1212", "Heart Surgery", referenceNumberGenerator++);
+		
+		vals.add(new String("jimi@jimiaguirre.com"));
+		vals.add(p);
+		
+		
+		patientList.put(referenceNumberGenerator, vals);
+		
+		
+		//test PW auth.
+		System.out.println(p.authenticate("patientPassword")+"\n");
+		
+		//test hash email lookup
+		//search for email. if found, display ref. #
+		for(Integer key: patientList.keySet())
+		{
+			if(patientList.get(key).get(0).equals("jimi@jimiaguirre.com"))
+				System.out.println(patientList.get(key).get(0)+" --> " + key + "\n");
+		}
+		
+		
+		//test login method
+		login("jimi@jimiaguirre.com", "patientPassword");
+		
+		
+		
 		
 		//utilize overloaded toString to display member details
 		System.out.format("%s%s",doctor,p);
@@ -121,7 +157,7 @@ public class HealthCareManagementSystem {
 	{
 		System.err.println("Enter patient's id");
 		int referenceNumber = Integer.parseInt(scanIn.nextLine());
-		Patient p = patientList.get(referenceNumber);
+		Patient p = (Patient)patientList.get(referenceNumber).get(1);//get Patient
 		if(p == null){
 			System.out.println("Patient with this id is not present in the system");
 			return;
@@ -167,7 +203,13 @@ public class HealthCareManagementSystem {
 		h1.setPhone(phone);
 		h1.setEmailId(emailId);
 		
-		doctorList.put(h1.getReferenceNumber(),h1);
+		//doctorList.put(h1.getReferenceNumber(),h1);
+		ArrayList<Object> values = new ArrayList<Object>();
+		
+		values.add(emailId);
+		values.add(h1);
+		
+		doctorList.put(referenceNumberGenerator, values);
 		
 		referenceNumberGenerator++;
 		
@@ -192,8 +234,10 @@ public class HealthCareManagementSystem {
 			System.out.println("passwords not matching");
 			System.exit(0);
 		}
+		
 		System.out.println("Enter the doctor assigned");
 		doctor = scanIn.nextLine();
+		
 		Set<Integer> presentDoctorIds = doctorList.keySet();
 		if(!presentDoctorIds.contains(Integer.parseInt(doctor))){
 			System.out.println("doctor not present int the system. \nPlease start a new registration");
@@ -213,7 +257,11 @@ public class HealthCareManagementSystem {
 		p1.setPhone(phone);
 		p1.setEmailId(emailId);
 		
-		patientList.put(p1.getReferenceNumber(),p1);
+		ArrayList<Object> values = new ArrayList<Object>();
+		values.add(new String("email@email.com"));
+		values.add(p1);
+		
+		patientList.put(referenceNumberGenerator,values);
 		
 		referenceNumberGenerator++;
 		
@@ -281,7 +329,7 @@ public class HealthCareManagementSystem {
 	{
 		System.err.println("Enter patient's id");
 		int referenceNumber = Integer.parseInt(scanIn.nextLine());
-		Patient p = patientList.get(referenceNumber);
+		Patient p = (Patient)patientList.get(referenceNumber).get(1);
 		if(p == null)
 		{
 			System.out.println("Patient with this id is not present in the system");				
@@ -302,5 +350,22 @@ public class HealthCareManagementSystem {
 		return result;
 	}
 	
+	//login method
+	public static void login(String emailId, String password)
+	{
+		//search for email. if found, display ref. #
+		for(Integer key: patientList.keySet())
+		{
+			if(patientList.get(key).get(0).equals(emailId))
+			{
+				//it email exists, proceed to PW Authentication
+				System.out.println(patientList.get(key).get(0)+" --> " + key + "\n");
+				Patient user = (Patient)patientList.get(key).get(1);
+				System.out.println(user.authenticate(password));
+			}
+		}
+	}
 	
+	
+
 }
