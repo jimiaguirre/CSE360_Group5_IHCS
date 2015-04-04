@@ -16,15 +16,22 @@ public class HealthCareManagementSystem
 {		
 	private  HashMap<Integer,ArrayList<Object>> patientList = new HashMap<Integer,ArrayList<Object>>();
 	private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();
-	private ArrayList<Object> vals = new ArrayList<Object>();
+	private ArrayList<Object> vals = new ArrayList<Object>();	
 	
 	private  String facility;
 	private  int referenceNumberGenerator = 1001;  	
 
-	public HealthCareManagementSystem(){this("Unspecified");}
-	
-	public HealthCareManagementSystem(String facilityName){this.facility = facilityName;}
-	
+	public HealthCareManagementSystem(){this("Unspecified");}	
+	public HealthCareManagementSystem(String facilityName)
+	{
+		this.facility = facilityName;
+		this.registerDoctor("Bishop, Walter", "docBishop@fringe.com", "imNotCrazy", "imNotCrazy", "(555) 555-1512");
+		this.registerDoctor("Jekyll, Henry", "biPolar@ontheedge.com", "imfineimnot", "imfineimnot", "(555) 531-3357");
+		this.registerDoctor("Dre, Doctor", "dreDay@beats.com", "ginNJuice", "ginNJuice", "(234) 333-9382");
+		this.registerDoctor("Lecter, Hannibal", "hungry@humans.com", "faceSteak!", "faceSteak!", "(223) 543-0929");
+		this.registerDoctor("Evil, Doctor", "evil@doctor.com", "minime", "minime", "(325) 943-1264");		
+	}
+		
 	public void registerPatient(String userName, String password, String passwordConfirmation, String doctorReferenceNumber, String emailId, String phone)
 	{
 		

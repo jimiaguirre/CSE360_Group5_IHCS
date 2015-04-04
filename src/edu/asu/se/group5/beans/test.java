@@ -23,6 +23,7 @@ public class test
 		
 		
 		system.registerDoctor("Doctor J", "docj@doctor.com", "docPassword", "docPassword", "(555) 555-1512");
+		
 		system.registerPatient("Jimi Aguirre", "securePW", "securePW", "1001", "jimi@jimiaguirre.com", "555-5511");
 		system.registerPatient("Savannah P", "securePW", "securePW", "1001", "sp@email.com", "555-5511");
 		system.registerPatient("Eddie Wolf", "securePW", "securePW", "1001", "wolfpack@email.com", "555-5511");
