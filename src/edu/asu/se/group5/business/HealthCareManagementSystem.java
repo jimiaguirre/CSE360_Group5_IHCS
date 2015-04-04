@@ -83,7 +83,7 @@ public class HealthCareManagementSystem
 		referenceNumberGenerator++;
 	}
 	
-	public String patientDetails(int referenceNumber) 
+	private String patientDetails(int referenceNumber) 
 	{				
 		String result = String.format("<Reference Number [%s]: Invalid>%n", referenceNumber);				
 		
@@ -93,7 +93,7 @@ public class HealthCareManagementSystem
 		return result;
 	}
 	
-	public String healthcareProviderDetails(int referenceNumber) 
+	private String healthcareProviderDetails(int referenceNumber) 
 	{				
 		String result = String.format("<Reference Number [%s]: Invalid>%n", referenceNumber);				
 		
@@ -104,7 +104,7 @@ public class HealthCareManagementSystem
 	}
 
 
-	public int[] evaluate(Patient patient)
+	private int[] evaluate(Patient patient)
 	{
 		//Array of int[] containing data needed for assessment evaluation
 		int[] evaluationData[] = {patient.getCurrentCondition(), patient.getAssessmentEvaluationThreshold(), new int[]{0,0,0,0,0}};		
@@ -131,7 +131,7 @@ public class HealthCareManagementSystem
 	//std dev calculator
 	//uses each element of the current condition array to calculate std dev. based on all severity ratings
 	//provided by the patient
-	public double calculateStdDev(int[] patientData)
+	private double calculateStdDev(int[] patientData)
 	{
 		double result = 0;
 		double[] calc = new double[patientData.length];		
@@ -149,7 +149,7 @@ public class HealthCareManagementSystem
 		return result;
 	}
 	//helper function for calculating average
-	public double calculateAverage(double[] input)
+	private double calculateAverage(double[] input)
 	{
 		double result = 0;
 		for(int index = 0; index < input.length; index++)
@@ -160,7 +160,7 @@ public class HealthCareManagementSystem
 	}
 	
 	//if patient exists, retrieve patient object from database
-	public Patient getPatient(String referenceNumber) 
+	private Patient getPatient(String referenceNumber) 
 	{				
 		Patient p = (Patient)patientList.get(referenceNumber).get(1);
 		
@@ -174,7 +174,7 @@ public class HealthCareManagementSystem
 	}
 	
 	//helper method to convert int[] double []
-	public double[] toDoubleArray(int[] array)
+	private double[] toDoubleArray(int[] array)
 	{
 		double[] result = new double[array.length];
 		
@@ -184,22 +184,42 @@ public class HealthCareManagementSystem
 		return result;
 	}
 	
-	//login method
-	public void login(String emailId, String password)
-	{
-		//search for email. if found, display ref. #
-		for(Integer key: patientList.keySet())
+	//Patient login method
+	public String login(String memberType,String emailId, String password)
+	{		
+		String report = "";
+		int key;
+		
+		if(memberType.equals("Patient")) key = verifyEmail(this.patientList ,emailId);
+		else key = verifyEmail(this.doctorList ,emailId); 
+		
+		if(key != 0)
 		{
-			if(patientList.get(key).get(0).equals(emailId))
-			{
-				//if email exists, proceed to PW Authentication
-				System.out.println(patientList.get(key).get(0)+" --> " + key + "\n");
-				Patient user = (Patient)patientList.get(key).get(1);
-				System.out.println(user.authenticate(password));
-			}
+			Member user;
+			
+			if(memberType.equals("Patient")){user = (Member)patientList.get(key).get(1);}
+			else {user = (Member)doctorList.get(key).get(1);}
+			
+			if(user.authenticate(password)) report = "Logged In.";
+			else report = "Invalid Password.";
 		}
+		
+		else report = "Invalid Email";
+		
+		return report;
 	}
 	
+	public int verifyEmail(HashMap<Integer, ArrayList<Object>> memberList, String emailId)
+	{
+		int result = 0;
+		//search for email. if found, return reference Number
+		for(Integer key: memberList.keySet())
+			if(memberList.get(key).get(0).equals(emailId))
+				result = key;		
+		
+		return result;
+	}		
+
 	public String getFacilityName(){return this.facility;}
 
 }
