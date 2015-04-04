@@ -15,10 +15,7 @@ public abstract class Member {
 	public abstract String register();
 	public abstract String sendMessage();
 	
-	public Member()
-	{
-		this("name", "default@email.com", "defaultPassword", "(000) 000-0000", 0000);
-	}
+	public Member(){this("name", "default@email.com", "defaultPassword", "(000) 000-0000", 0000);}
 	
 	public Member(String name, String email, String password, String phone, int referenceNumber)
 	{
