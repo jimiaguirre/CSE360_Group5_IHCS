@@ -1,8 +1,10 @@
 package edu.asu.se.group5.beans;
 
 //import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
 
 
 import edu.asu.se.group5.business.HealthCareManagementSystem;
@@ -32,12 +34,24 @@ public class test
 		
 		
 		//login(member type, emailId, password)
-		System.out.println(system.login("Doctor", "docj@doctor.com", "docPassword"));
-		System.out.println(system.login("Patient", "docj@doctor.com", "docPassword"));
+		//System.out.println(system.login("Doctor", "docj@doctor.com", "docPassword"));
+		//System.out.println(system.login("Patient", "docj@doctor.com", "docPassword"));
+		//System.out.println(system.login("Patient", "jimi@jimiaguirre.com", "securePW"));
 		System.out.println(system.login("Patient", "jimi@jimiaguirre.com", "securePW"));
-		System.out.println(system.login("Patient", "jimi@jimiaguirre.com", "SecurePW"));
 		
+		system.updatePatientStatus(1007, new int[]{2,4,1,6,7});
+		system.updatePatientStatus(1007, new int[]{5,7,10,9,1});
+		system.updatePatientStatus(1007, new int[]{8,9,10,9,9});
 		
+		//populate a list of 10 RANDOM health conditions to simulate past medical condition update submissions
+		//Random data to be used in std. dev. calculations		
+		ArrayList<int[]> pHistory = new ArrayList<int[]>();		
+		for (int historyIndex = 0; historyIndex < 10; historyIndex++)
+		{
+			for(int conditionIndex = 0; conditionIndex < curCon.length; conditionIndex++)
+				curCon[conditionIndex] = generator.nextInt(((10 - 0) + 1) - 0);
+			system.updatePatientStatus(1007,Arrays.copyOf(curCon, curCon.length));						
+		}	
 			
 		
 		

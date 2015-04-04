@@ -52,12 +52,20 @@ public class Patient extends Member
 	protected void setAssessmentEvaluationThreshold(int[] assessmentEvaluationThreshold) {this.assessmentEvaluationThreshold = assessmentEvaluationThreshold;}
 	
 	//set the current patient condition
-	public void setCurrentCondition(int[] currentCondition)
+	public String setCurrentCondition(int[] currentCondition)
 	{
-		//to do: update patient history within database.
-		this.currentCondition = currentCondition;//update current
-		this.patientHistory.add(currentCondition);//add to history list
-		this.historySize++;//increment history count
+		String result;
+		if(super.isActive())
+		{
+			//to do: update patient history within database.
+			this.currentCondition = currentCondition;//update current
+			this.patientHistory.add(currentCondition);//add to history list
+			this.historySize++;//increment history count
+			result = String.format("<Patient [%s]: %s> --> Condition[%2s] Added {%s, %s, %s, %s, %s}", this.getReferenceNumber(), this.getName(),this.getHistoryCount(), currentCondition[0], currentCondition[1], currentCondition[2], currentCondition[3], currentCondition[4]);
+		}
+		else result = "You have been logged out, Please Login.";
+		
+		return result;
 	}
 	
 	//return the patients current condition
@@ -70,7 +78,6 @@ public class Patient extends Member
 	public int getHistoryCount(){return this.historySize;}
 	
 	public String toString(){return String.format("<Primary Care Physician [%s]: %s>%n<Underlying Condition: %s>%n%s",this.doctorAssignedReferenceNumber, this.doctorAssignedName, this.underlyingCondition, super.toString());}
-	
-	
+		
 	
 }

@@ -2,9 +2,7 @@ package edu.asu.se.group5.business;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -15,9 +13,7 @@ import edu.asu.se.group5.beans.Patient;
 public class HealthCareManagementSystem 
 {		
 	private  HashMap<Integer,ArrayList<Object>> patientList = new HashMap<Integer,ArrayList<Object>>();
-	private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();
-	private ArrayList<Object> vals = new ArrayList<Object>();	
-	
+	private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();		
 	private  String facility;
 	private  int referenceNumberGenerator = 1001;  	
 
@@ -90,11 +86,23 @@ public class HealthCareManagementSystem
 		referenceNumberGenerator++;
 	}
 	
+	//update patient medical condition status
+	//assuming already logged in, the reference number is provided from the caller
+	public void updatePatientStatus(int referenceNumber, int[] condition)
+	{
+		if(patientList.containsKey(referenceNumber))
+		{
+			Patient p = (Patient)patientList.get(referenceNumber).get(1);
+			System.out.println(p.setCurrentCondition(condition));
+		}
+		
+	}
+	
 	private String patientDetails(int referenceNumber) 
 	{				
 		String result = String.format("<Reference Number [%s]: Invalid>%n", referenceNumber);				
 		
-		if(patientList.containsKey(referenceNumber));
+		if(patientList.containsKey(referenceNumber))
 			result = String.format("<Reference Number [%s]: Found>%n%s%n", referenceNumber, patientList.get(referenceNumber).get(1).toString());		
 		
 		return result;
@@ -167,18 +175,18 @@ public class HealthCareManagementSystem
 	}
 	
 	//if patient exists, retrieve patient object from database
-	private Patient getPatient(String referenceNumber) 
-	{				
-		Patient p = (Patient)patientList.get(referenceNumber).get(1);
-		
-		if(p == null)
-		{
-			System.out.println("Patient with this id is not present in the system");				
-		}
-		else
-			System.out.println(p.getName());
-		return p;
-	}
+//	private Patient getPatient(String referenceNumber) 
+//	{				
+//		Patient p = (Patient)patientList.get(referenceNumber).get(1);
+//		
+//		if(p == null)
+//		{
+//			System.out.println("Patient with this id is not present in the system");				
+//		}
+//		else
+//			System.out.println(p.getName());
+//		return p;
+//	}
 	
 	//helper method to convert int[] double []
 	private double[] toDoubleArray(int[] array)
@@ -214,7 +222,7 @@ public class HealthCareManagementSystem
 		else report = "Invalid Email";
 		
 		return report;
-	}
+	}	
 	
 	public int verifyEmail(HashMap<Integer, ArrayList<Object>> memberList, String emailId)
 	{

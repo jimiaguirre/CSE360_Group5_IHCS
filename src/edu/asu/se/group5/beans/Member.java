@@ -29,28 +29,28 @@ public abstract class Member {
 	public int getReferenceNumber() {
 		return referenceNumber;
 	}
-	public void setReferenceNumber(int referenceNumber) {
+	private void setReferenceNumber(int referenceNumber) {
 		this.referenceNumber = referenceNumber;
 	}
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	private void setName(String name) {
 		this.name = name;
 	}
-	public String getPhone() {
+	private String getPhone() {
 		return phone;
 	}
-	public void setPhone(String phone) {
+	private void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getEmailId() {
+	private String getEmailId() {
 		return emailId;
 	}
-	public void setEmailId(String emailId) {
+	private void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public char[] getPassword() {
+	private char[] getPassword() {
 		return password;
 	}
 	
@@ -79,8 +79,17 @@ public abstract class Member {
 		return valid;
 	}
 	
-	public void logIn(){ this.activeSession = true;}
+	private void logIn(){ this.activeSession = true;}
 	public void logOff(){ this.activeSession = false;}
+	protected boolean isActive()
+	{
+		boolean sessionActive = false;
+		if(this.activeSession)
+			sessionActive = true;
+		
+		return sessionActive;
+	}
+	
 	
 	public void setPassword(String password) 
 	{	
@@ -97,6 +106,7 @@ public abstract class Member {
 	{								
 		return String.format("--Name: %s%n--Ref. #: %s%n--Email: %s%n--Password: %s%n%n", this.name, this.referenceNumber, this.emailId, this.password);
 	}
+	
 	
 		
 }
