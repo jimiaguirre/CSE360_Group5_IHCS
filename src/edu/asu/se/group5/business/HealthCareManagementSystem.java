@@ -233,7 +233,24 @@ public class HealthCareManagementSystem
 				result = key;		
 		
 		return result;
-	}		
+	}
+	
+	public boolean isUniqueEmailId(String memberType, String emailId)
+	{
+		boolean result = false;
+		
+		if(memberType.equals("Patient"))
+		{
+			if(verifyEmail(this.patientList, emailId) == 0)
+				result = true;
+		}
+		else
+			if(verifyEmail(this.doctorList, emailId) == 0)
+				result = true;
+		
+		return result;
+		
+	}
 
 	public String getFacilityName(){return this.facility;}
 

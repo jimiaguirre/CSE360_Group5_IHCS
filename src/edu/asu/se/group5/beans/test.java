@@ -52,7 +52,25 @@ public class test
 				curCon[conditionIndex] = generator.nextInt(((10 - 0) + 1) - 0);
 			system.updatePatientStatus(1007,Arrays.copyOf(curCon, curCon.length));						
 		}	
-			
+		
+		System.out.println();
+		
+		String emailCheck = "jimi@jimiaguirre.com";
+		String memberType = "Patient";
+		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+		
+		emailCheck = "docBishop@fringe.com";
+		memberType = "Doctor";		
+		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+		
+		emailCheck = "newAddy@unique.com";
+		memberType = "Patient";
+		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+		
+		emailCheck = "newDoc@uniqueID.com";
+		memberType = "Doctor";		
+		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+		
 		
 		
 		
