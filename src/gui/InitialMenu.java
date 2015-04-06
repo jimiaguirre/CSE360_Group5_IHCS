@@ -379,8 +379,8 @@ public class InitialMenu extends javax.swing.JFrame
                 .addGap(28, 28, 28))
         );
 
-        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 406, 585));
-        MainUserInterface.setPreferredSize(new java.awt.Dimension(406, 585));
+        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 406, 700));
+        MainUserInterface.setPreferredSize(new java.awt.Dimension(406, 700));
         MainUserInterface.setResizable(false);
 
         jScrollPane1.setViewportView(MainUserInterfaceTextPaneHistory);
@@ -399,6 +399,26 @@ public class InitialMenu extends javax.swing.JFrame
 
         MainUserInterfaceSliderFIVE.setMaximum(10);
         MainUserInterfaceSliderFIVE.setMinimum(1);
+        
+        this.MainUserInterfaceSliderONE.setMajorTickSpacing(1);
+        this.MainUserInterfaceSliderONE.setPaintTicks(true);
+        this.MainUserInterfaceSliderONE.setPaintLabels(true);
+        
+        this.MainUserInterfaceSliderTWO.setMajorTickSpacing(1);
+        this.MainUserInterfaceSliderTWO.setPaintTicks(true);
+        this.MainUserInterfaceSliderTWO.setPaintLabels(true);
+        
+        this.MainUserInterfaceSliderTHREE.setMajorTickSpacing(1);
+        this.MainUserInterfaceSliderTHREE.setPaintTicks(true);
+        this.MainUserInterfaceSliderTHREE.setPaintLabels(true);
+        
+        this.MainUserInterfaceSliderFOUR.setMajorTickSpacing(1);
+        this.MainUserInterfaceSliderFOUR.setPaintTicks(true);
+        this.MainUserInterfaceSliderFOUR.setPaintLabels(true);
+        
+        this.MainUserInterfaceSliderFIVE.setMajorTickSpacing(1);
+        this.MainUserInterfaceSliderFIVE.setPaintTicks(true);
+        this.MainUserInterfaceSliderFIVE.setPaintLabels(true);
 
         MainUserInterfaceLabelONE.setText("LabelONE");
 
@@ -738,7 +758,7 @@ public class InitialMenu extends javax.swing.JFrame
     	this.HCMS.updatePatientStatus(
     			this.userReferenceNumber, 
     			new int[]{this.MainUserInterfaceSliderONE.getValue(), 
-    					this.MainUserInterfaceSliderONE.getValue(),
+    					this.MainUserInterfaceSliderTWO.getValue(),
     					this.MainUserInterfaceSliderTHREE.getValue(),
     					this.MainUserInterfaceSliderFOUR.getValue(),
     					this.MainUserInterfaceSliderFIVE.getValue()});    	    	    	
