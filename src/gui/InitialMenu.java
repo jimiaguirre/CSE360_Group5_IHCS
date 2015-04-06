@@ -43,13 +43,11 @@ public class InitialMenu extends javax.swing.JFrame
     private void initComponents() {
 
         LoginDialogBox = new javax.swing.JDialog();
-        PatientLoginLabelUsername = new java.awt.Label();
-        PatientLoginBoxTextFieldUsername = new javax.swing.JTextField();
-        PatientLoginLabelPassword = new java.awt.Label();
-        PatientLoginTextFieldPassword = new javax.swing.JPasswordField();
+        LoginLabelUsername = new java.awt.Label();
+        LoginBoxTextFieldUsername = new javax.swing.JTextField();
+        LoginLabelPassword = new java.awt.Label();
+        LoginBoxTextFieldPassword = new javax.swing.JPasswordField();
         LoginDialogBoxSubmit = new javax.swing.JButton();
-        PatientLoginLabelMemberType = new java.awt.Label();
-        PatientLoginComboBoxMemberType = new javax.swing.JComboBox();
         RegisterMenu = new javax.swing.JFrame();
         NewPatientRegistrationLabel = new javax.swing.JLabel();
         PatientRegistrationLabelFirstName = new javax.swing.JLabel();
@@ -96,32 +94,22 @@ public class InitialMenu extends javax.swing.JFrame
         PasswordUnsuccessfulWindow = new javax.swing.JDialog();
         PasswordUnsuccessfulLabelMessage = new javax.swing.JLabel();
         PasswordUnsuccessfulButtonOkay = new javax.swing.JButton();
-        jPatientLogin = new javax.swing.JButton();
+        InitialMenuButtonPatientLogin = new javax.swing.JButton();
         jDrLogin = new javax.swing.JButton();
-        jRegisterPatient = new javax.swing.JButton();
+        InitialMenuButtonRegisterPatient = new javax.swing.JButton();
+        InitialMenuButtonDoctorRegister = new javax.swing.JButton();
 
         LoginDialogBox.setAlwaysOnTop(true);
-        LoginDialogBox.setBounds(new java.awt.Rectangle(0, 22, 330, 183));
+        LoginDialogBox.setBounds(new java.awt.Rectangle(0, 22, 330, 140));
         LoginDialogBox.setName(""); // NOI18N
-        LoginDialogBox.setPreferredSize(new java.awt.Dimension(330, 183));
+        LoginDialogBox.setPreferredSize(new java.awt.Dimension(330, 140));
         LoginDialogBox.setResizable(false);
+        LoginDialogBox.setSize(new java.awt.Dimension(330, 140));
 
-        PatientLoginLabelUsername.setText("Email:");
+        LoginLabelUsername.setText("Email:");
 
-        PatientLoginBoxTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PatientLoginBoxTextFieldUsernameActionPerformed(evt);
-            }
-        });
-
-        PatientLoginLabelPassword.setName(""); // NOI18N
-        PatientLoginLabelPassword.setText("Password:");
-
-        PatientLoginTextFieldPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PatientLoginTextFieldPasswordActionPerformed(evt);
-            }
-        });
+        LoginLabelPassword.setName(""); // NOI18N
+        LoginLabelPassword.setText("Password:");
 
         LoginDialogBoxSubmit.setText("Submit");
         LoginDialogBoxSubmit.setName(""); // NOI18N
@@ -130,72 +118,41 @@ public class InitialMenu extends javax.swing.JFrame
                 LoginDialogBoxSubmitMouseClicked(evt);
             }
         });
-        LoginDialogBoxSubmit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginDialogBoxSubmitActionPerformed(evt);
-            }
-        });
-
-        //PatientLoginLabelMemberType.setText("Member Type:");
-
-        //PatientLoginComboBoxMemberType.setEditable(true);
-        //PatientLoginComboBoxMemberType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Patient", "Doctor" }));
 
         javax.swing.GroupLayout LoginDialogBoxLayout = new javax.swing.GroupLayout(LoginDialogBox.getContentPane());
         LoginDialogBox.getContentPane().setLayout(LoginDialogBoxLayout);
         LoginDialogBoxLayout.setHorizontalGroup(
             LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginDialogBoxLayout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
-                .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                   
-            		// .addComponent(PatientLoginComboBoxMemberType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    
-            		.addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(LoginDialogBoxLayout.createSequentialGroup()
-                            
-                    		//.addComponent(PatientLoginLabelMemberType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            
-                    		.addGap(141, 141, 141))
-                        .addGroup(LoginDialogBoxLayout.createSequentialGroup()
-                            .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(PatientLoginLabelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(PatientLoginLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(PatientLoginTextFieldPassword)
-                                .addComponent(PatientLoginBoxTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(LoginDialogBoxSubmit)
-                            .addGap(21, 21, 21)))))
+                .addContainerGap(90, Short.MAX_VALUE)
+                .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(LoginLabelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoginLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoginBoxTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoginBoxTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(LoginDialogBoxSubmit)
+                .addGap(28, 28, 28))
         );
-        
-        
         LoginDialogBoxLayout.setVerticalGroup(
             LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LoginDialogBoxLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                
-                //.addComponent(PatientLoginLabelMemberType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                //.addGap(1, 1, 1)
-                //.addComponent(PatientLoginComboBoxMemberType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                //.addGap(1, 1, 1)
-                
-                
-                .addComponent(PatientLoginLabelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(LoginLabelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(PatientLoginBoxTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LoginBoxTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(PatientLoginLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LoginLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PatientLoginTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoginBoxTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LoginDialogBoxSubmit))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        PatientLoginLabelUsername.getAccessibleContext().setAccessibleName("");
+        LoginLabelUsername.getAccessibleContext().setAccessibleName("");
 
         RegisterMenu.setBounds(new java.awt.Rectangle(0, 22, 300, 450));
-        RegisterMenu.setPreferredSize(new java.awt.Dimension(300, 450));
         RegisterMenu.setResizable(false);
 
         NewPatientRegistrationLabel.setText("New Patient Registration");
@@ -217,7 +174,6 @@ public class InitialMenu extends javax.swing.JFrame
         PatientRegistrationTextFieldEmail.setSize(new java.awt.Dimension(105, 28));
 
         PatientRegistrationButtonSubmit.setText("Submit");
-        
         PatientRegistrationButtonSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 PatientRegistrationButtonSubmitMouseClicked(evt);
@@ -226,42 +182,6 @@ public class InitialMenu extends javax.swing.JFrame
         PatientRegistrationButtonSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PatientRegistrationButtonSubmitActionPerformed(evt);
-            }
-        });
-        
-        this.MainUserInterfaceButtonSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-            	MainUserInterfaceButtonSubmitMouseClicked(evt);
-            }
-        });
-        
-        this.MainUserInterfaceSliderONE.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, 1);
-            }
-        });
-        
-        this.MainUserInterfaceSliderTWO.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, 2);
-            }
-        });
-        
-        this.MainUserInterfaceSliderTHREE.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, 3);
-            }
-        });
-        
-        this.MainUserInterfaceSliderFOUR.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, 4);
-            }
-        });
-        
-        this.MainUserInterfaceSliderFIVE.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, 5);
             }
         });
 
@@ -274,7 +194,6 @@ public class InitialMenu extends javax.swing.JFrame
 
         PatientRegistrationComboBoxUnderlyingCondition.setEditable(true);
         PatientRegistrationComboBoxUnderlyingCondition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
-        PatientRegistrationComboBoxUnderlyingCondition.setPreferredSize(new java.awt.Dimension(112, 28));
         PatientRegistrationComboBoxUnderlyingCondition.setSize(new java.awt.Dimension(98, 28));
 
         PatientRegistrationLabelConfirmPassword.setText("Confirm Password:");
@@ -311,23 +230,19 @@ public class InitialMenu extends javax.swing.JFrame
                     .addGroup(RegisterMenuLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(RegisterMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PatientRegistrationLabelConfirmPassword)
                             .addGroup(RegisterMenuLayout.createSequentialGroup()
-                                .addComponent(PatientRegistrationLabelConfirmPassword)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(6, 6, 6)
+                                .addComponent(PatientRegistrationLabelUnderlyingCondition))
+                            .addComponent(PatientRegistrationComboBoxUnderlyingCondition, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(RegisterMenuLayout.createSequentialGroup()
-                                .addGroup(RegisterMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(RegisterMenuLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(PatientRegistrationLabelUnderlyingCondition))
-                                    .addComponent(PatientRegistrationComboBoxUnderlyingCondition, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(RegisterMenuLayout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(PatientRegistrationLabelEmail))
-                                    .addComponent(PatientRegistrationTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PatientRegistrationLabelLastName)
-                                    .addComponent(PatientRegistrationTextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PatientRegistrationPasswordFieldConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(1, 1, 1)
+                                .addComponent(PatientRegistrationLabelEmail))
+                            .addComponent(PatientRegistrationTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PatientRegistrationLabelLastName)
+                            .addComponent(PatientRegistrationTextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PatientRegistrationPasswordFieldConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(RegisterMenuLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PatientRegistrationButtonSubmit)
@@ -379,46 +294,27 @@ public class InitialMenu extends javax.swing.JFrame
                 .addGap(28, 28, 28))
         );
 
-        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 406, 700));
-        MainUserInterface.setPreferredSize(new java.awt.Dimension(406, 700));
+        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 406, 585));
+        MainUserInterface.setPreferredSize(new java.awt.Dimension(406, 585));
         MainUserInterface.setResizable(false);
 
+        MainUserInterfaceTextPaneHistory.setEditable(false);
         jScrollPane1.setViewportView(MainUserInterfaceTextPaneHistory);
 
-        MainUserInterfaceSliderONE.setMaximum(10);
+        MainUserInterfaceSliderONE.setMaximum(5);
         MainUserInterfaceSliderONE.setMinimum(1);
 
-        MainUserInterfaceSliderTWO.setMaximum(10);
+        MainUserInterfaceSliderTWO.setMaximum(5);
         MainUserInterfaceSliderTWO.setMinimum(1);
 
-        MainUserInterfaceSliderTHREE.setMaximum(10);
+        MainUserInterfaceSliderTHREE.setMaximum(5);
         MainUserInterfaceSliderTHREE.setMinimum(1);
 
-        MainUserInterfaceSliderFOUR.setMaximum(10);
+        MainUserInterfaceSliderFOUR.setMaximum(5);
         MainUserInterfaceSliderFOUR.setMinimum(1);
 
-        MainUserInterfaceSliderFIVE.setMaximum(10);
+        MainUserInterfaceSliderFIVE.setMaximum(5);
         MainUserInterfaceSliderFIVE.setMinimum(1);
-        
-        this.MainUserInterfaceSliderONE.setMajorTickSpacing(1);
-        this.MainUserInterfaceSliderONE.setPaintTicks(true);
-        this.MainUserInterfaceSliderONE.setPaintLabels(true);
-        
-        this.MainUserInterfaceSliderTWO.setMajorTickSpacing(1);
-        this.MainUserInterfaceSliderTWO.setPaintTicks(true);
-        this.MainUserInterfaceSliderTWO.setPaintLabels(true);
-        
-        this.MainUserInterfaceSliderTHREE.setMajorTickSpacing(1);
-        this.MainUserInterfaceSliderTHREE.setPaintTicks(true);
-        this.MainUserInterfaceSliderTHREE.setPaintLabels(true);
-        
-        this.MainUserInterfaceSliderFOUR.setMajorTickSpacing(1);
-        this.MainUserInterfaceSliderFOUR.setPaintTicks(true);
-        this.MainUserInterfaceSliderFOUR.setPaintLabels(true);
-        
-        this.MainUserInterfaceSliderFIVE.setMajorTickSpacing(1);
-        this.MainUserInterfaceSliderFIVE.setPaintTicks(true);
-        this.MainUserInterfaceSliderFIVE.setPaintLabels(true);
 
         MainUserInterfaceLabelONE.setText("LabelONE");
 
@@ -622,102 +518,73 @@ public class InitialMenu extends javax.swing.JFrame
         setName("InitialMenu"); // NOI18N
         setResizable(false);
 
-        jPatientLogin.setText("Patient Login");
-        jPatientLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        InitialMenuButtonPatientLogin.setText("Patient Login");
+        InitialMenuButtonPatientLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPatientLoginMouseClicked(evt);
-            }
-        });
-        jPatientLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPatientLoginActionPerformed(evt);
+                InitialMenuButtonPatientLoginMouseClicked(evt);
             }
         });
 
         jDrLogin.setText("Dr. Login");
-        
-        jDrLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        jDrLogin.setEnabled(false);
+
+        InitialMenuButtonRegisterPatient.setText("Register Patient");
+        InitialMenuButtonRegisterPatient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jDrLoginMouseClicked(evt);
-            }
-        });
-        
-        jDrLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jDrLoginActionPerformed(evt);
+                InitialMenuButtonRegisterPatientMouseClicked(evt);
             }
         });
 
-        jRegisterPatient.setText("Register Patient");
-        jRegisterPatient.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRegisterPatientMouseClicked(evt);
-            }
-        });
-        jRegisterPatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRegisterPatientActionPerformed(evt);
-            }
-        });
+        InitialMenuButtonDoctorRegister.setText("Register Dr.");
+        InitialMenuButtonDoctorRegister.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPatientLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRegisterPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InitialMenuButtonDoctorRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InitialMenuButtonPatientLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InitialMenuButtonRegisterPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDrLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(jPatientLogin)
+                .addGap(45, 45, 45)
+                .addComponent(InitialMenuButtonPatientLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRegisterPatient)
+                .addComponent(InitialMenuButtonRegisterPatient)
                 .addGap(12, 12, 12)
                 .addComponent(jDrLogin)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(InitialMenuButtonDoctorRegister)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
-    }
-    
-    
-    
-    
-    // </editor-fold>//GEN-END:initComponents
-
-    private void PatientLoginTextFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientLoginTextFieldPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PatientLoginTextFieldPasswordActionPerformed
-
-    private void PatientLoginBoxTextFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientLoginBoxTextFieldUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PatientLoginBoxTextFieldUsernameActionPerformed
+    }// </editor-fold>//GEN-END:initComponents
 
     private void LoginDialogBoxSubmitMouseClicked(java.awt.event.MouseEvent evt) 
     {//GEN-FIRST:event_LoginDialogBoxSubmitMouseClicked
         // TODO add your handling code here:
-        String email = PatientLoginBoxTextFieldUsername.getText();
-        char[] password = PatientLoginTextFieldPassword.getPassword();
-        //String memberType = PatientLoginComboBoxMemberType.getSelectedItem().toString();
+        String email = LoginBoxTextFieldUsername.getText();
+        char[] password = LoginBoxTextFieldPassword.getPassword();
         String loginRequest = HCMS.login(this.memberType, email, password);
         
         if(loginRequest.equals("Logged In."))
         {	
         	SuccessWindowLabelSuccess.setText(loginRequest);
-        	getReferenceNumber(this.memberType, PatientLoginBoxTextFieldUsername.getText());
+        	getReferenceNumber(this.memberType, LoginBoxTextFieldUsername.getText());
 	        LoginDialogBox.dispose();
 	        LoginSuccessWindow.setVisible(true);
         }
         else
         {
-        	SuccessWindowLabelSuccess1.setText(loginRequest);
+            SuccessWindowLabelSuccess1.setText(loginRequest);
             LoginDialogBox.dispose();
             LoginFailWindow.setVisible(true);                        
         } 
@@ -765,10 +632,6 @@ public class InitialMenu extends javax.swing.JFrame
     }
 
     
-    private void LoginDialogBoxSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginDialogBoxSubmitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LoginDialogBoxSubmitActionPerformed
-
     private void PatientRegistrationButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientRegistrationButtonSubmitMouseClicked
         //Initialize Variables
         String doctorAssigned = PatientRegistrationComboBoxDoctorAssigned.getSelectedItem().toString();
@@ -809,32 +672,17 @@ public class InitialMenu extends javax.swing.JFrame
         
     }//GEN-LAST:event_PatientRegistrationButtonSubmitActionPerformed
 
-    private void jRegisterPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterPatientActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRegisterPatientActionPerformed
-
-    private void jRegisterPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRegisterPatientMouseClicked
-        // TODO add your handling code here:
-        hide();
-        RegisterMenu.show();
-    }//GEN-LAST:event_jRegisterPatientMouseClicked
-
-    private void jDrLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDrLoginActionPerformed
+    private void jDrLoginActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     	//this.memberType = "Doctor";
-    }//GEN-LAST:event_jDrLoginActionPerformed
-
-    private void jPatientLoginActionPerformed(java.awt.event.ActionEvent evt) 
-    {//GEN-FIRST:event_jPatientLoginActionPerformed
-        
-    }//GEN-LAST:event_jPatientLoginActionPerformed
+    }                                        
 
     private void jPatientLoginMouseClicked(java.awt.event.MouseEvent evt) 
-    {//GEN-FIRST:event_jPatientLoginMouseClicked
+    {                                           
         // TODO add your handling code here:
-    	this.memberType = "Patient";
+        this.memberType = "Patient";
         LoginDialogBox.setVisible(true);
-    }//GEN-LAST:event_jPatientLoginMouseClicked
+    }                                          
     
     private void jDrLoginMouseClicked(java.awt.event.MouseEvent evt) 
     {//GEN-FIRST:event_jPatientLoginMouseClicked
@@ -854,15 +702,27 @@ public class InitialMenu extends javax.swing.JFrame
         // TODO add your handling code here:
         LoginFailWindow.dispose();
         LoginDialogBox.setVisible(true);
+        System.out.println("test delete this line");
     }//GEN-LAST:event_SuccessWindowButtonSubmit1MouseClicked
 
     private void PasswordUnsuccessfulButtonOkayMouseClicked(java.awt.event.MouseEvent evt) 
     {//GEN-FIRST:event_PasswordUnsuccessfulButtonOkayMouseClicked
         // TODO add your handling code here:
         PasswordUnsuccessfulWindow.dispose();
-        
-
+       
     }//GEN-LAST:event_PasswordUnsuccessfulButtonOkayMouseClicked
+
+    private void InitialMenuButtonPatientLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InitialMenuButtonPatientLoginMouseClicked
+        // TODO add your handling code here:
+        this.memberType = "Patient";
+        LoginDialogBox.setVisible(true);
+    }//GEN-LAST:event_InitialMenuButtonPatientLoginMouseClicked
+
+    private void InitialMenuButtonRegisterPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InitialMenuButtonRegisterPatientMouseClicked
+        // TODO add your handling code here:
+        hide();
+        RegisterMenu.show();
+    }//GEN-LAST:event_InitialMenuButtonRegisterPatientMouseClicked
 
     
     
@@ -901,9 +761,16 @@ public class InitialMenu extends javax.swing.JFrame
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton InitialMenuButtonDoctorRegister;
+    private javax.swing.JButton InitialMenuButtonPatientLogin;
+    private javax.swing.JButton InitialMenuButtonRegisterPatient;
+    private javax.swing.JPasswordField LoginBoxTextFieldPassword;
+    private javax.swing.JTextField LoginBoxTextFieldUsername;
     private javax.swing.JDialog LoginDialogBox;
     private javax.swing.JButton LoginDialogBoxSubmit;
     private javax.swing.JDialog LoginFailWindow;
+    private java.awt.Label LoginLabelPassword;
+    private java.awt.Label LoginLabelUsername;
     private javax.swing.JDialog LoginSuccessWindow;
     private javax.swing.JFrame MainUserInterface;
     private javax.swing.JButton MainUserInterfaceButtonSubmit;
@@ -925,12 +792,6 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JButton PasswordUnsuccessfulButtonOkay;
     private javax.swing.JLabel PasswordUnsuccessfulLabelMessage;
     private javax.swing.JDialog PasswordUnsuccessfulWindow;
-    private javax.swing.JTextField PatientLoginBoxTextFieldUsername;
-    private javax.swing.JComboBox PatientLoginComboBoxMemberType;
-    private java.awt.Label PatientLoginLabelMemberType;
-    private java.awt.Label PatientLoginLabelPassword;
-    private java.awt.Label PatientLoginLabelUsername;
-    private javax.swing.JPasswordField PatientLoginTextFieldPassword;
     private static javax.swing.JButton PatientRegistrationButtonSubmit;
     private javax.swing.JComboBox PatientRegistrationComboBoxDoctorAssigned;
     private javax.swing.JComboBox PatientRegistrationComboBoxUnderlyingCondition;
@@ -954,8 +815,6 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JLabel SuccessWindowLabelSuccess;
     private javax.swing.JLabel SuccessWindowLabelSuccess1;
     private javax.swing.JButton jDrLogin;
-    private javax.swing.JButton jPatientLogin;
-    private javax.swing.JButton jRegisterPatient;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
