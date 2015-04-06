@@ -702,6 +702,7 @@ public class InitialMenu extends javax.swing.JFrame
         // TODO add your handling code here:
         LoginFailWindow.dispose();
         LoginDialogBox.setVisible(true);
+        System.out.println("test delete this line");
     }//GEN-LAST:event_SuccessWindowButtonSubmit1MouseClicked
 
     private void PasswordUnsuccessfulButtonOkayMouseClicked(java.awt.event.MouseEvent evt) 
