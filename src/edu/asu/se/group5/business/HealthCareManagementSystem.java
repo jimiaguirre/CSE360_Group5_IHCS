@@ -16,11 +16,13 @@ public class HealthCareManagementSystem
 	private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();		
 	private  String facility;
 	private  int referenceNumberGenerator = 1001;  	
+	private int patients, healthcareProviders, logins, transactions;
 
 	public HealthCareManagementSystem(){this("Unspecified");}	
 	public HealthCareManagementSystem(String facilityName)
 	{
 		this.facility = facilityName;
+		this.patients = this.healthcareProviders = 0;
 		this.registerDoctor("Bishop, Walter", "docBishop@fringe.com", new char[]{'i','m','N','o','t','C','r','a','z','y'}, new char[]{'i','m','N','o','t','C','r','a','z','y'}, "(555) 555-1512");
 		this.registerDoctor("Jekyll, Henry", "biPolar@ontheedge.com", new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, "(555) 531-3357");
 		this.registerDoctor("Dre, Doctor", "dreDay@beats.com", new char[]{'g','i','n','N','J','u','i','c','e'}, new char[]{'g','i','n','N','J','u','i','c','e'}, "(234) 333-9382");
@@ -34,25 +36,31 @@ public class HealthCareManagementSystem
 		boolean active = true;
 				
 		char[] t = password;					
-		while(valid && active)
+		if(password.length == passwordConfirmation.length)
 		{
-			for(int index = 0; index < password.length; index++)
+			while(valid && active)
 			{
-				if(password[index] != passwordConfirmation[index])
+				for(int index = 0; index < password.length; index++)
 				{
-					valid = false;					
-					break;
+					if(password[index] != passwordConfirmation[index])
+					{
+						valid = false;					
+						break;
+					}
+				//System.out.format("%s, %s --> %b%n", this.password[index], input.charAt(index), valid);
 				}
-			//System.out.format("%s, %s --> %b%n", this.password[index], input.charAt(index), valid);
-			}
-			active = false;
-		}						
+				active = false;
+			}	
+		}
+		else
+			valid = false;
+		
 		return valid;
 	}
 		
 	public String registerPatient(String userName, char[] password, char[] passwordConfirmation, String doctorReferenceNumber, String emailId, String phone)
 	{
-		String result;
+		String result = "Processing";
 		
 		//Scanner scan = new Scanner(System.in);
 		//verify matching password
@@ -65,28 +73,42 @@ public class HealthCareManagementSystem
 			//passwordConfirmation = scan.nextLine();
 		//}
 		
+		if(!this.isUniqueEmailId("Patient", emailId))
+		{
+			result = "Email aleady in use.";
+		}
+		if (!passwordsMatch(password, passwordConfirmation))
+		{
+			result = "Passwords do not match.";
+			System.out.println(result);
+		}
+		
 		//check that doctor ID exists
-		Set<Integer> presentDoctorIds = doctorList.keySet();
+		//Set<Integer> presentDoctorIds = doctorList.keySet();
 //		while(!presentDoctorIds.contains(Integer.parseInt(doctorReferenceNumber)))
 //		{						
 //			System.out.format("%nERROR!%nMedical Doctor [Reference #: %s]%nNot Found, Please re-enter Reference Number:", doctorReferenceNumber);	
 //			doctorReferenceNumber = scan.nextLine();
 //		}
 				  
-		//retrieve HealthserviceProvider object to retrieve name
-		HealthserviceProvider temp = (HealthserviceProvider)doctorList.get(Integer.parseInt(doctorReferenceNumber)).get(1);				
-		
-		//create arrayList for multiple values per single key of hashmap entry
-		ArrayList<Object> patientValues = new ArrayList<Object>();
-		patientValues.add(emailId);
-		patientValues.add(new Patient(userName, Integer.parseInt(doctorReferenceNumber), temp.getName(), emailId, password, phone, "Condition", referenceNumberGenerator));				
-		
-		//add patient to hash map
-		patientList.put(referenceNumberGenerator, patientValues);
-		
-		//report success of operation
-		result = String.format("[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);	
-		referenceNumberGenerator++;
+		if(result.equals("Processing"))
+		{
+			//retrieve HealthserviceProvider object to retrieve name
+			HealthserviceProvider temp = (HealthserviceProvider)doctorList.get(Integer.parseInt(doctorReferenceNumber)).get(1);				
+			
+			//create arrayList for multiple values per single key of hashmap entry
+			ArrayList<Object> patientValues = new ArrayList<Object>();
+			patientValues.add(emailId);
+			patientValues.add(new Patient(userName, Integer.parseInt(doctorReferenceNumber), temp.getName(), emailId, password, phone, "Condition", referenceNumberGenerator));				
+			
+			//add patient to hash map
+			patientList.put(referenceNumberGenerator, patientValues);
+			
+			//report success of operation
+			result = String.format("Registration Complete!");	
+			referenceNumberGenerator++;
+			this.patients++;
+		}
 		
 		return result;
 	}
@@ -109,6 +131,8 @@ public class HealthCareManagementSystem
 		doctorList.put(referenceNumberGenerator, doctorValues);		
 				
 		System.out.format("[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);		
+		
+		this.healthcareProviders++;
 		referenceNumberGenerator++;
 	}
 	
@@ -247,6 +271,8 @@ public class HealthCareManagementSystem
 		
 		else report = "Invalid Email";
 		
+		
+		
 		return report;
 	}	
 	
@@ -279,5 +305,10 @@ public class HealthCareManagementSystem
 	}
 
 	public String getFacilityName(){return this.facility;}
+	
+	public String toString()
+	{
+		return String.format("Name: [%s]%nHealthcare Providers: [%s]%nPatiens: [%s]", this.facility,this.healthcareProviders,this.patients);
+	}
 
 }
