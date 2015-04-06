@@ -7,7 +7,9 @@ import java.util.Random;
 
 
 
+
 import edu.asu.se.group5.business.HealthCareManagementSystem;
+import gui.InitialMenu;
 
 public class test 
 {
@@ -24,20 +26,23 @@ public class test
 		System.out.format("System Name: %s%n%n", system.getFacilityName());
 		
 		
-		system.registerDoctor("Doctor J", "docj@doctor.com", "docPassword", "docPassword", "(555) 555-1512");
+		//system.registerDoctor("Doctor J", "docj@doctor.com", "docPassword", "docPassword", "(555) 555-1512");
 		
-		system.registerPatient("Jimi Aguirre", "securePW", "securePW", "1001", "jimi@jimiaguirre.com", "555-5511");
-		system.registerPatient("Savannah P", "securePW", "securePW", "1001", "sp@email.com", "555-5511");
-		system.registerPatient("Eddie Wolf", "securePW", "securePW", "1001", "wolfpack@email.com", "555-5511");
-		system.registerPatient("Deepak parameshawarn", "securePW", "securePW", "1001", "deepak@email.com", "555-5511");
-		system.registerPatient("Nishant Coder", "securePW", "securePW", "1001", "nishant@email.com", "555-5511");
+		system.registerPatient("Jimi Aguirre", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "jimi@jimiaguirre.com", "555-5511");
+		system.registerPatient("Savannah P", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "sp@email.com", "555-5511");
+		system.registerPatient("Eddie Wolf", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "wolfpack@email.com", "555-5511");
+		system.registerPatient("Deepak parameshawarn", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "deepak@email.com", "555-5511");
+		system.registerPatient("Nishant Coder", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "nishant@email.com", "555-5511");
+		
+		String password = "securePW";
+		char[] pw = password.toCharArray();
 		
 		
 		//login(member type, emailId, password)
 		//System.out.println(system.login("Doctor", "docj@doctor.com", "docPassword"));
 		//System.out.println(system.login("Patient", "docj@doctor.com", "docPassword"));
 		//System.out.println(system.login("Patient", "jimi@jimiaguirre.com", "securePW"));
-		System.out.println(system.login("Patient", "jimi@jimiaguirre.com", "securePW"));
+		System.out.println(system.login("Patient", "jimi@jimiaguirre.com", pw));
 		
 		system.updatePatientStatus(1007, new int[]{2,4,1,6,7});
 		system.updatePatientStatus(1007, new int[]{5,7,10,9,1});
@@ -70,6 +75,50 @@ public class test
 		emailCheck = "newDoc@uniqueID.com";
 		memberType = "Doctor";		
 		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+		
+		
+		
+		
+		//GUI STUFF***********************************************************//
+		/* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(InitialMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(InitialMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(InitialMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(InitialMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        InitialMenu systemMenu = new InitialMenu(system);
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
+            public void run() 
+            {
+                systemMenu.setVisible(true);
+            }
+        });
+		
+		
+	
+		
+		
+		//GUI STUFF***********************************************************//
 		
 		
 		

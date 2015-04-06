@@ -21,34 +21,57 @@ public class HealthCareManagementSystem
 	public HealthCareManagementSystem(String facilityName)
 	{
 		this.facility = facilityName;
-		this.registerDoctor("Bishop, Walter", "docBishop@fringe.com", "imNotCrazy", "imNotCrazy", "(555) 555-1512");
-		this.registerDoctor("Jekyll, Henry", "biPolar@ontheedge.com", "imfineimnot", "imfineimnot", "(555) 531-3357");
-		this.registerDoctor("Dre, Doctor", "dreDay@beats.com", "ginNJuice", "ginNJuice", "(234) 333-9382");
-		this.registerDoctor("Lecter, Hannibal", "hungry@humans.com", "faceSteak!", "faceSteak!", "(223) 543-0929");
-		this.registerDoctor("Evil, Doctor", "evil@doctor.com", "minime", "minime", "(325) 943-1264");		
+		this.registerDoctor("Bishop, Walter", "docBishop@fringe.com", new char[]{'i','m','N','o','t','C','r','a','z','y'}, new char[]{'i','m','N','o','t','C','r','a','z','y'}, "(555) 555-1512");
+		this.registerDoctor("Jekyll, Henry", "biPolar@ontheedge.com", new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, "(555) 531-3357");
+		this.registerDoctor("Dre, Doctor", "dreDay@beats.com", new char[]{'g','i','n','N','J','u','i','c','e'}, new char[]{'g','i','n','N','J','u','i','c','e'}, "(234) 333-9382");
+		this.registerDoctor("Lecter, Hannibal", "hungry@humans.com", new char[]{'f','a','c','e','S','t','e','a','k','!'}, new char[]{'f','a','c','e','S','t','e','a','k','!'}, "(223) 543-0929");
+		this.registerDoctor("Evil, Doctor", "evil@doctor.com", new char[]{'m','i','n','i','m','e'}, new char[]{'m','i','n','i','m','e'}, "(325) 943-1264");		
+	}
+	
+	public boolean passwordsMatch(char[] password, char[] passwordConfirmation)
+	{
+		boolean valid = true;
+		boolean active = true;
+				
+		char[] t = password;					
+		while(valid && active)
+		{
+			for(int index = 0; index < password.length; index++)
+			{
+				if(password[index] != passwordConfirmation[index])
+				{
+					valid = false;					
+					break;
+				}
+			//System.out.format("%s, %s --> %b%n", this.password[index], input.charAt(index), valid);
+			}
+			active = false;
+		}						
+		return valid;
 	}
 		
-	public void registerPatient(String userName, String password, String passwordConfirmation, String doctorReferenceNumber, String emailId, String phone)
+	public String registerPatient(String userName, char[] password, char[] passwordConfirmation, String doctorReferenceNumber, String emailId, String phone)
 	{
+		String result;
 		
-		Scanner scan = new Scanner(System.in);
+		//Scanner scan = new Scanner(System.in);
 		//verify matching password
-		while(!password.equals(passwordConfirmation))
-		{
-			System.out.println("\nERROR!\nPasswords do not match!, Please try again");
-			System.out.print("Enter Password:");
-			password = scan.nextLine();
-			System.out.print("Re-Enter Password:");
-			passwordConfirmation = scan.nextLine();
-		}
+		//while(!password.equals(passwordConfirmation))
+		//{
+			//result = String.format("\nERROR!\nPasswords do not match!, Please try again");
+			//System.out.print("Enter Password:");
+			//password = scan.nextLine();
+			//System.out.print("Re-Enter Password:");
+			//passwordConfirmation = scan.nextLine();
+		//}
 		
 		//check that doctor ID exists
 		Set<Integer> presentDoctorIds = doctorList.keySet();
-		while(!presentDoctorIds.contains(Integer.parseInt(doctorReferenceNumber)))
-		{						
-			System.out.format("%nERROR!%nMedical Doctor [Reference #: %s]%nNot Found, Please re-enter Reference Number:", doctorReferenceNumber);	
-			doctorReferenceNumber = scan.nextLine();
-		}
+//		while(!presentDoctorIds.contains(Integer.parseInt(doctorReferenceNumber)))
+//		{						
+//			System.out.format("%nERROR!%nMedical Doctor [Reference #: %s]%nNot Found, Please re-enter Reference Number:", doctorReferenceNumber);	
+//			doctorReferenceNumber = scan.nextLine();
+//		}
 				  
 		//retrieve HealthserviceProvider object to retrieve name
 		HealthserviceProvider temp = (HealthserviceProvider)doctorList.get(Integer.parseInt(doctorReferenceNumber)).get(1);				
@@ -62,13 +85,16 @@ public class HealthCareManagementSystem
 		patientList.put(referenceNumberGenerator, patientValues);
 		
 		//report success of operation
-		System.out.format("[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);	
+		result = String.format("[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);	
 		referenceNumberGenerator++;
+		
+		return result;
 	}
 	
-	public void registerDoctor(String userName, String emailId, String password, String passwordConfirmation, String phone) {
+	public void registerDoctor(String userName, String emailId, char[] password, char[] passwordConfirmation, String phone) 
+	{
 
-		if(!password.equals(passwordConfirmation))
+		if(!passwordsMatch(password, passwordConfirmation))
 		{
 			System.out.println("passwords not matching");
 			System.exit(0);
@@ -200,7 +226,7 @@ public class HealthCareManagementSystem
 	}
 	
 	//Patient login method
-	public String login(String memberType,String emailId, String password)
+	public String login(String memberType,String emailId, char[] password)
 	{		
 		String report = "";
 		int key;

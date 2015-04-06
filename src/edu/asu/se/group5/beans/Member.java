@@ -15,13 +15,13 @@ public abstract class Member {
 	public abstract String register();
 	public abstract String sendMessage();
 	
-	public Member(){this("name", "default@email.com", "defaultPassword", "(000) 000-0000", 0000);}
+	public Member(){this("name", "default@email.com", new char[] {0,0,0,0,0,0}, "(000) 000-0000", 0000);}
 	
-	public Member(String name, String email, String password, String phone, int referenceNumber)
+	public Member(String name, String email, char[] password, String phone, int referenceNumber)
 	{
 		this.name = name;
 		this.emailId = email;
-		this.password = password.toCharArray();
+		this.password = password;
 		this.phone = phone;
 		this.referenceNumber = referenceNumber;
 	}
@@ -54,17 +54,17 @@ public abstract class Member {
 		return password;
 	}
 	
-	public boolean authenticate(String input)
+	public boolean authenticate(char[] input)
 	{
 		boolean valid = true;
 		boolean active = true;
 				
-		char[] t = input.toCharArray();					
+		char[] t = input;					
 		while(valid && active)
 		{
 			for(int index = 0; index < this.password.length; index++)
 			{
-				if(this.password[index] != input.charAt(index))
+				if(this.password[index] != input[index])
 				{
 					valid = false;					
 					break;

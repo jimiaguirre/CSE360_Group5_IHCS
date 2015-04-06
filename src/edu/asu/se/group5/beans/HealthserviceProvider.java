@@ -11,10 +11,10 @@ public class HealthserviceProvider extends Member
 	
 	public HealthserviceProvider()
 	{
-		this("name", "email", "password", "phone", 0000, "default field");
+		this("name", "email", new char[]{0,0,0,0}, "phone", 0000, "default field");
 	}
 	
-	public HealthserviceProvider(String name, String email, String password, String phone, int referenceNumber, String medicalField)
+	public HealthserviceProvider(String name, String email, char[] password, String phone, int referenceNumber, String medicalField)
 	{
 		super(name,email,password,phone,referenceNumber);
 		this.medicalField = medicalField;

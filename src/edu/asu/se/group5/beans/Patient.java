@@ -16,9 +16,9 @@ public class Patient extends Member
 	private int historySize;
 	
 	
-	public Patient(){this("name", 0000, "doctor", "email", "password", "phone", "underlying condition", 0000);}
+	public Patient(){this("name", 0000, "doctor", "email", new char[]{0,0,0,0,0}, "phone", "underlying condition", 0000);}
 	
-	public Patient(String name, int doctorReferenceNumber, String doctorName, String email, String password, String phone, String underlyingCondition, int referenceNumber)
+	public Patient(String name, int doctorReferenceNumber, String doctorName, String email, char[] password, String phone, String underlyingCondition, int referenceNumber)
 	{
 		super(name,email,password,phone,referenceNumber);
 		this.doctorAssignedName = doctorName;
