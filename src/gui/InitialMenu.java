@@ -25,6 +25,7 @@ public class InitialMenu extends javax.swing.JFrame
 {
     private HealthCareManagementSystem HCMS;
     private String memberType;
+    private int userReferenceNumber;
     
     
     public InitialMenu() {
@@ -225,6 +226,42 @@ public class InitialMenu extends javax.swing.JFrame
         PatientRegistrationButtonSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PatientRegistrationButtonSubmitActionPerformed(evt);
+            }
+        });
+        
+        this.MainUserInterfaceButtonSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	MainUserInterfaceButtonSubmitMouseClicked(evt);
+            }
+        });
+        
+        this.MainUserInterfaceSliderONE.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, 1);
+            }
+        });
+        
+        this.MainUserInterfaceSliderTWO.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, 2);
+            }
+        });
+        
+        this.MainUserInterfaceSliderTHREE.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, 3);
+            }
+        });
+        
+        this.MainUserInterfaceSliderFOUR.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, 4);
+            }
+        });
+        
+        this.MainUserInterfaceSliderFIVE.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, 5);
             }
         });
 
@@ -654,6 +691,7 @@ public class InitialMenu extends javax.swing.JFrame
         if(loginRequest.equals("Logged In."))
         {	
         	SuccessWindowLabelSuccess.setText(loginRequest);
+        	getReferenceNumber(this.memberType, PatientLoginBoxTextFieldUsername.getText());
 	        LoginDialogBox.dispose();
 	        LoginSuccessWindow.setVisible(true);
         }
@@ -665,6 +703,46 @@ public class InitialMenu extends javax.swing.JFrame
         } 
    
     }//GEN-LAST:event_LoginDialogBoxSubmitMouseClicked
+    
+    private void getReferenceNumber(String memberType, String emailId)
+    {
+    	this.userReferenceNumber = this.HCMS.emailToReferenceNumber(memberType, emailId);
+    }
+    
+    //display current value of slider
+    private void sliderChange(javax.swing.event.ChangeEvent evt, int number)
+    {    	    	
+    	switch(number)
+    	{
+	    	case 1:
+	    		this.MainUserInterfaceLabelONE.setText(String.format("Pain: [%2s]", this.MainUserInterfaceSliderONE.getValue()));
+	    		break;
+	    	case 2:
+	    		this.MainUserInterfaceLabelTWO.setText(String.format("Anxiety: [%2s]", this.MainUserInterfaceSliderTWO.getValue()));
+	    		break;
+	    	case 3:
+	    		this.MainUserInterfaceLabelTHREE.setText(String.format("Depression: [%2s]", this.MainUserInterfaceSliderTHREE.getValue()));
+	    		break;
+	    	case 4:
+	    		this.MainUserInterfaceLabelFOUR.setText(String.format("Nausea: [%2s]", this.MainUserInterfaceSliderFOUR.getValue()));
+	    		break;
+	    	case 5:
+	    		this.MainUserInterfaceLabelFIVE.setText(String.format("Other: [%2s]", this.MainUserInterfaceSliderFIVE.getValue()));
+	    		break;   	
+    	}    		
+    }
+    
+    //take slider values and submit conditions to HCMS
+    private void MainUserInterfaceButtonSubmitMouseClicked(java.awt.event.MouseEvent evt)
+    {    	
+    	this.HCMS.updatePatientStatus(
+    			this.userReferenceNumber, 
+    			new int[]{this.MainUserInterfaceSliderONE.getValue(), 
+    					this.MainUserInterfaceSliderONE.getValue(),
+    					this.MainUserInterfaceSliderTHREE.getValue(),
+    					this.MainUserInterfaceSliderFOUR.getValue(),
+    					this.MainUserInterfaceSliderFIVE.getValue()});    	    	    	
+    }
 
     
     private void LoginDialogBoxSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginDialogBoxSubmitActionPerformed

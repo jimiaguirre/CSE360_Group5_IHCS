@@ -287,6 +287,8 @@ public class HealthCareManagementSystem
 		return result;
 	}
 	
+	
+	
 	public boolean isUniqueEmailId(String memberType, String emailId)
 	{
 		boolean result = false;
@@ -302,6 +304,18 @@ public class HealthCareManagementSystem
 		
 		return result;
 		
+	}
+	
+	public int emailToReferenceNumber(String memberType, String emailId)
+	{
+		int result = 0;		
+		
+		if(memberType.equals("Patient"))
+			result = verifyEmail(this.patientList,emailId);								
+		else
+			result = verifyEmail(this.doctorList,emailId);	
+						
+		return result;
 	}
 
 	public String getFacilityName(){return this.facility;}

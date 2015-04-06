@@ -28,7 +28,8 @@ public class test
 		
 		//system.registerDoctor("Doctor J", "docj@doctor.com", "docPassword", "docPassword", "(555) 555-1512");
 		
-		system.registerPatient("Jimi Aguirre", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "jimi@jimiaguirre.com", "555-5511");
+		//system.registerPatient("Jimi Aguirre", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "jimi@jimiaguirre.com", "555-5511");
+		system.registerPatient("Jimi Aguirre", new char[]{'1'}, new char[]{'1'}, "1001", "1", "555-5511");
 		system.registerPatient("Savannah P", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "sp@email.com", "555-5511");
 		system.registerPatient("Eddie Wolf", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "wolfpack@email.com", "555-5511");
 		system.registerPatient("Deepak parameshawarn", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "deepak@email.com", "555-5511");
