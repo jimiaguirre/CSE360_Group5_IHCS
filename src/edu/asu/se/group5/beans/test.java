@@ -24,7 +24,7 @@ public class test
 		
 		HealthCareManagementSystem system = new HealthCareManagementSystem("Eddie Cares");
 		System.out.format("System Name: %s%n%n", system.getFacilityName());
-		
+		System.out.println("COMMITED TO GIT!!!!!");
 		
 		//system.registerDoctor("Doctor J", "docj@doctor.com", "docPassword", "docPassword", "(555) 555-1512");
 		
