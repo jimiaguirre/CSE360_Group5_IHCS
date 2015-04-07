@@ -58,8 +58,12 @@ public abstract class Member {
 	{
 		boolean valid = true;
 		boolean active = true;
+		
+		
 				
-		char[] t = input;					
+		char[] t = input;	
+		
+		
 		while(valid && active)
 		{
 			for(int index = 0; index < this.password.length; index++)
@@ -104,7 +108,7 @@ public abstract class Member {
 	
 	public String toString()
 	{								
-		return String.format("--Name: %s%n--Ref. #: %s%n--Email: %s%n--Password: %s%n%n", this.name, this.referenceNumber, this.emailId, this.password);
+		return String.format("--Name: %s%n--Ref. #: %s%n--Email: %s%n--Password: %s%n%n", this.name, this.referenceNumber, this.emailId, String.copyValueOf(this.password));
 	}
 	
 	
