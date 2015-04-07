@@ -749,21 +749,19 @@ public class InitialMenu extends javax.swing.JFrame
         String doctorAssigned = PatientRegistrationComboBoxDoctorAssigned.getSelectedItem().toString();
         
         
-        if(this.memberType.equals("Patient"))
-        {
-	        if(doctorAssigned == "Walter Bishop") {doctorAssigned = "1001";}
-	        else if (doctorAssigned == "Henry Jekyll") {doctorAssigned = "1002";}
-	        else if (doctorAssigned == "Dr. Dre") {doctorAssigned = "1003";}
-	        else if (doctorAssigned == "Hannibal Lecter") {doctorAssigned = "1004";}
-	        else if (doctorAssigned == "Dr. Evil") {doctorAssigned = "1005";}
-        }
+        if(doctorAssigned == "Walter Bishop") {doctorAssigned = "1001";}
+        else if (doctorAssigned == "Henry Jekyll") {doctorAssigned = "1002";}
+        else if (doctorAssigned == "Dr. Dre") {doctorAssigned = "1003";}
+        else if (doctorAssigned == "Hannibal Lecter") {doctorAssigned = "1004";}
+        else if (doctorAssigned == "Dr. Evil") {doctorAssigned = "1005";}
+        
         String result = HCMS.register
         		(
         		this.memberType,
         		String.format("%s, %s", PatientRegistrationTextFieldLastName.getText(), PatientRegistrationTextFieldFirstName.getText()), 
         		PatientRegistrationPasswordFieldPassword.getPassword(), 
         		PatientRegistrationPasswordFieldConfirm.getPassword(), 
-        		doctorAssigned,
+        		PatientRegistrationComboBoxDoctorAssigned.getSelectedItem().toString(),
                         this.PatientRegistrationComboBoxUnderlyingCondition.getSelectedItem().toString(),
         		PatientRegistrationTextFieldEmail.getText(), 
         		PatientRegistrationTextFieldPhoneNumber.getText()
