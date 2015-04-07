@@ -748,7 +748,7 @@ public class InitialMenu extends javax.swing.JFrame
         //Initialize Variables
         String doctorAssigned = PatientRegistrationComboBoxDoctorAssigned.getSelectedItem().toString();
         
-        
+        //handle patient reg.
         if(this.memberType.equals("Patient"))
         {
 	        if(doctorAssigned == "Walter Bishop") {doctorAssigned = "1001";}
