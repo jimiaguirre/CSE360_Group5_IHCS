@@ -327,36 +327,55 @@ public class InitialMenu extends javax.swing.JFrame
                 .addGap(28, 28, 28))
         );
 
-        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 406, 585));
+        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 406, 700));
+        MainUserInterface.setPreferredSize(new java.awt.Dimension(406, 700));
         MainUserInterface.setResizable(false);
 
         MainUserInterfaceTextPaneHistory.setEditable(false);
         jScrollPane1.setViewportView(MainUserInterfaceTextPaneHistory);
 
-        MainUserInterfaceSliderONE.setMaximum(5);
+        MainUserInterfaceSliderONE.setMaximum(10);
         MainUserInterfaceSliderONE.setMinimum(1);
 
-        MainUserInterfaceSliderTWO.setMaximum(5);
+        MainUserInterfaceSliderTWO.setMaximum(10);
         MainUserInterfaceSliderTWO.setMinimum(1);
 
-        MainUserInterfaceSliderTHREE.setMaximum(5);
+        MainUserInterfaceSliderTHREE.setMaximum(10);
         MainUserInterfaceSliderTHREE.setMinimum(1);
 
-        MainUserInterfaceSliderFOUR.setMaximum(5);
+        MainUserInterfaceSliderFOUR.setMaximum(10);
         MainUserInterfaceSliderFOUR.setMinimum(1);
 
-        MainUserInterfaceSliderFIVE.setMaximum(5);
+        MainUserInterfaceSliderFIVE.setMaximum(10);
         MainUserInterfaceSliderFIVE.setMinimum(1);
-
-        MainUserInterfaceLabelONE.setText("LabelONE");
-
-        MainUserInterfaceLabelTWO.setText("LabelTWO");
-
-        MainUserInterfaceLabelTHREE.setText("LabelTHREE");
-
-        MainUserInterfaceLabelFOUR.setText("LabelFOUR");
-
-        MainUserInterfaceLabelFIVE.setText("LabelFIVE");
+        
+        this.MainUserInterfaceSliderONE.setMajorTickSpacing(1);
+                this.MainUserInterfaceSliderONE.setPaintTicks(true);
+                this.MainUserInterfaceSliderONE.setPaintLabels(true);
+                
+                this.MainUserInterfaceSliderTWO.setMajorTickSpacing(1);
+                this.MainUserInterfaceSliderTWO.setPaintTicks(true);
+                this.MainUserInterfaceSliderTWO.setPaintLabels(true);
+                
+                this.MainUserInterfaceSliderTHREE.setMajorTickSpacing(1);
+                this.MainUserInterfaceSliderTHREE.setPaintTicks(true);
+                this.MainUserInterfaceSliderTHREE.setPaintLabels(true);
+                
+                this.MainUserInterfaceSliderFOUR.setMajorTickSpacing(1);
+                this.MainUserInterfaceSliderFOUR.setPaintTicks(true);
+                this.MainUserInterfaceSliderFOUR.setPaintLabels(true);
+                
+                this.MainUserInterfaceSliderFIVE.setMajorTickSpacing(1);
+                this.MainUserInterfaceSliderFIVE.setPaintTicks(true);
+                this.MainUserInterfaceSliderFIVE.setPaintLabels(true);
+        
+                this.MainUserInterfaceLabelONE.setText(String.format("Pain: [%2s]", this.MainUserInterfaceSliderONE.getValue()));
+                this.MainUserInterfaceLabelTWO.setText(String.format("Anxiety: [%2s]", this.MainUserInterfaceSliderTWO.getValue()));
+                this.MainUserInterfaceLabelTHREE.setText(String.format("Depression: [%2s]", this.MainUserInterfaceSliderTHREE.getValue()));
+                this.MainUserInterfaceLabelFOUR.setText(String.format("Nausea: [%2s]", this.MainUserInterfaceSliderFOUR.getValue()));
+                this.MainUserInterfaceLabelFIVE.setText(String.format("Other: [%2s]", this.MainUserInterfaceSliderFIVE.getValue()));
+                
+        
 
         MainUserInterfaceButtonSubmit.setText("Submit Update!");
 
@@ -526,6 +545,42 @@ public class InitialMenu extends javax.swing.JFrame
                 PasswordUnsuccessfulButtonOkayMouseClicked(evt);
             }
         });
+        
+        this.MainUserInterfaceButtonSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+        	            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        	            	MainUserInterfaceButtonSubmitMouseClicked(evt);
+        	            }
+        	        });
+        	        
+        	        this.MainUserInterfaceSliderONE.addChangeListener(new javax.swing.event.ChangeListener() {
+        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        	            	sliderChange(evt, 1);
+        	            }
+        	        });
+        	        
+        	        this.MainUserInterfaceSliderTWO.addChangeListener(new javax.swing.event.ChangeListener() {
+        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        	            	sliderChange(evt, 2);
+        	            }
+        	        });
+        	        
+        	        this.MainUserInterfaceSliderTHREE.addChangeListener(new javax.swing.event.ChangeListener() {
+        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        	            	sliderChange(evt, 3);
+        	            }
+        	        });
+        	        
+        	        this.MainUserInterfaceSliderFOUR.addChangeListener(new javax.swing.event.ChangeListener() {
+        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        	            	sliderChange(evt, 4);
+        	            }
+        	        });
+        	        
+        	        this.MainUserInterfaceSliderFIVE.addChangeListener(new javax.swing.event.ChangeListener() {
+        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        	            	sliderChange(evt, 5);
+        	            }
+        	        });
 
         javax.swing.GroupLayout PasswordUnsuccessfulWindowLayout = new javax.swing.GroupLayout(PasswordUnsuccessfulWindow.getContentPane());
         PasswordUnsuccessfulWindow.getContentPane().setLayout(PasswordUnsuccessfulWindowLayout);
@@ -748,6 +803,7 @@ public class InitialMenu extends javax.swing.JFrame
         //Initialize Variables
         String doctorAssigned = PatientRegistrationComboBoxDoctorAssigned.getSelectedItem().toString();
         
+        
         //handle patient reg.
         if(this.memberType.equals("Patient"))
         {
@@ -764,7 +820,7 @@ public class InitialMenu extends javax.swing.JFrame
         		PatientRegistrationPasswordFieldPassword.getPassword(), 
         		PatientRegistrationPasswordFieldConfirm.getPassword(), 
         		doctorAssigned,
-                        this.PatientRegistrationComboBoxUnderlyingCondition.getSelectedItem().toString(),
+                this.PatientRegistrationComboBoxUnderlyingCondition.getSelectedItem().toString(),
         		PatientRegistrationTextFieldEmail.getText(), 
         		PatientRegistrationTextFieldPhoneNumber.getText()
         		); 
@@ -886,14 +942,24 @@ public class InitialMenu extends javax.swing.JFrame
             
             this.PatientRegistrationLabelDoctorAssigned.setText("Medical Field");
             this.PatientRegistrationComboBoxDoctorAssigned.removeAllItems();
-            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Select Field");
-            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Cardiology");
-            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Neurology");
-            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Oncology");
-            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Pediatrics");
-            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Geriatics");
-            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Critical Care");
+//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Select Field");
+//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Cardiology");
+//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Neurology");
+//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Oncology");
+//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Pediatrics");
+//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Geriatics");
+//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Critical Care");
+            this.PatientRegistrationComboBoxDoctorAssigned.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Select Field","Cardiology","Neurology","Oncology","Pediatrics","Geriatics","Critical Care"}));
             
+        }
+        else
+        {
+        	 this.PatientRegistrationLabelUnderlyingCondition.setText("Underlying Condition");
+             this.PatientRegistrationComboBoxUnderlyingCondition.removeAllItems();
+        	this.PatientRegistrationLabelDoctorAssigned.setText("Doctor Assigned");
+        	this.PatientRegistrationComboBoxDoctorAssigned.removeAllItems();
+        	PatientRegistrationComboBoxDoctorAssigned.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
+        	PatientRegistrationComboBoxUnderlyingCondition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
         }
         
         this.LoginDialogBox.setVisible(false);
