@@ -1,3 +1,8 @@
 /bin/
 /nbproject/private/
+<<<<<<< HEAD
 /GUI from Eclipse/build/
+/GUI from Eclipse/nbproject/private/
+=======
+/GUI from Eclipse/build/
+>>>>>>> origin/master
