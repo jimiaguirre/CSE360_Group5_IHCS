@@ -23,11 +23,11 @@ public class HealthCareManagementSystem
 	{
 		this.facility = facilityName;
 		this.patients = this.healthcareProviders = 0;
-		this.registerDoctor("Bishop, Walter", "docBishop@fringe.com", new char[]{'i','m','N','o','t','C','r','a','z','y'}, new char[]{'i','m','N','o','t','C','r','a','z','y'}, "(555) 555-1512");
-		this.registerDoctor("Jekyll, Henry", "biPolar@ontheedge.com", new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, "(555) 531-3357");
-		this.registerDoctor("Dre, Doctor", "dreDay@beats.com", new char[]{'g','i','n','N','J','u','i','c','e'}, new char[]{'g','i','n','N','J','u','i','c','e'}, "(234) 333-9382");
-		this.registerDoctor("Lecter, Hannibal", "hungry@humans.com", new char[]{'f','a','c','e','S','t','e','a','k','!'}, new char[]{'f','a','c','e','S','t','e','a','k','!'}, "(223) 543-0929");
-		this.registerDoctor("Evil, Doctor", "evil@doctor.com", new char[]{'m','i','n','i','m','e'}, new char[]{'m','i','n','i','m','e'}, "(325) 943-1264");		
+		this.registerDoctor("Bishop, Walter",new char[]{'i','m','N','o','t','C','r','a','z','y'},"Neuro Surgeon", "0","docBishop@fringe.com", "(555) 555-1512");
+		this.registerDoctor("Jekyll, Henry", new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, "Plastic Surgeon","0","biPolar@ontheedge.com", "(555) 531-3357");
+		this.registerDoctor("Dre, Doctor", new char[]{'g','i','n','N','J','u','i','c','e'}, "Orthopedics","0", "dreDay@beats.com", "(234) 333-9382");
+		this.registerDoctor("Lecter, Hannibal", new char[]{'f','a','c','e','S','t','e','a','k','!'}, "Cardiology","0", "hungry@humans.com", "(223) 543-0929");
+		this.registerDoctor("Evil, Doctor", new char[]{'m','i','n','i','m','e'}, "Surgeon","0","evil@doctor.com", "(325) 943-1264");		
 	}
 	
 	public boolean passwordsMatch(char[] password, char[] passwordConfirmation)
@@ -58,22 +58,11 @@ public class HealthCareManagementSystem
 		return valid;
 	}
 		
-	public String registerPatient(String userName, char[] password, char[] passwordConfirmation, String doctorReferenceNumber, String emailId, String phone)
+	public String register(String memberType, String userName, char[] password, char[] passwordConfirmation, String otherInfo ,String info, String emailId, String phone)
 	{
 		String result = "Processing";
 		
-		//Scanner scan = new Scanner(System.in);
-		//verify matching password
-		//while(!password.equals(passwordConfirmation))
-		//{
-			//result = String.format("\nERROR!\nPasswords do not match!, Please try again");
-			//System.out.print("Enter Password:");
-			//password = scan.nextLine();
-			//System.out.print("Re-Enter Password:");
-			//passwordConfirmation = scan.nextLine();
-		//}
-		
-		if(!this.isUniqueEmailId("Patient", emailId))
+		if(!this.isUniqueEmailId(memberType, emailId))
 		{
 			result = "Email aleady in use.";
 		}
@@ -83,50 +72,45 @@ public class HealthCareManagementSystem
 			System.out.println(result);
 		}
 		
-		//check that doctor ID exists
-		//Set<Integer> presentDoctorIds = doctorList.keySet();
-//		while(!presentDoctorIds.contains(Integer.parseInt(doctorReferenceNumber)))
-//		{						
-//			System.out.format("%nERROR!%nMedical Doctor [Reference #: %s]%nNot Found, Please re-enter Reference Number:", doctorReferenceNumber);	
-//			doctorReferenceNumber = scan.nextLine();
-//		}
-				  
 		if(result.equals("Processing"))
-		{
-			//retrieve HealthserviceProvider object to retrieve name
-			HealthserviceProvider temp = (HealthserviceProvider)doctorList.get(Integer.parseInt(doctorReferenceNumber)).get(1);				
+		{		
+			if(memberType.equals("Patient"))
+			{
+				registerPatient(userName,password, otherInfo, info, emailId, phone);
+			}
+			else
+			{
+				registerDoctor(userName,password, otherInfo, info, emailId, phone);
+			}
 			
-			//create arrayList for multiple values per single key of hashmap entry
-			ArrayList<Object> patientValues = new ArrayList<Object>();
-			patientValues.add(emailId);
-			patientValues.add(new Patient(userName, Integer.parseInt(doctorReferenceNumber), temp.getName(), emailId, password, phone, "Condition", referenceNumberGenerator));				
-			
-			//add patient to hash map
-			patientList.put(referenceNumberGenerator, patientValues);
-			
-			//report success of operation
 			result = String.format("Registration Complete!");	
+			System.out.format("[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);	
 			referenceNumberGenerator++;
-			this.patients++;
 		}
+		
 		
 		return result;
 	}
 	
-	public void registerDoctor(String userName, String emailId, char[] password, char[] passwordConfirmation, String phone) 
+	private void registerPatient(String userName, char[] password, String otherInfo, String info, String emailId, String phone)
 	{
+		HealthserviceProvider temp = (HealthserviceProvider)doctorList.get(Integer.parseInt(otherInfo)).get(1);					
+		//create arrayList for multiple values per single key of hashmap entry
+		ArrayList<Object> patientValues = new ArrayList<Object>();
+		patientValues.add(emailId);
+		patientValues.add(new Patient(userName, Integer.parseInt(otherInfo), temp.getName(), emailId, password, phone, "Condition", referenceNumberGenerator));				
+		//add patient to hash map
+		patientList.put(referenceNumberGenerator, patientValues);
 
-		if(!passwordsMatch(password, passwordConfirmation))
-		{
-			System.out.println("passwords not matching");
-			System.exit(0);
-		}
-		
+		this.patients++;
+	}
+	
+	private void registerDoctor(String userName, char[] password, String otherInfo, String info, String emailId, String phone) 
+	{
 		HealthserviceProvider h1 = new HealthserviceProvider();
-
 		ArrayList<Object> doctorValues = new ArrayList<Object>();		
 		doctorValues.add(emailId);
-		doctorValues.add(new HealthserviceProvider(userName, emailId, password, phone, referenceNumberGenerator, "defualt field"));
+		doctorValues.add(new HealthserviceProvider(userName, emailId, password, phone, referenceNumberGenerator, otherInfo, info));
 		
 		doctorList.put(referenceNumberGenerator, doctorValues);		
 				
@@ -254,26 +238,38 @@ public class HealthCareManagementSystem
 	{		
 		String report = "";
 		int key;
+               
 		
-		if(memberType.equals("Patient")) key = verifyEmail(this.patientList ,emailId);
-		else key = verifyEmail(this.doctorList ,emailId); 
-		
-		if(key != 0)
-		{
-			Member user;
-			
-			if(memberType.equals("Patient")){user = (Member)patientList.get(key).get(1);}
-			else {user = (Member)doctorList.get(key).get(1);}
-			
-			if(user.authenticate(password)) report = "Logged In.";
-			else report = "Invalid Password.";
-		}
-		
-		else report = "Invalid Email";
-		
-		
-		
-		return report;
+                if(password.length != 0)
+                {
+                    if(!emailId.isEmpty())
+                    {
+                    
+                
+                        if(memberType.equals("Patient")) key = verifyEmail(this.patientList ,emailId);
+                        else key = verifyEmail(this.doctorList ,emailId); 
+
+                        if(key != 0)
+                        {
+                                Member user;
+
+                                if(memberType.equals("Patient")){user = (Member)patientList.get(key).get(1);}
+                                else {user = (Member)doctorList.get(key).get(1);}
+
+                                if(user.authenticate(password)) report = "Logged In.";
+                                else report = "Invalid Password.";
+                        }
+
+                        else report = "Invalid Email";
+
+                        }
+                    else 
+                        report = "No Email Entered";
+                }
+                        else
+                            report = "No Password Entered";
+
+                        return report;
 	}	
 	
 	public int verifyEmail(HashMap<Integer, ArrayList<Object>> memberList, String emailId)

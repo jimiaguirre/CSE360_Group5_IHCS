@@ -11,13 +11,15 @@ public class HealthserviceProvider extends Member
 	
 	public HealthserviceProvider()
 	{
-		this("name", "email", new char[]{0,0,0,0}, "phone", 0000, "default field");
+		this("name", "email", new char[]{0,0,0,0}, "phone", 0000, "default field", "0");
 	}
 	
-	public HealthserviceProvider(String name, String email, char[] password, String phone, int referenceNumber, String medicalField)
+	public HealthserviceProvider(String name, String email, char[] password, String phone, int referenceNumber, String medicalField, String numberOfPatients)
 	{
 		super(name,email,password,phone,referenceNumber);
 		this.medicalField = medicalField;
+                this.numberOfPatients = Integer.parseInt(numberOfPatients);
+                System.out.println(this.toString());
 	}
 	
 	@Override
@@ -66,6 +68,6 @@ public class HealthserviceProvider extends Member
 	
 	public String toString()
 	{
-		return String.format("<Medical Field: %s>%n%s", this.medicalField, super.toString());
+		return String.format("<Medical Field: %s>%n<Patients: %s>%n%s", this.medicalField,this.numberOfPatients, super.toString());
 	}
 }
