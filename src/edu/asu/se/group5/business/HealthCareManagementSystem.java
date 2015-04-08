@@ -122,14 +122,16 @@ public class HealthCareManagementSystem
 	
 	//update patient medical condition status
 	//assuming already logged in, the reference number is provided from the caller
-	public void updatePatientStatus(int referenceNumber, int[] condition)
+	public String updatePatientStatus(int referenceNumber, int[] condition)
 	{
+		String result="";
 		if(patientList.containsKey(referenceNumber))
 		{
 			Patient p = (Patient)patientList.get(referenceNumber).get(1);
-			System.out.println(p.setCurrentCondition(condition));
+			result = String.format("%s%n%s", patientDetails(referenceNumber),p.setCurrentCondition(condition));
 		}
 		
+		return result;	
 	}
 	
 	private String patientDetails(int referenceNumber) 
@@ -137,7 +139,7 @@ public class HealthCareManagementSystem
 		String result = String.format("<Reference Number [%s]: Invalid>%n", referenceNumber);				
 		
 		if(patientList.containsKey(referenceNumber))
-			result = String.format("<Reference Number [%s]: Found>%n%s%n", referenceNumber, patientList.get(referenceNumber).get(1).toString());		
+			result = String.format("<Reference Number [%s] : Retrieved>%n%s%n", referenceNumber, patientList.get(referenceNumber).get(1).toString());		
 		
 		return result;
 	}
@@ -244,8 +246,7 @@ public class HealthCareManagementSystem
                 {
                     if(!emailId.isEmpty())
                     {
-                    
-                
+
                         if(memberType.equals("Patient")) key = verifyEmail(this.patientList ,emailId);
                         else key = verifyEmail(this.doctorList ,emailId); 
 

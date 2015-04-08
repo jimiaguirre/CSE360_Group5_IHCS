@@ -61,7 +61,7 @@ public class InitialMenu extends javax.swing.JFrame
         PatientRegistrationTextFieldPhoneNumber = new javax.swing.JTextField();
         PatientRegistrationTextFieldEmail = new javax.swing.JTextField();
         PatientRegistrationButtonSubmit = new javax.swing.JButton();
-        PatientRegistrationComboBoxDoctorAssigned = new javax.swing.JComboBox();
+        RegistrationComboBox_One = new javax.swing.JComboBox();
         PatientRegistrationLabelUnderlyingCondition = new javax.swing.JLabel();
         PatientRegistrationComboBoxUnderlyingCondition = new javax.swing.JComboBox();
         PatientRegistrationLabelConfirmPassword = new javax.swing.JLabel();
@@ -217,10 +217,10 @@ public class InitialMenu extends javax.swing.JFrame
             }
         });
 
-        PatientRegistrationComboBoxDoctorAssigned.setEditable(true);
-        PatientRegistrationComboBoxDoctorAssigned.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
-        PatientRegistrationComboBoxDoctorAssigned.setPreferredSize(new java.awt.Dimension(112, 28));
-        PatientRegistrationComboBoxDoctorAssigned.addActionListener(new java.awt.event.ActionListener() {
+        RegistrationComboBox_One.setEditable(true);
+        RegistrationComboBox_One.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
+        RegistrationComboBox_One.setPreferredSize(new java.awt.Dimension(112, 28));
+        RegistrationComboBox_One.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PatientRegistrationComboBoxDoctorAssignedActionPerformed(evt);
             }
@@ -250,7 +250,7 @@ public class InitialMenu extends javax.swing.JFrame
             .addGroup(RegisterMenuLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(RegisterMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PatientRegistrationComboBoxDoctorAssigned, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RegistrationComboBox_One, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(RegisterMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(PatientRegistrationLabelFirstName, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(PatientRegistrationLabelPassword, javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +317,7 @@ public class InitialMenu extends javax.swing.JFrame
                     .addGroup(RegisterMenuLayout.createSequentialGroup()
                         .addComponent(PatientRegistrationLabelDoctorAssigned)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PatientRegistrationComboBoxDoctorAssigned, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(RegistrationComboBox_One, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(RegisterMenuLayout.createSequentialGroup()
                         .addComponent(PatientRegistrationLabelUnderlyingCondition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -789,19 +789,22 @@ public class InitialMenu extends javax.swing.JFrame
     //take slider values and submit conditions to HCMS
     private void MainUserInterfaceButtonSubmitMouseClicked(java.awt.event.MouseEvent evt)
     {    	
+    	this.MainUserInterfaceTextPaneHistory.setText(
+    	
     	this.HCMS.updatePatientStatus(
     			this.userReferenceNumber, 
     			new int[]{this.MainUserInterfaceSliderONE.getValue(), 
     					this.MainUserInterfaceSliderTWO.getValue(),
     					this.MainUserInterfaceSliderTHREE.getValue(),
     					this.MainUserInterfaceSliderFOUR.getValue(),
-    					this.MainUserInterfaceSliderFIVE.getValue()});    	    	    	
+    					this.MainUserInterfaceSliderFIVE.getValue()})    	
+    	);
     }
 
     
     private void PatientRegistrationButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientRegistrationButtonSubmitMouseClicked
         //Initialize Variables
-        String doctorAssigned = PatientRegistrationComboBoxDoctorAssigned.getSelectedItem().toString();
+        String doctorAssigned = RegistrationComboBox_One.getSelectedItem().toString();
         
         
         //handle patient reg.
@@ -941,25 +944,18 @@ public class InitialMenu extends javax.swing.JFrame
                 this.PatientRegistrationComboBoxUnderlyingCondition.addItem(count);
             
             this.PatientRegistrationLabelDoctorAssigned.setText("Medical Field");
-            this.PatientRegistrationComboBoxDoctorAssigned.removeAllItems();
-//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Select Field");
-//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Cardiology");
-//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Neurology");
-//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Oncology");
-//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Pediatrics");
-//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Geriatics");
-//            this.PatientRegistrationComboBoxDoctorAssigned.addItem("Critical Care");
-            this.PatientRegistrationComboBoxDoctorAssigned.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Select Field","Cardiology","Neurology","Oncology","Pediatrics","Geriatics","Critical Care"}));
+            this.RegistrationComboBox_One.removeAllItems();
+            this.RegistrationComboBox_One.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Select Field","Cardiology","Neurology","Oncology","Pediatrics","Geriatics","Critical Care"}));
             
         }
         else
         {
-        	 this.PatientRegistrationLabelUnderlyingCondition.setText("Underlying Condition");
-             this.PatientRegistrationComboBoxUnderlyingCondition.removeAllItems();
+        	this.PatientRegistrationLabelUnderlyingCondition.setText("Underlying Condition");
+            this.PatientRegistrationComboBoxUnderlyingCondition.removeAllItems();
         	this.PatientRegistrationLabelDoctorAssigned.setText("Doctor Assigned");
-        	this.PatientRegistrationComboBoxDoctorAssigned.removeAllItems();
-        	PatientRegistrationComboBoxDoctorAssigned.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
-        	PatientRegistrationComboBoxUnderlyingCondition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
+        	this.RegistrationComboBox_One.removeAllItems();
+        	RegistrationComboBox_One.setModel(new javax.swing.DefaultComboBoxModel<Object>(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
+        	PatientRegistrationComboBoxUnderlyingCondition.setModel(new javax.swing.DefaultComboBoxModel<Object>(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
         }
         
         this.LoginDialogBox.setVisible(false);
@@ -1011,8 +1007,8 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JLabel PasswordUnsuccessfulLabelMessage;
     private javax.swing.JDialog PasswordUnsuccessfulWindow;
     private static javax.swing.JButton PatientRegistrationButtonSubmit;
-    private javax.swing.JComboBox PatientRegistrationComboBoxDoctorAssigned;
-    private javax.swing.JComboBox PatientRegistrationComboBoxUnderlyingCondition;
+    private javax.swing.JComboBox<Object> RegistrationComboBox_One;
+    private javax.swing.JComboBox<Object> PatientRegistrationComboBoxUnderlyingCondition;
     private javax.swing.JLabel PatientRegistrationLabelConfirmPassword;
     private javax.swing.JLabel PatientRegistrationLabelDoctorAssigned;
     private javax.swing.JLabel PatientRegistrationLabelEmail;
