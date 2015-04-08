@@ -122,16 +122,17 @@ public class HealthCareManagementSystem
 	
 	//update patient medical condition status
 	//assuming already logged in, the reference number is provided from the caller
-	public String updatePatientStatus(int referenceNumber, int[] condition)
+	
+	private String memberDetail(String memberType, int referenceNumber)
 	{
-		String result="";
-		if(patientList.containsKey(referenceNumber))
-		{
-			Patient p = (Patient)patientList.get(referenceNumber).get(1);
-			result = String.format("%s%n%s", patientDetails(referenceNumber),p.setCurrentCondition(condition));
-		}
+		String result;
 		
-		return result;	
+		if(memberType.equals("Patient"))
+			result = patientDetails(referenceNumber);
+		else
+			result = healthcareProviderDetails(referenceNumber);
+		
+		return result;
 	}
 	
 	private String patientDetails(int referenceNumber) 
@@ -155,13 +156,36 @@ public class HealthCareManagementSystem
 	}
 
 
+	//update patient medical condition status
+		//assuming already logged in, the reference number is provided from the caller
+		public String updatePatientStatus(int referenceNumber, int[] condition)
+		{
+			String result="";
+			
+			
+			if(patientList.containsKey(referenceNumber))
+			{
+				Patient p = (Patient)patientList.get(referenceNumber).get(1);
+
+				result = String.format("%s%n",p.setCurrentCondition(condition));
+
+			}
+			
+			return result;	
+		}
+	
 	private int[] evaluate(Patient patient)
 	{
 		//Array of int[] containing data needed for assessment evaluation
 		int[] evaluationData[] = {patient.getCurrentCondition(), patient.getAssessmentEvaluationThreshold(), new int[]{0,0,0,0,0}};		
-				
+		
+		
+		
+		
 		for(int arrayIndex = 0; arrayIndex < Array.getLength(evaluationData[0]); arrayIndex++)
 		{	
+			System.out.println(evaluationData[0][arrayIndex]);
+			System.out.println(patient.getCurrentCondition()[arrayIndex]);
 			//if threshold exceeded, then place 1 to signify specified action must be taken.
 			if(evaluationData[0][arrayIndex] >= evaluationData[1][arrayIndex])
 				evaluationData[2][arrayIndex] = 1;
@@ -236,9 +260,9 @@ public class HealthCareManagementSystem
 	}
 	
 	//Patient login method
-	public String login(String memberType,String emailId, char[] password)
+	public String[] login(String memberType, String emailId, char[] password)
 	{		
-		String report = "";
+		String report[] = {"",""};
 		int key;
                
 		
@@ -257,18 +281,22 @@ public class HealthCareManagementSystem
                                 if(memberType.equals("Patient")){user = (Member)patientList.get(key).get(1);}
                                 else {user = (Member)doctorList.get(key).get(1);}
 
-                                if(user.authenticate(password)) report = "Logged In.";
-                                else report = "Invalid Password.";
+                                if(user.authenticate(password))
+                                { 
+                                	report[0] = "Logged In."; 
+                                	report[1] = this.patientDetails(emailToReferenceNumber(memberType, emailId));
+                            	}
+                                else report[0] = "Invalid Password.";
                         }
 
-                        else report = "Invalid Email";
+                        else report[0] = "Invalid Email";
 
                         }
                     else 
-                        report = "No Email Entered";
+                        report[0] = "No Email Entered";
                 }
                         else
-                            report = "No Password Entered";
+                            report[0] = "No Password Entered";
 
                         return report;
 	}	

@@ -2,11 +2,23 @@ package gui;
 
 
 import java.awt.Component;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSlider;
+
 import edu.asu.se.group5.business.HealthCareManagementSystem;
+
 import java.util.ArrayList;
+
 import javax.swing.WindowConstants;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 //Changes!
 //1. Had to make HCMS.java's referenceNumberGenerator public and static to access it from InitialMenu.java
@@ -26,9 +38,11 @@ public class InitialMenu extends javax.swing.JFrame
     private HealthCareManagementSystem HCMS;
     private String memberType;
     private int userReferenceNumber;
+    private String activeUserDetails;
+    private JEditorPane pane = new JEditorPane();
+    private String[] sliderParameters;
     
-    
-    public InitialMenu() {
+    public InitialMenu() { 
         initComponents();
     }
 
@@ -61,9 +75,9 @@ public class InitialMenu extends javax.swing.JFrame
         PatientRegistrationTextFieldPhoneNumber = new javax.swing.JTextField();
         PatientRegistrationTextFieldEmail = new javax.swing.JTextField();
         PatientRegistrationButtonSubmit = new javax.swing.JButton();
-        RegistrationComboBox_One = new javax.swing.JComboBox();
+        registrationComboBoxOne = new javax.swing.JComboBox();
         PatientRegistrationLabelUnderlyingCondition = new javax.swing.JLabel();
-        PatientRegistrationComboBoxUnderlyingCondition = new javax.swing.JComboBox();
+        registrationComboBoxTwo = new javax.swing.JComboBox();
         PatientRegistrationLabelConfirmPassword = new javax.swing.JLabel();
         PatientRegistrationLabelLastName = new javax.swing.JLabel();
         PatientRegistrationTextFieldLastName = new javax.swing.JTextField();
@@ -72,16 +86,27 @@ public class InitialMenu extends javax.swing.JFrame
         MainUserInterface = new javax.swing.JFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
         MainUserInterfaceTextPaneHistory = new javax.swing.JTextPane();
-        MainUserInterfaceSliderONE = new javax.swing.JSlider();
-        MainUserInterfaceSliderTWO = new javax.swing.JSlider();
-        MainUserInterfaceSliderTHREE = new javax.swing.JSlider();
-        MainUserInterfaceSliderFOUR = new javax.swing.JSlider();
-        MainUserInterfaceSliderFIVE = new javax.swing.JSlider();
-        MainUserInterfaceLabelONE = new javax.swing.JLabel();
-        MainUserInterfaceLabelTWO = new javax.swing.JLabel();
-        MainUserInterfaceLabelTHREE = new javax.swing.JLabel();
-        MainUserInterfaceLabelFOUR = new javax.swing.JLabel();
-        MainUserInterfaceLabelFIVE = new javax.swing.JLabel();
+        
+        
+        
+       
+        
+        sliders = new JSlider[]{
+    		MainUserInterfaceSliderONE = new javax.swing.JSlider(),
+            MainUserInterfaceSliderTWO = new javax.swing.JSlider(),
+            MainUserInterfaceSliderTHREE = new javax.swing.JSlider(),
+            MainUserInterfaceSliderFOUR = new javax.swing.JSlider(),
+            MainUserInterfaceSliderFIVE = new javax.swing.JSlider()
+        		};
+        
+        sliderLabels = new JLabel[]{
+	        MainUserInterfaceLabelONE = new javax.swing.JLabel(),
+	        MainUserInterfaceLabelTWO = new javax.swing.JLabel(),
+	        MainUserInterfaceLabelTHREE = new javax.swing.JLabel(),
+	        MainUserInterfaceLabelFOUR = new javax.swing.JLabel(),
+	        MainUserInterfaceLabelFIVE = new javax.swing.JLabel()
+        };
+        
         MainUserInterfaceGUISeparator = new javax.swing.JSeparator();
         MainUserInterfaceButtonSubmit = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -217,10 +242,10 @@ public class InitialMenu extends javax.swing.JFrame
             }
         });
 
-        RegistrationComboBox_One.setEditable(true);
-        RegistrationComboBox_One.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
-        RegistrationComboBox_One.setPreferredSize(new java.awt.Dimension(112, 28));
-        RegistrationComboBox_One.addActionListener(new java.awt.event.ActionListener() {
+        registrationComboBoxOne.setEditable(true);
+        registrationComboBoxOne.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
+        registrationComboBoxOne.setPreferredSize(new java.awt.Dimension(112, 28));
+        registrationComboBoxOne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PatientRegistrationComboBoxDoctorAssignedActionPerformed(evt);
             }
@@ -228,8 +253,8 @@ public class InitialMenu extends javax.swing.JFrame
 
         PatientRegistrationLabelUnderlyingCondition.setText("Underlying Condition:");
 
-        PatientRegistrationComboBoxUnderlyingCondition.setEditable(true);
-        PatientRegistrationComboBoxUnderlyingCondition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
+        registrationComboBoxTwo.setEditable(true);
+        registrationComboBoxTwo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
 
         PatientRegistrationLabelConfirmPassword.setText("Confirm Password:");
 
@@ -250,7 +275,7 @@ public class InitialMenu extends javax.swing.JFrame
             .addGroup(RegisterMenuLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(RegisterMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RegistrationComboBox_One, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(registrationComboBoxOne, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(RegisterMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(PatientRegistrationLabelFirstName, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(PatientRegistrationLabelPassword, javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +292,7 @@ public class InitialMenu extends javax.swing.JFrame
                             .addGroup(RegisterMenuLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(PatientRegistrationLabelUnderlyingCondition))
-                            .addComponent(PatientRegistrationComboBoxUnderlyingCondition, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(registrationComboBoxTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(RegisterMenuLayout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(PatientRegistrationLabelEmail))
@@ -317,18 +342,18 @@ public class InitialMenu extends javax.swing.JFrame
                     .addGroup(RegisterMenuLayout.createSequentialGroup()
                         .addComponent(PatientRegistrationLabelDoctorAssigned)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RegistrationComboBox_One, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(registrationComboBoxOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(RegisterMenuLayout.createSequentialGroup()
                         .addComponent(PatientRegistrationLabelUnderlyingCondition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PatientRegistrationComboBoxUnderlyingCondition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(registrationComboBoxTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PatientRegistrationButtonSubmit)
                 .addGap(28, 28, 28))
         );
 
-        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 406, 700));
-        MainUserInterface.setPreferredSize(new java.awt.Dimension(406, 700));
+        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 506, 800));
+        MainUserInterface.setPreferredSize(new java.awt.Dimension(506, 800));
         MainUserInterface.setResizable(false);
 
         MainUserInterfaceTextPaneHistory.setEditable(false);
@@ -349,7 +374,7 @@ public class InitialMenu extends javax.swing.JFrame
         MainUserInterfaceSliderFIVE.setMaximum(10);
         MainUserInterfaceSliderFIVE.setMinimum(1);
         
-        this.MainUserInterfaceSliderONE.setMajorTickSpacing(1);
+        		this.MainUserInterfaceSliderONE.setMajorTickSpacing(1);
                 this.MainUserInterfaceSliderONE.setPaintTicks(true);
                 this.MainUserInterfaceSliderONE.setPaintLabels(true);
                 
@@ -552,35 +577,35 @@ public class InitialMenu extends javax.swing.JFrame
         	            }
         	        });
         	        
-        	        this.MainUserInterfaceSliderONE.addChangeListener(new javax.swing.event.ChangeListener() {
-        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-        	            	sliderChange(evt, 1);
-        	            }
-        	        });
-        	        
-        	        this.MainUserInterfaceSliderTWO.addChangeListener(new javax.swing.event.ChangeListener() {
-        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-        	            	sliderChange(evt, 2);
-        	            }
-        	        });
-        	        
-        	        this.MainUserInterfaceSliderTHREE.addChangeListener(new javax.swing.event.ChangeListener() {
-        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-        	            	sliderChange(evt, 3);
-        	            }
-        	        });
-        	        
-        	        this.MainUserInterfaceSliderFOUR.addChangeListener(new javax.swing.event.ChangeListener() {
-        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-        	            	sliderChange(evt, 4);
-        	            }
-        	        });
-        	        
-        	        this.MainUserInterfaceSliderFIVE.addChangeListener(new javax.swing.event.ChangeListener() {
-        	            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-        	            	sliderChange(evt, 5);
-        	            }
-        	        });
+        this.MainUserInterfaceSliderONE.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, sliders[0], sliderLabels[0],sliderParameters[0]);
+            }
+        });
+        
+        this.MainUserInterfaceSliderTWO.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, sliders[1], sliderLabels[1],sliderParameters[1]);
+            }
+        });
+        
+        this.MainUserInterfaceSliderTHREE.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, sliders[2], sliderLabels[2],sliderParameters[2]);
+            }
+        });
+        
+        this.MainUserInterfaceSliderFOUR.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, sliders[3], sliderLabels[3],sliderParameters[3]);
+            }
+        });
+        
+        this.MainUserInterfaceSliderFIVE.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            	sliderChange(evt, sliders[4], sliderLabels[4],sliderParameters[4]);
+            }
+        });
 
         javax.swing.GroupLayout PasswordUnsuccessfulWindowLayout = new javax.swing.GroupLayout(PasswordUnsuccessfulWindow.getContentPane());
         PasswordUnsuccessfulWindow.getContentPane().setLayout(PasswordUnsuccessfulWindowLayout);
@@ -731,118 +756,206 @@ public class InitialMenu extends javax.swing.JFrame
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
+	
+	
+	
 
     private void LoginDialogBoxSubmitMouseClicked(java.awt.event.MouseEvent evt) 
-    {//GEN-FIRST:event_LoginDialogBoxSubmitMouseClicked
-        // TODO add your handling code here:
+    {
         String email = LoginBoxTextFieldUsername.getText();
         char[] password = LoginBoxTextFieldPassword.getPassword();
         
-        String loginRequest = HCMS.login(this.memberType, email, password);
+        String[] loginRequest = HCMS.login(this.memberType, email, password);
         
         
-        if(loginRequest.equals("Logged In."))
+        if(loginRequest[0].equals("Logged In."))
         {	
-        	SuccessWindowLabelSuccess.setText(loginRequest);
         	getReferenceNumber(this.memberType, LoginBoxTextFieldUsername.getText());
-	        LoginDialogBox.dispose();
-	        LoginSuccessWindow.setVisible(true);
+        	setLabel(this.SuccessWindowLabelSuccess, loginRequest[0]);        	        	
+	        closeDialog(this.LoginDialogBox);
+	        openDialog(this.LoginSuccessWindow);        	
+	        setUserDetails(loginRequest[1]);
         }
         else
         {
-            SuccessWindowLabelSuccess1.setText(loginRequest);
-            LoginDialogBox.dispose();
-            LoginFailWindow.setVisible(true);                        
+        	setLabel(this.SuccessWindowLabelSuccess1, loginRequest[0]);
+        	closeDialog(this.LoginDialogBox);           
+        	openDialog(this.LoginFailWindow);                        
         } 
    
-    }//GEN-LAST:event_LoginDialogBoxSubmitMouseClicked
+    }
+    
+    private void setUserDetails(String userDetails)
+    {
+    	this.activeUserDetails = userDetails;
+    }
     
     private void getReferenceNumber(String memberType, String emailId)
     {
     	this.userReferenceNumber = this.HCMS.emailToReferenceNumber(memberType, emailId);
     }
     
+    private boolean isPatient()
+    {
+    	boolean result = false;
+    	if(this.memberType.equals("Patient"))
+    		result = true;
+    	return result;
+    }
+    
+    private void setupSliderParameters(JSlider[] sliders, JLabel[] sliderLabels, String[] sliderParameters)
+    {    	    	    	
+    	if(sliders.length!=0)
+	    	for(int index = 0; index < sliders.length; index++)
+	            setSliderLabel(sliders[index], sliderLabels[index], sliderParameters[index]);           
+    }
+    
+    private void setSliderLabel(JSlider slider, JLabel sliderLabel, String sliderParameter)
+    {
+    	setLabel(sliderLabel, String.format("%s: [%2s]", sliderParameter, slider.getValue()));
+        slider.setMaximum(10);
+        slider.setMinimum(1);
+        slider.setMajorTickSpacing(5); 
+        slider.setMinorTickSpacing(1);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+    }
+    
+    private void setupSlider()
+    {
+    	if(isPatient())
+    		this.sliderParameters = new String[]{"Pain","Anxiety","Depression","Nausea","Dizziness"};
+    	else
+    		this.sliderParameters = new String[]{"Bed Rest","Take Medication","Call Doctor","Emergency Room","911"};
+    	
+    	setupSliderParameters(this.sliders, this.sliderLabels, this.sliderParameters);
+    }
+
     //display current value of slider
-    private void sliderChange(javax.swing.event.ChangeEvent evt, int number)
-    {    	    	
-    	switch(number)
-    	{
-	    	case 1:
-	    		this.MainUserInterfaceLabelONE.setText(String.format("Pain: [%2s]", this.MainUserInterfaceSliderONE.getValue()));
-	    		break;
-	    	case 2:
-	    		this.MainUserInterfaceLabelTWO.setText(String.format("Anxiety: [%2s]", this.MainUserInterfaceSliderTWO.getValue()));
-	    		break;
-	    	case 3:
-	    		this.MainUserInterfaceLabelTHREE.setText(String.format("Depression: [%2s]", this.MainUserInterfaceSliderTHREE.getValue()));
-	    		break;
-	    	case 4:
-	    		this.MainUserInterfaceLabelFOUR.setText(String.format("Nausea: [%2s]", this.MainUserInterfaceSliderFOUR.getValue()));
-	    		break;
-	    	case 5:
-	    		this.MainUserInterfaceLabelFIVE.setText(String.format("Other: [%2s]", this.MainUserInterfaceSliderFIVE.getValue()));
-	    		break;   	
-    	}    		
+    private void sliderChange(javax.swing.event.ChangeEvent evt, JSlider slider, JLabel sliderLabel, String sliderParameter)
+    {  
+    	setSliderLabel(slider, sliderLabel, sliderParameter);  		
     }
     
     //take slider values and submit conditions to HCMS
     private void MainUserInterfaceButtonSubmitMouseClicked(java.awt.event.MouseEvent evt)
-    {    	
-    	this.MainUserInterfaceTextPaneHistory.setText(
+    { 
     	
-    	this.HCMS.updatePatientStatus(
-    			this.userReferenceNumber, 
-    			new int[]{this.MainUserInterfaceSliderONE.getValue(), 
-    					this.MainUserInterfaceSliderTWO.getValue(),
-    					this.MainUserInterfaceSliderTHREE.getValue(),
-    					this.MainUserInterfaceSliderFOUR.getValue(),
-    					this.MainUserInterfaceSliderFIVE.getValue()})    	
-    	);
+    	if(isPatient())
+    	{
+	    	this.appendUIDisplay(    	
+		    	this.HCMS.updatePatientStatus(
+		    			this.userReferenceNumber, 
+		    			new int[]{this.MainUserInterfaceSliderONE.getValue(), 
+		    					this.MainUserInterfaceSliderTWO.getValue(),
+		    					this.MainUserInterfaceSliderTHREE.getValue(),
+		    					this.MainUserInterfaceSliderFOUR.getValue(),
+		    					this.MainUserInterfaceSliderFIVE.getValue()})    	
+		    	);
+    	}
+    	else
+    	{
+    		this.appendUIDisplay(    	
+    		    	this.HCMS.updatePatientStatus(
+    		    			this.userReferenceNumber, 
+    		    			new int[]{this.MainUserInterfaceSliderONE.getValue(), 
+    		    					this.MainUserInterfaceSliderTWO.getValue(),
+    		    					this.MainUserInterfaceSliderTHREE.getValue(),
+    		    					this.MainUserInterfaceSliderFOUR.getValue(),
+    		    					this.MainUserInterfaceSliderFIVE.getValue()})    	
+    		    	);
+    	}
     }
 
     
+    
     private void PatientRegistrationButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientRegistrationButtonSubmitMouseClicked
         //Initialize Variables
-        String doctorAssigned = RegistrationComboBox_One.getSelectedItem().toString();
-        
-        
+        String additionalInfo_1 = this.registrationComboBoxOne.getSelectedItem().toString();
+        String additionalInfo_2 = this.registrationComboBoxTwo.getSelectedItem().toString();
+
         //handle patient reg.
         if(this.memberType.equals("Patient"))
         {
-	        if(doctorAssigned == "Walter Bishop") {doctorAssigned = "1001";}
-	        else if (doctorAssigned == "Henry Jekyll") {doctorAssigned = "1002";}
-	        else if (doctorAssigned == "Dr. Dre") {doctorAssigned = "1003";}
-	        else if (doctorAssigned == "Hannibal Lecter") {doctorAssigned = "1004";}
-	        else if (doctorAssigned == "Dr. Evil") {doctorAssigned = "1005";}
-        }
+	        if(additionalInfo_1 == "Walter Bishop") {additionalInfo_1 = "1001";}
+	        else if (additionalInfo_1 == "Henry Jekyll") {additionalInfo_1 = "1002";}
+	        else if (additionalInfo_1 == "Dr. Dre") {additionalInfo_1 = "1003";}
+	        else if (additionalInfo_1 == "Hannibal Lecter") {additionalInfo_1 = "1004";}
+	        else if (additionalInfo_1 == "Dr. Evil") {additionalInfo_1 = "1005";}
+        }                	
+        
         String result = HCMS.register
         		(
         		this.memberType,
         		String.format("%s, %s", PatientRegistrationTextFieldLastName.getText(), PatientRegistrationTextFieldFirstName.getText()), 
         		PatientRegistrationPasswordFieldPassword.getPassword(), 
         		PatientRegistrationPasswordFieldConfirm.getPassword(), 
-        		doctorAssigned,
-                this.PatientRegistrationComboBoxUnderlyingCondition.getSelectedItem().toString(),
+        		additionalInfo_1,
+                this.registrationComboBoxTwo.getSelectedItem().toString(),
         		PatientRegistrationTextFieldEmail.getText(), 
         		PatientRegistrationTextFieldPhoneNumber.getText()
         		); 
         
    
         if(result.equals("Registration Complete!"))
-        {
-		    RegisterMenu.dispose();
-			RegisterMenu.setVisible(false);          
-			setVisible(true);
+        {		    
+        	closeWindow(this.RegisterMenu);
+        	openWindow(this);			
 			System.out.format("%s, %s", result, this.HCMS.toString());
         }
         else
         {
-        	PasswordUnsuccessfulLabelMessage.setText(result);
-        	PasswordUnsuccessfulWindow.setVisible(true); 
+        	setLabel(this.PasswordUnsuccessfulLabelMessage,result);        	
+        	openDialog(PasswordUnsuccessfulWindow);
         }
 	        	   
-    }//GEN-LAST:event_PatientRegistrationButtonSubmitMouseClicked
+    }
+    
+    
+    private void appendUIDisplay(String input)
+    {
+    	try
+    	{
+    		Document doc = this.MainUserInterfaceTextPaneHistory.getDocument();
+    		doc.insertString(doc.getLength(), String.format("%s%n", input), null);
+    	}
+    	catch(BadLocationException e)
+    	{
+    		e.printStackTrace();
+    	}
+    }
+    
+    private void openDialog(JDialog dialog)
+    {
+    	dialog.setVisible(true);
+    }
+    
+    private void closeDialog(JDialog dialog)
+    {
+    	dialog.setVisible(false);
+    	dialog.dispose();
+    }
+    
+    private void closeWindow(JFrame window)
+    {
+    	window.setVisible(false);
+    	window.dispose();    	
+    }    
+    
+    private void openWindow(JFrame window)
+    {
+    	window.setVisible(true);
+    }
+    private void setLabel(JLabel label, String text)
+    {
+    	label.setText(text);
+    }
+    
+    private void setMemberType(String memberType)
+    {
+    	this.memberType = memberType;
+    }
 
     private void PatientRegistrationButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientRegistrationButtonSubmitActionPerformed
         // TODO add your handling code here:
@@ -857,51 +970,48 @@ public class InitialMenu extends javax.swing.JFrame
     private void jPatientLoginMouseClicked(java.awt.event.MouseEvent evt) 
     {                                           
         // TODO add your handling code here:
-        this.memberType = "Patient";
-        LoginDialogBox.setVisible(true);
+    	setMemberType("Patient");
+    	openDialog(this.LoginDialogBox);        
     }                                          
     
     private void jDrLoginMouseClicked(java.awt.event.MouseEvent evt) 
-    {//GEN-FIRST:event_jPatientLoginMouseClicked
-        // TODO add your handling code here:
-    	this.memberType = "Doctor";
-        LoginDialogBox.setVisible(true);
-    }//GEN-LAST:event_jPatientLoginMouseClicked
+    {
+    	setMemberType("Doctor");
+    	openDialog(this.LoginDialogBox);    	
+    }
 
-    private void SuccessWindowButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuccessWindowButtonSubmitMouseClicked
-        // TODO add your handling code here:
+    private void SuccessWindowButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) 
+    {
+        
         LoginSuccessWindow.dispose();
         setVisible(false);
+        this.MainUserInterfaceTextPaneHistory.setText(String.format("Welcome!%n%s", this.activeUserDetails));
+        this.setupSlider();
         MainUserInterface.setVisible(true);
-    }//GEN-LAST:event_SuccessWindowButtonSubmitMouseClicked
+    }
 
-    private void SuccessWindowButtonSubmit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuccessWindowButtonSubmit1MouseClicked
-        // TODO add your handling code here:
-        LoginFailWindow.dispose();
-        LoginDialogBox.setVisible(true);
-        System.out.println("test delete this line");
-    }//GEN-LAST:event_SuccessWindowButtonSubmit1MouseClicked
+    private void SuccessWindowButtonSubmit1MouseClicked(java.awt.event.MouseEvent evt) 
+    {        
+    	closeDialog(this.LoginFailWindow);
+        openDialog(this.LoginDialogBox);        
+    }
 
     private void PasswordUnsuccessfulButtonOkayMouseClicked(java.awt.event.MouseEvent evt) 
-    {//GEN-FIRST:event_PasswordUnsuccessfulButtonOkayMouseClicked
-        // TODO add your handling code here:
-        PasswordUnsuccessfulWindow.dispose();
-       
-    }//GEN-LAST:event_PasswordUnsuccessfulButtonOkayMouseClicked
+    {
+        closeDialog(PasswordUnsuccessfulWindow);
+    }
 
-    private void InitialMenuButtonPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InitialMenuButtonPatientMouseClicked
-        // TODO add your handling code here:
-        this.memberType = "Patient";
-        LoginDialogBox.setVisible(true);
-    }//GEN-LAST:event_InitialMenuButtonPatientMouseClicked
+    private void InitialMenuButtonPatientMouseClicked(java.awt.event.MouseEvent evt) 
+    {
+    	setMemberType("Patient");
+        openDialog(this.LoginDialogBox);
+    }
 
-    private void InitialMenuButtonDoctorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InitialMenuButtonDoctorMouseClicked
-        // TODO add your handling code here:
-        hide();
-        this.memberType = "Doctor";
-        LoginDialogBox.setVisible(true);
-        //RegisterMenu.show();
-    }//GEN-LAST:event_InitialMenuButtonDoctorMouseClicked
+    private void InitialMenuButtonDoctorMouseClicked(java.awt.event.MouseEvent evt) 
+    {
+        setMemberType("Doctor");
+        openDialog(this.LoginDialogBox);
+    }
 
     private void selectDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDoctorActionPerformed
         // TODO add your handling code here:
@@ -911,18 +1021,19 @@ public class InitialMenu extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_selectPatientMouseClicked
 
-    private void selectDoctorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectDoctorMouseClicked
-        this.memberType = "Doctor";
-        this.ChooseMember.setVisible(false);
-        this.LoginDialogBox.setVisible(true);
-        
-    }//GEN-LAST:event_selectDoctorMouseClicked
+    private void selectDoctorMouseClicked(java.awt.event.MouseEvent evt) 
+    {
+    	setMemberType("Doctor");        
+    	closeWindow(this.ChooseMember);
+        openDialog(this.LoginDialogBox);       
+    }
 
-    private void selectPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPatientActionPerformed
-        this.memberType = "Patient";
-        this.ChooseMember.setVisible(false);
-        this.LoginDialogBox.setVisible(true);
-    }//GEN-LAST:event_selectPatientActionPerformed
+    private void selectPatientActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+    	setMemberType("Patient");
+    	closeWindow(this.ChooseMember);
+        openDialog(this.LoginDialogBox);
+    }
 
     private void InitialMenuButtonPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitialMenuButtonPatientActionPerformed
         // TODO add your handling code here:
@@ -932,43 +1043,65 @@ public class InitialMenu extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_InitialMenuButtonPatientComponentAdded
 
-    private void register_linkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_register_linkMouseClicked
-        if(this.memberType.equals("Doctor"))
-        {
-         
-            
-            this.PatientRegistrationLabelUnderlyingCondition.setText("Number of Patients");
-            this.PatientRegistrationComboBoxUnderlyingCondition.removeAllItems();
-            
+    private void register_linkMouseClicked(java.awt.event.MouseEvent evt) 
+    {       	
+        closeDialog(this.LoginDialogBox);
+        initializeRegistration();
+        openWindow(this.RegisterMenu);
+    }
+    
+    private void initializeRegistration()
+    {
+    	if (this.memberType.equals("Patient"))
+    	{
+    		setLabel(this.PatientRegistrationLabelUnderlyingCondition,"Underlying Condition");            
+        	setLabel(this.PatientRegistrationLabelDoctorAssigned,"Doctor Assigned");        	
+    	}
+    	else
+    	{
+    		setLabel(this.PatientRegistrationLabelDoctorAssigned,"Medical Field");            
+            setLabel(this.PatientRegistrationLabelUnderlyingCondition, "Number of Patients");       	
+    	}
+    	initializeComboBox();
+    }
+    
+    private void initializeComboBox()
+    {
+    	String[] comboOneData, comboTwoData;
+    	
+    	if (this.memberType.equals("Patient"))
+    	{
+    		comboOneData = new String[]{"Select Doctor", "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil"};
+    		comboTwoData = new String[]{"Condition1", "Condition2", "Condition3", "Condition 4"}; 
+    	}
+    	else
+    	{  
+    		comboOneData = new String[]{"Select Field","Cardiology","Neurology","Oncology","Pediatrics","Geriatics","Critical Care"}; 
+    		comboTwoData = new String[100];
+    		
             for(int count = 0; count < 100; count++)
-                this.PatientRegistrationComboBoxUnderlyingCondition.addItem(count);
-            
-            this.PatientRegistrationLabelDoctorAssigned.setText("Medical Field");
-            this.RegistrationComboBox_One.removeAllItems();
-            this.RegistrationComboBox_One.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Select Field","Cardiology","Neurology","Oncology","Pediatrics","Geriatics","Critical Care"}));
-            
-        }
-        else
-        {
-        	this.PatientRegistrationLabelUnderlyingCondition.setText("Underlying Condition");
-            this.PatientRegistrationComboBoxUnderlyingCondition.removeAllItems();
-        	this.PatientRegistrationLabelDoctorAssigned.setText("Doctor Assigned");
-        	this.RegistrationComboBox_One.removeAllItems();
-        	RegistrationComboBox_One.setModel(new javax.swing.DefaultComboBoxModel<Object>(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
-        	PatientRegistrationComboBoxUnderlyingCondition.setModel(new javax.swing.DefaultComboBoxModel<Object>(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
-        }
-        
-        this.LoginDialogBox.setVisible(false);
-        this.RegisterMenu.setVisible(true);
-    }//GEN-LAST:event_register_linkMouseClicked
+                comboTwoData[count]=String.valueOf(count+1);
+        } 
+    	
+    	setupComboBox(this.registrationComboBoxOne, comboOneData);
+        setupComboBox(this.registrationComboBoxTwo, comboTwoData);
+	}
+    
+    private void setupComboBox(JComboBox<Object> comboBox, String[] elements)
+    {
+    	comboBox.removeAllItems();
+    	for(int index = 0; index < elements.length; index++)
+            comboBox.addItem(elements[index]);    	    	
+    }
 
     private void LoginDialogBoxSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginDialogBoxSubmitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LoginDialogBoxSubmitActionPerformed
 
-    private void SuccessWindowButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuccessWindowButtonSubmitActionPerformed
+    private void SuccessWindowButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) 
+    {
         this.MainUserInterface.setVisible(true);// TODO add your handling code here:
-    }//GEN-LAST:event_SuccessWindowButtonSubmitActionPerformed
+    }
 
     private void PatientRegistrationComboBoxDoctorAssignedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientRegistrationComboBoxDoctorAssignedActionPerformed
         // TODO add your handling code here:
@@ -990,16 +1123,22 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JButton MainUserInterfaceButtonSubmit;
     private javax.swing.JSeparator MainUserInterfaceGUISeparator;
     private javax.swing.JLabel MainUserInterfaceLabelComments;
+    
+    private JLabel[] sliderLabels;
     private javax.swing.JLabel MainUserInterfaceLabelFIVE;
     private javax.swing.JLabel MainUserInterfaceLabelFOUR;
     private javax.swing.JLabel MainUserInterfaceLabelONE;
     private javax.swing.JLabel MainUserInterfaceLabelTHREE;
     private javax.swing.JLabel MainUserInterfaceLabelTWO;
+    
+    private JSlider[] sliders;
     private javax.swing.JSlider MainUserInterfaceSliderFIVE;
     private javax.swing.JSlider MainUserInterfaceSliderFOUR;
     private javax.swing.JSlider MainUserInterfaceSliderONE;
     private javax.swing.JSlider MainUserInterfaceSliderTHREE;
     private javax.swing.JSlider MainUserInterfaceSliderTWO;
+    
+    
     private javax.swing.JTextArea MainUserInterfaceTextAreaComments;
     private javax.swing.JTextPane MainUserInterfaceTextPaneHistory;
     private javax.swing.JLabel NewPatientRegistrationLabel;
@@ -1007,8 +1146,8 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JLabel PasswordUnsuccessfulLabelMessage;
     private javax.swing.JDialog PasswordUnsuccessfulWindow;
     private static javax.swing.JButton PatientRegistrationButtonSubmit;
-    private javax.swing.JComboBox<Object> RegistrationComboBox_One;
-    private javax.swing.JComboBox<Object> PatientRegistrationComboBoxUnderlyingCondition;
+    private javax.swing.JComboBox<Object> registrationComboBoxOne;
+    private javax.swing.JComboBox<Object> registrationComboBoxTwo;
     private javax.swing.JLabel PatientRegistrationLabelConfirmPassword;
     private javax.swing.JLabel PatientRegistrationLabelDoctorAssigned;
     private javax.swing.JLabel PatientRegistrationLabelEmail;
