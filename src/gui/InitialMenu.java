@@ -720,7 +720,6 @@ public class InitialMenu extends javax.swing.JFrame
         });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/stock-photo-21974050-doctor-using-smartphone.jpg"))); // NOI18N
-
         jLabel3.setText("Welcome");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -962,7 +961,8 @@ public class InitialMenu extends javax.swing.JFrame
         
     }//GEN-LAST:event_PatientRegistrationButtonSubmitActionPerformed
 
-    private void jDrLoginActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jDrLoginActionPerformed(java.awt.event.ActionEvent evt) 
+    {                                         
         // TODO add your handling code here:
     	//this.memberType = "Doctor";
     }                                        
