@@ -24,18 +24,27 @@
                       <Component id="LoginLabelPassword" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="LoginLabelUsername" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="register_link" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="2" attributes="0">
-                          <Component id="LoginDialogBoxSubmit" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="register_link" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="2" attributes="0">
+                                  <Component id="LoginDialogBoxSubmit" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <Component id="LoginBoxTextFieldPassword" linkSize="3" alignment="2" min="-2" pref="106" max="-2" attributes="0"/>
-                      <Component id="LoginBoxTextFieldUsername" linkSize="3" alignment="2" min="-2" pref="182" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="LoginBoxTextFieldPassword" linkSize="3" min="-2" pref="106" max="-2" attributes="0"/>
+                              <Component id="LoginBoxTextFieldUsername" linkSize="3" min="-2" pref="182" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -358,10 +367,14 @@
     </Container>
     <Container class="javax.swing.JFrame" name="MainUserInterface">
       <Properties>
+        <Property name="defaultCloseOperation" type="int" value="3"/>
+        <Property name="alwaysOnTop" type="boolean" value="true"/>
         <Property name="bounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
-          <Rectangle value="[0, 22, 406, 585]"/>
+          <Rectangle value="[0, 22, 500, 750]"/>
         </Property>
-        <Property name="resizable" type="boolean" value="false"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[582, 689]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -369,10 +382,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="MainUserInterfaceGUISeparator" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="MainUserInterfaceLabelONE" min="-2" max="-2" attributes="0"/>
                                       <Component id="MainUserInterfaceLabelTWO" min="-2" max="-2" attributes="0"/>
@@ -380,78 +394,77 @@
                                       <Component id="MainUserInterfaceLabelFOUR" min="-2" max="-2" attributes="0"/>
                                       <Component id="MainUserInterfaceLabelFIVE" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="MainUserInterfaceSliderFIVE" min="-2" max="-2" attributes="0"/>
-                                      <Component id="MainUserInterfaceSliderFOUR" min="-2" max="-2" attributes="0"/>
-                                      <Component id="MainUserInterfaceSliderTHREE" min="-2" max="-2" attributes="0"/>
-                                      <Component id="MainUserInterfaceSliderTWO" min="-2" max="-2" attributes="0"/>
-                                      <Component id="MainUserInterfaceSliderONE" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="153" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="MainUserInterfaceSliderONE" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="MainUserInterfaceSliderTWO" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="MainUserInterfaceSliderTHREE" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="MainUserInterfaceSliderFOUR" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="MainUserInterfaceSliderFIVE" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="392" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="MainUserInterfaceGUISeparator" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="MainUserInterfaceButtonSubmit" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="MainUserInterfaceLabelComments" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane2" min="-2" pref="355" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="MainUserInterfaceButtonSubmit" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="21" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="153" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="MainUserInterfaceGUISeparator" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="MainUserInterfaceSliderONE" min="-2" max="-2" attributes="0"/>
-                      <Component id="MainUserInterfaceLabelONE" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="MainUserInterfaceSliderTWO" min="-2" max="-2" attributes="0"/>
-                      <Component id="MainUserInterfaceLabelTWO" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="MainUserInterfaceSliderTHREE" min="-2" max="-2" attributes="0"/>
-                      <Component id="MainUserInterfaceLabelTHREE" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="MainUserInterfaceSliderFOUR" min="-2" max="-2" attributes="0"/>
-                      <Component id="MainUserInterfaceLabelFOUR" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="MainUserInterfaceSliderFIVE" min="-2" max="-2" attributes="0"/>
-                      <Component id="MainUserInterfaceLabelFIVE" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="MainUserInterfaceLabelComments" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="117" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="MainUserInterfaceButtonSubmit" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="MainUserInterfaceLabelONE" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="MainUserInterfaceSliderONE" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="MainUserInterfaceLabelTWO" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="MainUserInterfaceSliderTWO" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="MainUserInterfaceLabelTHREE" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="MainUserInterfaceSliderTHREE" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="MainUserInterfaceLabelFOUR" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="MainUserInterfaceSliderFOUR" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="MainUserInterfaceLabelFIVE" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="MainUserInterfaceSliderFIVE" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="MainUserInterfaceLabelComments" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="117" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="MainUserInterfaceButtonSubmit" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="83" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -473,32 +486,53 @@
         </Container>
         <Component class="javax.swing.JSlider" name="MainUserInterfaceSliderONE">
           <Properties>
-            <Property name="maximum" type="int" value="5"/>
+            <Property name="majorTickSpacing" type="int" value="1"/>
+            <Property name="maximum" type="int" value="10"/>
             <Property name="minimum" type="int" value="1"/>
+            <Property name="paintLabels" type="boolean" value="true"/>
+            <Property name="paintTicks" type="boolean" value="true"/>
+            <Property name="snapToTicks" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="MainUserInterfaceSliderTWO">
           <Properties>
-            <Property name="maximum" type="int" value="5"/>
+            <Property name="majorTickSpacing" type="int" value="1"/>
+            <Property name="maximum" type="int" value="10"/>
             <Property name="minimum" type="int" value="1"/>
+            <Property name="minorTickSpacing" type="int" value="1"/>
+            <Property name="paintLabels" type="boolean" value="true"/>
+            <Property name="paintTicks" type="boolean" value="true"/>
+            <Property name="snapToTicks" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="MainUserInterfaceSliderTHREE">
           <Properties>
-            <Property name="maximum" type="int" value="5"/>
+            <Property name="majorTickSpacing" type="int" value="1"/>
+            <Property name="maximum" type="int" value="10"/>
             <Property name="minimum" type="int" value="1"/>
+            <Property name="paintLabels" type="boolean" value="true"/>
+            <Property name="paintTicks" type="boolean" value="true"/>
+            <Property name="snapToTicks" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="MainUserInterfaceSliderFOUR">
           <Properties>
-            <Property name="maximum" type="int" value="5"/>
+            <Property name="majorTickSpacing" type="int" value="1"/>
+            <Property name="maximum" type="int" value="10"/>
             <Property name="minimum" type="int" value="1"/>
+            <Property name="paintLabels" type="boolean" value="true"/>
+            <Property name="paintTicks" type="boolean" value="true"/>
+            <Property name="snapToTicks" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="MainUserInterfaceSliderFIVE">
           <Properties>
-            <Property name="maximum" type="int" value="5"/>
+            <Property name="majorTickSpacing" type="int" value="1"/>
+            <Property name="maximum" type="int" value="10"/>
             <Property name="minimum" type="int" value="1"/>
+            <Property name="paintLabels" type="boolean" value="true"/>
+            <Property name="paintTicks" type="boolean" value="true"/>
+            <Property name="snapToTicks" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="MainUserInterfaceLabelONE">
@@ -530,8 +564,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="MainUserInterfaceButtonSubmit">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Submit Update!"/>
+            <Property name="text" type="java.lang.String" value="Submit"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="MainUserInterfaceButtonSubmitKeyPressed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
@@ -552,6 +589,15 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Comments:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton2MouseClicked"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jButton2KeyPressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

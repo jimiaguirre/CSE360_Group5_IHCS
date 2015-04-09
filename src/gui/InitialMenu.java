@@ -75,9 +75,9 @@ public class InitialMenu extends javax.swing.JFrame
         PatientRegistrationTextFieldPhoneNumber = new javax.swing.JTextField();
         PatientRegistrationTextFieldEmail = new javax.swing.JTextField();
         PatientRegistrationButtonSubmit = new javax.swing.JButton();
-        registrationComboBoxOne = new javax.swing.JComboBox();
+        PatientRegistrationComboBoxDoctorAssigned = new javax.swing.JComboBox();
         PatientRegistrationLabelUnderlyingCondition = new javax.swing.JLabel();
-        registrationComboBoxTwo = new javax.swing.JComboBox();
+        PatientRegistrationComboBoxUnderlyingCondition = new javax.swing.JComboBox();
         PatientRegistrationLabelConfirmPassword = new javax.swing.JLabel();
         PatientRegistrationLabelLastName = new javax.swing.JLabel();
         PatientRegistrationTextFieldLastName = new javax.swing.JTextField();
@@ -86,32 +86,22 @@ public class InitialMenu extends javax.swing.JFrame
         MainUserInterface = new javax.swing.JFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
         MainUserInterfaceTextPaneHistory = new javax.swing.JTextPane();
-        
-        
-        
-       
-        
-        sliders = new JSlider[]{
-    		MainUserInterfaceSliderONE = new javax.swing.JSlider(),
-            MainUserInterfaceSliderTWO = new javax.swing.JSlider(),
-            MainUserInterfaceSliderTHREE = new javax.swing.JSlider(),
-            MainUserInterfaceSliderFOUR = new javax.swing.JSlider(),
-            MainUserInterfaceSliderFIVE = new javax.swing.JSlider()
-        		};
-        
-        sliderLabels = new JLabel[]{
-	        MainUserInterfaceLabelONE = new javax.swing.JLabel(),
-	        MainUserInterfaceLabelTWO = new javax.swing.JLabel(),
-	        MainUserInterfaceLabelTHREE = new javax.swing.JLabel(),
-	        MainUserInterfaceLabelFOUR = new javax.swing.JLabel(),
-	        MainUserInterfaceLabelFIVE = new javax.swing.JLabel()
-        };
-        
+        MainUserInterfaceSliderONE = new javax.swing.JSlider();
+        MainUserInterfaceSliderTWO = new javax.swing.JSlider();
+        MainUserInterfaceSliderTHREE = new javax.swing.JSlider();
+        MainUserInterfaceSliderFOUR = new javax.swing.JSlider();
+        MainUserInterfaceSliderFIVE = new javax.swing.JSlider();
+        MainUserInterfaceLabelONE = new javax.swing.JLabel();
+        MainUserInterfaceLabelTWO = new javax.swing.JLabel();
+        MainUserInterfaceLabelTHREE = new javax.swing.JLabel();
+        MainUserInterfaceLabelFOUR = new javax.swing.JLabel();
+        MainUserInterfaceLabelFIVE = new javax.swing.JLabel();
         MainUserInterfaceGUISeparator = new javax.swing.JSeparator();
         MainUserInterfaceButtonSubmit = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         MainUserInterfaceTextAreaComments = new javax.swing.JTextArea();
         MainUserInterfaceLabelComments = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         LoginSuccessWindow = new javax.swing.JDialog();
         SuccessWindowLabelSuccess = new javax.swing.JLabel();
         SuccessWindowButtonSubmit = new javax.swing.JButton();
@@ -177,16 +167,21 @@ public class InitialMenu extends javax.swing.JFrame
                 .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(LoginLabelPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LoginLabelUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(register_link)
+                .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LoginDialogBoxLayout.createSequentialGroup()
-                        .addComponent(LoginDialogBoxSubmit)
+                        .addGap(33, 33, 33)
+                        .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(register_link)
+                            .addGroup(LoginDialogBoxLayout.createSequentialGroup()
+                                .addComponent(LoginDialogBoxSubmit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))))
+                    .addGroup(LoginDialogBoxLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(LoginBoxTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LoginBoxTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(LoginDialogBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LoginBoxTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LoginBoxTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         LoginDialogBoxLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {LoginBoxTextFieldPassword, LoginBoxTextFieldUsername});
@@ -242,10 +237,10 @@ public class InitialMenu extends javax.swing.JFrame
             }
         });
 
-        registrationComboBoxOne.setEditable(true);
-        registrationComboBoxOne.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
-        registrationComboBoxOne.setPreferredSize(new java.awt.Dimension(112, 28));
-        registrationComboBoxOne.addActionListener(new java.awt.event.ActionListener() {
+        PatientRegistrationComboBoxDoctorAssigned.setEditable(true);
+        PatientRegistrationComboBoxDoctorAssigned.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil" }));
+        PatientRegistrationComboBoxDoctorAssigned.setPreferredSize(new java.awt.Dimension(112, 28));
+        PatientRegistrationComboBoxDoctorAssigned.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PatientRegistrationComboBoxDoctorAssignedActionPerformed(evt);
             }
@@ -253,8 +248,8 @@ public class InitialMenu extends javax.swing.JFrame
 
         PatientRegistrationLabelUnderlyingCondition.setText("Underlying Condition:");
 
-        registrationComboBoxTwo.setEditable(true);
-        registrationComboBoxTwo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
+        PatientRegistrationComboBoxUnderlyingCondition.setEditable(true);
+        PatientRegistrationComboBoxUnderlyingCondition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Condition1", "Condition2", "Condition3", "Condition 4" }));
 
         PatientRegistrationLabelConfirmPassword.setText("Confirm Password:");
 
@@ -275,7 +270,7 @@ public class InitialMenu extends javax.swing.JFrame
             .addGroup(RegisterMenuLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(RegisterMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(registrationComboBoxOne, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PatientRegistrationComboBoxDoctorAssigned, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(RegisterMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(PatientRegistrationLabelFirstName, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(PatientRegistrationLabelPassword, javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +287,7 @@ public class InitialMenu extends javax.swing.JFrame
                             .addGroup(RegisterMenuLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(PatientRegistrationLabelUnderlyingCondition))
-                            .addComponent(registrationComboBoxTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PatientRegistrationComboBoxUnderlyingCondition, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(RegisterMenuLayout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(PatientRegistrationLabelEmail))
@@ -342,67 +337,76 @@ public class InitialMenu extends javax.swing.JFrame
                     .addGroup(RegisterMenuLayout.createSequentialGroup()
                         .addComponent(PatientRegistrationLabelDoctorAssigned)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(registrationComboBoxOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(PatientRegistrationComboBoxDoctorAssigned, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(RegisterMenuLayout.createSequentialGroup()
                         .addComponent(PatientRegistrationLabelUnderlyingCondition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(registrationComboBoxTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(PatientRegistrationComboBoxUnderlyingCondition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PatientRegistrationButtonSubmit)
                 .addGap(28, 28, 28))
         );
 
-        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 506, 800));
-        MainUserInterface.setPreferredSize(new java.awt.Dimension(506, 800));
-        MainUserInterface.setResizable(false);
+        MainUserInterface.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        MainUserInterface.setAlwaysOnTop(true);
+        MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 500, 750));
+        MainUserInterface.setPreferredSize(new java.awt.Dimension(582, 689));
 
         MainUserInterfaceTextPaneHistory.setEditable(false);
         jScrollPane1.setViewportView(MainUserInterfaceTextPaneHistory);
 
+        MainUserInterfaceSliderONE.setMajorTickSpacing(1);
         MainUserInterfaceSliderONE.setMaximum(10);
         MainUserInterfaceSliderONE.setMinimum(1);
+        MainUserInterfaceSliderONE.setPaintLabels(true);
+        MainUserInterfaceSliderONE.setPaintTicks(true);
+        MainUserInterfaceSliderONE.setSnapToTicks(true);
 
+        MainUserInterfaceSliderTWO.setMajorTickSpacing(1);
         MainUserInterfaceSliderTWO.setMaximum(10);
         MainUserInterfaceSliderTWO.setMinimum(1);
+        MainUserInterfaceSliderTWO.setMinorTickSpacing(1);
+        MainUserInterfaceSliderTWO.setPaintLabels(true);
+        MainUserInterfaceSliderTWO.setPaintTicks(true);
+        MainUserInterfaceSliderTWO.setSnapToTicks(true);
 
+        MainUserInterfaceSliderTHREE.setMajorTickSpacing(1);
         MainUserInterfaceSliderTHREE.setMaximum(10);
         MainUserInterfaceSliderTHREE.setMinimum(1);
+        MainUserInterfaceSliderTHREE.setPaintLabels(true);
+        MainUserInterfaceSliderTHREE.setPaintTicks(true);
+        MainUserInterfaceSliderTHREE.setSnapToTicks(true);
 
+        MainUserInterfaceSliderFOUR.setMajorTickSpacing(1);
         MainUserInterfaceSliderFOUR.setMaximum(10);
         MainUserInterfaceSliderFOUR.setMinimum(1);
+        MainUserInterfaceSliderFOUR.setPaintLabels(true);
+        MainUserInterfaceSliderFOUR.setPaintTicks(true);
+        MainUserInterfaceSliderFOUR.setSnapToTicks(true);
 
+        MainUserInterfaceSliderFIVE.setMajorTickSpacing(1);
         MainUserInterfaceSliderFIVE.setMaximum(10);
         MainUserInterfaceSliderFIVE.setMinimum(1);
-        
-        		this.MainUserInterfaceSliderONE.setMajorTickSpacing(1);
-                this.MainUserInterfaceSliderONE.setPaintTicks(true);
-                this.MainUserInterfaceSliderONE.setPaintLabels(true);
-                
-                this.MainUserInterfaceSliderTWO.setMajorTickSpacing(1);
-                this.MainUserInterfaceSliderTWO.setPaintTicks(true);
-                this.MainUserInterfaceSliderTWO.setPaintLabels(true);
-                
-                this.MainUserInterfaceSliderTHREE.setMajorTickSpacing(1);
-                this.MainUserInterfaceSliderTHREE.setPaintTicks(true);
-                this.MainUserInterfaceSliderTHREE.setPaintLabels(true);
-                
-                this.MainUserInterfaceSliderFOUR.setMajorTickSpacing(1);
-                this.MainUserInterfaceSliderFOUR.setPaintTicks(true);
-                this.MainUserInterfaceSliderFOUR.setPaintLabels(true);
-                
-                this.MainUserInterfaceSliderFIVE.setMajorTickSpacing(1);
-                this.MainUserInterfaceSliderFIVE.setPaintTicks(true);
-                this.MainUserInterfaceSliderFIVE.setPaintLabels(true);
-        
-                this.MainUserInterfaceLabelONE.setText(String.format("Pain: [%2s]", this.MainUserInterfaceSliderONE.getValue()));
-                this.MainUserInterfaceLabelTWO.setText(String.format("Anxiety: [%2s]", this.MainUserInterfaceSliderTWO.getValue()));
-                this.MainUserInterfaceLabelTHREE.setText(String.format("Depression: [%2s]", this.MainUserInterfaceSliderTHREE.getValue()));
-                this.MainUserInterfaceLabelFOUR.setText(String.format("Nausea: [%2s]", this.MainUserInterfaceSliderFOUR.getValue()));
-                this.MainUserInterfaceLabelFIVE.setText(String.format("Other: [%2s]", this.MainUserInterfaceSliderFIVE.getValue()));
-                
-        
+        MainUserInterfaceSliderFIVE.setPaintLabels(true);
+        MainUserInterfaceSliderFIVE.setPaintTicks(true);
+        MainUserInterfaceSliderFIVE.setSnapToTicks(true);
 
-        MainUserInterfaceButtonSubmit.setText("Submit Update!");
+        MainUserInterfaceLabelONE.setText("LabelONE");
+
+        MainUserInterfaceLabelTWO.setText("LabelTWO");
+
+        MainUserInterfaceLabelTHREE.setText("LabelTHREE");
+
+        MainUserInterfaceLabelFOUR.setText("LabelFOUR");
+
+        MainUserInterfaceLabelFIVE.setText("LabelFIVE");
+
+        MainUserInterfaceButtonSubmit.setText("Submit");
+        MainUserInterfaceButtonSubmit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MainUserInterfaceButtonSubmitKeyPressed(evt);
+            }
+        });
 
         MainUserInterfaceTextAreaComments.setColumns(20);
         MainUserInterfaceTextAreaComments.setRows(5);
@@ -410,78 +414,91 @@ public class InitialMenu extends javax.swing.JFrame
 
         MainUserInterfaceLabelComments.setText("Comments:");
 
+        jButton2.setText("Cancel");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton2KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout MainUserInterfaceLayout = new javax.swing.GroupLayout(MainUserInterface.getContentPane());
         MainUserInterface.getContentPane().setLayout(MainUserInterfaceLayout);
         MainUserInterfaceLayout.setHorizontalGroup(
             MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainUserInterfaceLayout.createSequentialGroup()
                 .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MainUserInterfaceGUISeparator)
                     .addGroup(MainUserInterfaceLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(MainUserInterfaceLayout.createSequentialGroup()
-                                .addGap(46, 46, 46)
                                 .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(MainUserInterfaceLabelONE)
                                     .addComponent(MainUserInterfaceLabelTWO)
                                     .addComponent(MainUserInterfaceLabelTHREE)
                                     .addComponent(MainUserInterfaceLabelFOUR)
                                     .addComponent(MainUserInterfaceLabelFIVE))
-                                .addGap(52, 52, 52)
-                                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(MainUserInterfaceSliderFIVE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(MainUserInterfaceSliderFOUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(MainUserInterfaceSliderTHREE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(MainUserInterfaceSliderONE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(MainUserInterfaceSliderTWO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(MainUserInterfaceSliderONE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(MainUserInterfaceSliderTHREE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(MainUserInterfaceSliderFOUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(MainUserInterfaceSliderFIVE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, 0))
                             .addGroup(MainUserInterfaceLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addComponent(MainUserInterfaceGUISeparator)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainUserInterfaceLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(MainUserInterfaceButtonSubmit)
-                            .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(MainUserInterfaceLabelComments)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainUserInterfaceLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(MainUserInterfaceButtonSubmit)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2))
+                            .addComponent(jScrollPane2))))
+                .addGap(20, 20, 20))
         );
         MainUserInterfaceLayout.setVerticalGroup(
             MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainUserInterfaceLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(MainUserInterfaceGUISeparator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MainUserInterfaceSliderONE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MainUserInterfaceLabelONE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MainUserInterfaceSliderTWO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MainUserInterfaceLabelTWO))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MainUserInterfaceSliderTHREE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MainUserInterfaceLabelTHREE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MainUserInterfaceSliderFOUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MainUserInterfaceLabelFOUR))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MainUserInterfaceSliderFIVE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MainUserInterfaceLabelFIVE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(MainUserInterfaceLabelComments)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(MainUserInterfaceButtonSubmit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(MainUserInterfaceLabelONE)
+                    .addComponent(MainUserInterfaceSliderONE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(MainUserInterfaceLabelTWO)
+                    .addComponent(MainUserInterfaceSliderTWO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(MainUserInterfaceLabelTHREE)
+                    .addComponent(MainUserInterfaceSliderTHREE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(MainUserInterfaceLabelFOUR)
+                    .addComponent(MainUserInterfaceSliderFOUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(MainUserInterfaceLabelFIVE)
+                    .addComponent(MainUserInterfaceSliderFIVE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(MainUserInterfaceLabelComments)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MainUserInterfaceButtonSubmit)
+                    .addComponent(jButton2))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         LoginSuccessWindow.setBounds(new java.awt.Rectangle(0, 22, 316, 130));
@@ -568,42 +585,6 @@ public class InitialMenu extends javax.swing.JFrame
         PasswordUnsuccessfulButtonOkay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 PasswordUnsuccessfulButtonOkayMouseClicked(evt);
-            }
-        });
-        
-        this.MainUserInterfaceButtonSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
-        	            public void mouseClicked(java.awt.event.MouseEvent evt) {
-        	            	MainUserInterfaceButtonSubmitMouseClicked(evt);
-        	            }
-        	        });
-        	        
-        this.MainUserInterfaceSliderONE.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, sliders[0], sliderLabels[0],sliderParameters[0]);
-            }
-        });
-        
-        this.MainUserInterfaceSliderTWO.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, sliders[1], sliderLabels[1],sliderParameters[1]);
-            }
-        });
-        
-        this.MainUserInterfaceSliderTHREE.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, sliders[2], sliderLabels[2],sliderParameters[2]);
-            }
-        });
-        
-        this.MainUserInterfaceSliderFOUR.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, sliders[3], sliderLabels[3],sliderParameters[3]);
-            }
-        });
-        
-        this.MainUserInterfaceSliderFIVE.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            	sliderChange(evt, sliders[4], sliderLabels[4],sliderParameters[4]);
             }
         });
 
@@ -720,6 +701,7 @@ public class InitialMenu extends javax.swing.JFrame
         });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/stock-photo-21974050-doctor-using-smartphone.jpg"))); // NOI18N
+
         jLabel3.setText("Welcome");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -755,13 +737,12 @@ public class InitialMenu extends javax.swing.JFrame
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 	
 	
 	
 
-    private void LoginDialogBoxSubmitMouseClicked(java.awt.event.MouseEvent evt) 
-    {
+    private void LoginDialogBoxSubmitMouseClicked(java.awt.event.MouseEvent evt){//GEN-FIRST:event_LoginDialogBoxSubmitMouseClicked
         String email = LoginBoxTextFieldUsername.getText();
         char[] password = LoginBoxTextFieldPassword.getPassword();
         
@@ -783,7 +764,8 @@ public class InitialMenu extends javax.swing.JFrame
         	openDialog(this.LoginFailWindow);                        
         } 
    
-    }
+    }//GEN-LAST:event_LoginDialogBoxSubmitMouseClicked
+
     
     private void setUserDetails(String userDetails)
     {
@@ -803,43 +785,115 @@ public class InitialMenu extends javax.swing.JFrame
     	return result;
     }
     
-    private void setupSliderParameters(JSlider[] sliders, JLabel[] sliderLabels, String[] sliderParameters)
+    private void updateSliders(JSlider[] sliders, JLabel[] sliderLabels, String[] sliderParameters)
     {    	    	    	
     	if(sliders.length!=0)
 	    	for(int index = 0; index < sliders.length; index++)
-	            setSliderLabel(sliders[index], sliderLabels[index], sliderParameters[index]);           
+	            updateSlider(this.sliders[index], this.sliderLabels[index], this.sliderParameters[index]);           
     }
     
-    private void setSliderLabel(JSlider slider, JLabel sliderLabel, String sliderParameter)
+    private void updateSlider(JSlider slider, JLabel sliderLabel, String sliderParameter)
     {
-    	setLabel(sliderLabel, String.format("%s: [%2s]", sliderParameter, slider.getValue()));
-        slider.setMaximum(10);
-        slider.setMinimum(1);
-        slider.setMajorTickSpacing(5); 
-        slider.setMinorTickSpacing(1);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
+    	setLabel(sliderLabel, String.format("%s: [%2s]", sliderParameter, slider.getValue()));        
     }
+    
+    private void formatSliders(JSlider[] sliders)
+    {
+    	for(int index = 0; index < sliders.length; index++)
+    	{
+    		sliders[index].setMaximum(10);
+            sliders[index].setMinimum(1);
+            sliders[index].setMajorTickSpacing(1); 
+            sliders[index].setMinorTickSpacing(0);
+            sliders[index].setPaintTicks(true);
+            sliders[index].setPaintLabels(true);
+    	}
+    }
+    		
     
     private void setupSlider()
     {
+    	createSliderArray();
+    	createLabelArray();
+    	formatSliders(this.sliders);
+    	createSliderEventHandler();
+    	
     	if(isPatient())
     		this.sliderParameters = new String[]{"Pain","Anxiety","Depression","Nausea","Dizziness"};
     	else
     		this.sliderParameters = new String[]{"Bed Rest","Take Medication","Call Doctor","Emergency Room","911"};
     	
-    	setupSliderParameters(this.sliders, this.sliderLabels, this.sliderParameters);
+    	updateSliders(this.sliders, this.sliderLabels, this.sliderParameters);
+    }
+    private void createSliderArray()
+    {
+    	this.sliders = new JSlider[]{
+        		MainUserInterfaceSliderONE,
+                MainUserInterfaceSliderTWO,
+                MainUserInterfaceSliderTHREE,
+                MainUserInterfaceSliderFOUR,
+                MainUserInterfaceSliderFIVE
+            		};                        
+    }
+    
+    private void createLabelArray()
+    {
+    	this.sliderLabels = new JLabel[]{
+    	        MainUserInterfaceLabelONE,
+    	        MainUserInterfaceLabelTWO,
+    	        MainUserInterfaceLabelTHREE,
+    	        MainUserInterfaceLabelFOUR,
+    	        MainUserInterfaceLabelFIVE
+            };
+    }
+    
+    private void createSliderEventHandler()
+    {
+    	this.MainUserInterfaceButtonSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	MainUserInterfaceButtonSubmitMouseClicked(evt);
+            }
+        });
+        
+		this.MainUserInterfaceSliderONE.addChangeListener(new javax.swing.event.ChangeListener() {
+		public void stateChanged(javax.swing.event.ChangeEvent evt) {
+			sliderChange(evt, sliders[0], sliderLabels[0],sliderParameters[0]);
+		}
+		});
+		
+		this.MainUserInterfaceSliderTWO.addChangeListener(new javax.swing.event.ChangeListener() {
+		public void stateChanged(javax.swing.event.ChangeEvent evt) {
+			sliderChange(evt, sliders[1], sliderLabels[1],sliderParameters[1]);
+		}
+		});
+		
+		this.MainUserInterfaceSliderTHREE.addChangeListener(new javax.swing.event.ChangeListener() {
+		public void stateChanged(javax.swing.event.ChangeEvent evt) {
+			sliderChange(evt, sliders[2], sliderLabels[2],sliderParameters[2]);
+		}
+		});
+		
+		this.MainUserInterfaceSliderFOUR.addChangeListener(new javax.swing.event.ChangeListener() {
+		public void stateChanged(javax.swing.event.ChangeEvent evt) {
+			sliderChange(evt, sliders[3], sliderLabels[3],sliderParameters[3]);
+		}
+		});
+		
+		this.MainUserInterfaceSliderFIVE.addChangeListener(new javax.swing.event.ChangeListener() {
+		public void stateChanged(javax.swing.event.ChangeEvent evt) {
+			sliderChange(evt, sliders[4], sliderLabels[4],sliderParameters[4]);
+		}
+		});
     }
 
     //display current value of slider
     private void sliderChange(javax.swing.event.ChangeEvent evt, JSlider slider, JLabel sliderLabel, String sliderParameter)
     {  
-    	setSliderLabel(slider, sliderLabel, sliderParameter);  		
+    	updateSlider(slider, sliderLabel, sliderParameter);  		
     }
     
     //take slider values and submit conditions to HCMS
-    private void MainUserInterfaceButtonSubmitMouseClicked(java.awt.event.MouseEvent evt)
-    { 
+    private void MainUserInterfaceButtonSubmitMouseClicked(java.awt.event.MouseEvent evt){                                                            
     	
     	if(isPatient())
     	{
@@ -865,9 +919,7 @@ public class InitialMenu extends javax.swing.JFrame
     		    					this.MainUserInterfaceSliderFIVE.getValue()})    	
     		    	);
     	}
-    }
-
-    
+    }                                                          
     
     private void PatientRegistrationButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientRegistrationButtonSubmitMouseClicked
         //Initialize Variables
@@ -909,7 +961,8 @@ public class InitialMenu extends javax.swing.JFrame
         	openDialog(PasswordUnsuccessfulWindow);
         }
 	        	   
-    }
+    }//GEN-LAST:event_PatientRegistrationButtonSubmitMouseClicked
+
     
     
     private void appendUIDisplay(String input)
@@ -968,50 +1021,55 @@ public class InitialMenu extends javax.swing.JFrame
     }                                        
 
     private void jPatientLoginMouseClicked(java.awt.event.MouseEvent evt) 
-    {                                           
+{                                           
+                                           
         // TODO add your handling code here:
     	setMemberType("Patient");
     	openDialog(this.LoginDialogBox);        
     }                                          
     
-    private void jDrLoginMouseClicked(java.awt.event.MouseEvent evt) 
-    {
+    private void jDrLoginMouseClicked(java.awt.event.MouseEvent evt){//GEN-FIRST:event_jPatientLoginMouseClicked
+
     	setMemberType("Doctor");
     	openDialog(this.LoginDialogBox);    	
-    }
+    }//GEN-LAST:event_jPatientLoginMouseClicked
 
-    private void SuccessWindowButtonSubmitMouseClicked(java.awt.event.MouseEvent evt) 
-    {
+
+    private void SuccessWindowButtonSubmitMouseClicked(java.awt.event.MouseEvent evt){//GEN-FIRST:event_SuccessWindowButtonSubmitMouseClicked
         
         LoginSuccessWindow.dispose();
         setVisible(false);
         this.MainUserInterfaceTextPaneHistory.setText(String.format("Welcome!%n%s", this.activeUserDetails));
         this.setupSlider();
         MainUserInterface.setVisible(true);
-    }
+    }//GEN-LAST:event_SuccessWindowButtonSubmitMouseClicked
 
-    private void SuccessWindowButtonSubmit1MouseClicked(java.awt.event.MouseEvent evt) 
-    {        
+
+    private void SuccessWindowButtonSubmit1MouseClicked(java.awt.event.MouseEvent evt){//GEN-FIRST:event_SuccessWindowButtonSubmit1MouseClicked
+        
     	closeDialog(this.LoginFailWindow);
         openDialog(this.LoginDialogBox);        
-    }
+    }//GEN-LAST:event_SuccessWindowButtonSubmit1MouseClicked
 
-    private void PasswordUnsuccessfulButtonOkayMouseClicked(java.awt.event.MouseEvent evt) 
-    {
+
+    private void PasswordUnsuccessfulButtonOkayMouseClicked(java.awt.event.MouseEvent evt)    {//GEN-FIRST:event_PasswordUnsuccessfulButtonOkayMouseClicked
+
         closeDialog(PasswordUnsuccessfulWindow);
-    }
+    }//GEN-LAST:event_PasswordUnsuccessfulButtonOkayMouseClicked
 
-    private void InitialMenuButtonPatientMouseClicked(java.awt.event.MouseEvent evt) 
-    {
+
+    private void InitialMenuButtonPatientMouseClicked(java.awt.event.MouseEvent evt){//GEN-FIRST:event_InitialMenuButtonPatientMouseClicked
     	setMemberType("Patient");
         openDialog(this.LoginDialogBox);
-    }
+    }//GEN-LAST:event_InitialMenuButtonPatientMouseClicked
 
-    private void InitialMenuButtonDoctorMouseClicked(java.awt.event.MouseEvent evt) 
-    {
+
+    private void InitialMenuButtonDoctorMouseClicked(java.awt.event.MouseEvent evt){//GEN-FIRST:event_InitialMenuButtonDoctorMouseClicked
+
         setMemberType("Doctor");
         openDialog(this.LoginDialogBox);
-    }
+    }//GEN-LAST:event_InitialMenuButtonDoctorMouseClicked
+
 
     private void selectDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDoctorActionPerformed
         // TODO add your handling code here:
@@ -1021,19 +1079,21 @@ public class InitialMenu extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_selectPatientMouseClicked
 
-    private void selectDoctorMouseClicked(java.awt.event.MouseEvent evt) 
-    {
+    private void selectDoctorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectDoctorMouseClicked
+
     	setMemberType("Doctor");        
     	closeWindow(this.ChooseMember);
         openDialog(this.LoginDialogBox);       
-    }
+    }//GEN-LAST:event_selectDoctorMouseClicked
 
-    private void selectPatientActionPerformed(java.awt.event.ActionEvent evt) 
-    {
+
+    private void selectPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPatientActionPerformed
+
     	setMemberType("Patient");
     	closeWindow(this.ChooseMember);
         openDialog(this.LoginDialogBox);
-    }
+    }//GEN-LAST:event_selectPatientActionPerformed
+
 
     private void InitialMenuButtonPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitialMenuButtonPatientActionPerformed
         // TODO add your handling code here:
@@ -1098,14 +1158,27 @@ public class InitialMenu extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_LoginDialogBoxSubmitActionPerformed
 
-    private void SuccessWindowButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) 
-    {
+    private void SuccessWindowButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuccessWindowButtonSubmitActionPerformed
+
         this.MainUserInterface.setVisible(true);// TODO add your handling code here:
-    }
+    }//GEN-LAST:event_SuccessWindowButtonSubmitActionPerformed
+
 
     private void PatientRegistrationComboBoxDoctorAssignedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientRegistrationComboBoxDoctorAssignedActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PatientRegistrationComboBoxDoctorAssignedActionPerformed
+
+    private void MainUserInterfaceButtonSubmitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MainUserInterfaceButtonSubmitKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MainUserInterfaceButtonSubmitKeyPressed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2KeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame ChooseMember;
@@ -1123,22 +1196,16 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JButton MainUserInterfaceButtonSubmit;
     private javax.swing.JSeparator MainUserInterfaceGUISeparator;
     private javax.swing.JLabel MainUserInterfaceLabelComments;
-    
-    private JLabel[] sliderLabels;
     private javax.swing.JLabel MainUserInterfaceLabelFIVE;
     private javax.swing.JLabel MainUserInterfaceLabelFOUR;
     private javax.swing.JLabel MainUserInterfaceLabelONE;
     private javax.swing.JLabel MainUserInterfaceLabelTHREE;
     private javax.swing.JLabel MainUserInterfaceLabelTWO;
-    
-    private JSlider[] sliders;
     private javax.swing.JSlider MainUserInterfaceSliderFIVE;
     private javax.swing.JSlider MainUserInterfaceSliderFOUR;
     private javax.swing.JSlider MainUserInterfaceSliderONE;
     private javax.swing.JSlider MainUserInterfaceSliderTHREE;
     private javax.swing.JSlider MainUserInterfaceSliderTWO;
-    
-    
     private javax.swing.JTextArea MainUserInterfaceTextAreaComments;
     private javax.swing.JTextPane MainUserInterfaceTextPaneHistory;
     private javax.swing.JLabel NewPatientRegistrationLabel;
@@ -1146,8 +1213,8 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JLabel PasswordUnsuccessfulLabelMessage;
     private javax.swing.JDialog PasswordUnsuccessfulWindow;
     private static javax.swing.JButton PatientRegistrationButtonSubmit;
-    private javax.swing.JComboBox<Object> registrationComboBoxOne;
-    private javax.swing.JComboBox<Object> registrationComboBoxTwo;
+    private javax.swing.JComboBox PatientRegistrationComboBoxDoctorAssigned;
+    private javax.swing.JComboBox PatientRegistrationComboBoxUnderlyingCondition;
     private javax.swing.JLabel PatientRegistrationLabelConfirmPassword;
     private javax.swing.JLabel PatientRegistrationLabelDoctorAssigned;
     private javax.swing.JLabel PatientRegistrationLabelEmail;
@@ -1169,6 +1236,7 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JLabel SuccessWindowLabelSuccess1;
     private javax.swing.JLabel greeting;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1180,6 +1248,10 @@ public class InitialMenu extends javax.swing.JFrame
     // End of variables declaration//GEN-END:variables
     
     //Variable Declarations
+    private javax.swing.JComboBox<Object> registrationComboBoxOne;
+    private javax.swing.JComboBox<Object> registrationComboBoxTwo;
+    private JLabel[] sliderLabels;
+    private JSlider[] sliders;
     private Component frame;
     private Component component;
     ArrayList<Object> vals = new ArrayList<Object>();
