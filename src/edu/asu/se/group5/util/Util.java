@@ -1,4 +1,4 @@
-package edu.asu.se.goup5.util;
+package edu.asu.se.group5.util;
 
 import java.util.List;
 
