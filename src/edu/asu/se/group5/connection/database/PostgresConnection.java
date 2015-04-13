@@ -1,6 +1,5 @@
 package edu.asu.se.group5.connection.database;
 
-import java.io.ObjectInputStream.GetField;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,10 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import edu.asu.se.group5.beans.HealthCondition;
@@ -66,6 +62,7 @@ public class PostgresConnection {
 
 	public Integer registerPatient(Patient p1) {
 		Connection connection = null;
+		String password = new String(p1.getPassword());
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
 			if(connection!=null){
@@ -73,8 +70,8 @@ public class PostgresConnection {
 					CallableStatement patientRegistrationProc = connection.prepareCall("{ ? = call register_patient(?,?,?,?,?) }");
 					patientRegistrationProc.registerOutParameter(1, Types.INTEGER);
 					patientRegistrationProc.setString(2, p1.getName());
-					patientRegistrationProc.setString(3, p1.getPassword());
-					patientRegistrationProc.setString(4, p1.getDoctorAssigned());
+					patientRegistrationProc.setString(3, password);
+					patientRegistrationProc.setString(4, String.valueOf(p1.getDoctorAssignedReferenceNumber()));
 					patientRegistrationProc.setString(5, p1.getEmailId());
 					patientRegistrationProc.setString(6, p1.getPhone());
 					
@@ -173,6 +170,7 @@ public class PostgresConnection {
 
 	public int registerDoctor(HealthserviceProvider h1) {
 		Connection connection = null;
+		String password = new String(h1.getPassword());
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
 			if(connection!=null){
@@ -180,10 +178,10 @@ public class PostgresConnection {
 					CallableStatement doctorRegistrationProc = connection.prepareCall("{ ? = call register_doctor(?,?,?,?,?) }");
 					doctorRegistrationProc.registerOutParameter(1, Types.INTEGER);
 					doctorRegistrationProc.setString(2, h1.getName());
-					doctorRegistrationProc.setString(3, h1.getPassword());
+					doctorRegistrationProc.setString(3, password);
 					doctorRegistrationProc.setString(4, h1.getEmailId());
 					doctorRegistrationProc.setString(5, h1.getPhone());
-					doctorRegistrationProc.setString(6, h1.getDepartment());
+					doctorRegistrationProc.setString(6, h1.getMedicalField());
 					doctorRegistrationProc.execute();
 					
 					int registration_number = doctorRegistrationProc.getInt(1);
@@ -224,7 +222,7 @@ public class PostgresConnection {
 					  // System.out.println(rs.getString(1));
 					   patient.setReferenceNumber(Integer.parseInt(rs.getString(1)));
 					   patient.setName(rs.getString(2));
-					   patient.setDoctorAssigned(rs.getString(4));
+					   patient.setDoctorAssignedReferenceNumber(Integer.parseInt(rs.getString(4)));
 					   patient.setEmailId(rs.getString(5));
 					   patient.setPhone(rs.getString(6));
 					   
@@ -271,7 +269,7 @@ public class PostgresConnection {
 					   //patient.setDoctorAssigned(rs.getString(4));
 					   h1.setEmailId(rs.getString(5));
 					   h1.setPhone(rs.getString(4));
-					   h1.setDepartment(rs.getString(6));
+					   h1.setMedicalField(rs.getString(6));
 					} rs.close();
 					st.close();
 					return h1;
@@ -296,6 +294,7 @@ public class PostgresConnection {
 
 	public List<HealthCondition> getLastKHealthStatusUpdates(int i,int patientId)	 {
 		List<HealthCondition> hlist = new ArrayList<HealthCondition>();
+		int count = 0;
 		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
@@ -321,6 +320,10 @@ public class PostgresConnection {
 					  h1.setDoctor_remark(rs.getString(8));
 					  
 					  hlist.add(h1);
+					  count++;
+					  if(count>i){
+						  break;
+					  }
 					} rs.close();
 					st.close();
 					return hlist;
