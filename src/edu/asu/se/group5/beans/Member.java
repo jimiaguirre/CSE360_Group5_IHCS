@@ -15,7 +15,7 @@ public abstract class Member {
 	public abstract String register();
 	public abstract String sendMessage();
 	
-	public Member(){this("name", "default@email.com", new char[] {0,0,0,0,0,0}, "(000) 000-0000", 0000);}
+	//public Member(){this("name", "default@email.com", new char[] {0,0,0,0,0,0}, "(000) 000-0000", 0000);}
 	
 	public Member(String name, String email, char[] password, String phone, int referenceNumber)
 	{
@@ -26,33 +26,7 @@ public abstract class Member {
 		this.referenceNumber = referenceNumber;
 	}
 	
-	public int getReferenceNumber() {
-		return referenceNumber;
-	}
-	private void setReferenceNumber(int referenceNumber) {
-		this.referenceNumber = referenceNumber;
-	}
-	public String getName() {
-		return name;
-	}
-	private void setName(String name) {
-		this.name = name;
-	}
-	private String getPhone() {
-		return phone;
-	}
-	private void setPhone(String phone) {
-		this.phone = phone;
-	}
-	private String getEmailId() {
-		return emailId;
-	}
-	private void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-	private char[] getPassword() {
-		return password;
-	}
+	
 	
 	public boolean authenticate(char[] input)
 	{
@@ -83,6 +57,42 @@ public abstract class Member {
 		return valid;
 	}
 	
+	public int getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(int referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+	public char[] getPassword() {
+		return password;
+	}
+	public void setPassword(char[] password) {
+		this.password = password;
+	}
+	public boolean isActiveSession() {
+		return activeSession;
+	}
+	public void setActiveSession(boolean activeSession) {
+		this.activeSession = activeSession;
+	}
 	private void logIn(){ this.activeSession = true;}
 	public void logOff(){ this.activeSession = false;}
 	protected boolean isActive()
