@@ -22,6 +22,14 @@ public class HealthserviceProvider extends Member
                 System.out.println(this.toString());
 	}
 	
+	public String getMedicalField() {
+		return medicalField;
+	}
+
+	public void setMedicalField(String medicalField) {
+		this.medicalField = medicalField;
+	}
+
 	@Override
 	public String register() {
 		// TODO Auto-generated method stub
