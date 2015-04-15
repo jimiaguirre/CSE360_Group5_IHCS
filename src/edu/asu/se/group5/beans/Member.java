@@ -38,19 +38,24 @@ public abstract class Member {
 		char[] t = input;	
 		
 		
-		while(valid && active)
-		{
-			for(int index = 0; index < this.password.length; index++)
-			{
-				if(this.password[index] != input[index])
-				{
-					valid = false;					
-					break;
-				}
-			//System.out.format("%s, %s --> %b%n", this.password[index], input.charAt(index), valid);
-			}
-			active = false;
-		}
+		if(this.password.length == input.length)
+                {
+                    while(valid && active)
+                    {
+                            for(int index = 0; index < this.password.length; index++)
+                            {
+                                    if(this.password[index] != input[index])
+                                    {
+                                            valid = false;					
+                                            break;
+                                    }
+                            //System.out.format("%s, %s --> %b%n", this.password[index], input.charAt(index), valid);
+                            }
+                            active = false;
+                    }
+                }
+                else
+                    valid = false;
 		
 		if(valid) {logIn();}
 		

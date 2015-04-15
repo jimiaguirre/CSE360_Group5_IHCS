@@ -71,16 +71,17 @@ public class HealthCareManagementSystem
 			result = "Passwords do not match.";
 			System.out.println(result);
 		}
+                
 		
 		if(result.equals("Processing"))
 		{		
 			if(memberType.equals("Patient"))
 			{
-				registerPatient(userName,password, otherInfo, info, emailId, phone);
+				registerPatient(userName, password, otherInfo, info, emailId, phone);
 			}
 			else
 			{
-				registerDoctor(userName,password, otherInfo, info, emailId, phone);
+				registerDoctor(userName, password, otherInfo, info, emailId, phone);
 			}
 			
 			result = String.format("Registration Complete!");	
