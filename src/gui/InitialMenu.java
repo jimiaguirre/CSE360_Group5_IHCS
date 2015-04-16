@@ -1356,6 +1356,8 @@ public class InitialMenu extends javax.swing.JFrame
     		    					this.MainUserInterfaceSliderFOUR.getValue(),
     		    					this.MainUserInterfaceSliderFIVE.getValue()})    	
     		    	);
+                
+                
     	}
     }
     

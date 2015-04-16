@@ -16,6 +16,7 @@ public class test
 
 	public static void main(String[] args) 
 	{
+            
 		int flag = 0;
 		
 		int[] curCon = new int[5];
@@ -29,53 +30,89 @@ public class test
 		//system.registerDoctor("Doctor J", "docj@doctor.com", "docPassword", "docPassword", "(555) 555-1512");
 		
 		//system.registerPatient("Jimi Aguirre", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001", "jimi@jimiaguirre.com", "555-5511");
-		system.register("Patient","Jimi Aguirre", new char[]{'1'}, new char[]{'1'}, "1001", "pain", "1", "555-5511");
-		system.register("Patient","Savannah P", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001","pain", "sp@email.com", "555-5511");
-		system.register("Patient","Eddie Wolf", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001","pain", "wolfpack@email.com", "555-5511");
-		system.register("Patient","Deepak parameshawarn", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001","pain", "deepak@email.com", "555-5511");
-		system.register("Patient","Nishant Coder", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001","pain", "nishant@email.com", "555-5511");
+		//system.register("Patient","Jimi Aguirre", new char[]{'1'}, new char[]{'1'}, "1001", "pain", "1", "555-5511");
+//		system.register("Patient","Savannah P", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001","pain", "sp@email.com", "555-5511");
+//		system.register("Patient","Eddie Wolf", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001","pain", "wolfpack@email.com", "555-5511");
+//		system.register("Patient","Deepak parameshawarn", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001","pain", "deepak@email.com", "555-5511");
+//		system.register("Patient","Nishant Coder", new char[]{'s','e','c','u','r','e','P','W'}, new char[]{'s','e','c','u','r','e','P','W'}, "1001","pain", "nishant@email.com", "555-5511");
+//              
+                
 		
-		String password = "securePW";
-		char[] pw = password.toCharArray();
+		
 		
 		
 		//login(member type, emailId, password)
 		//System.out.println(system.login("Doctor", "docj@doctor.com", "docPassword"));
 		//System.out.println(system.login("Patient", "docj@doctor.com", "docPassword"));
 		//System.out.println(system.login("Patient", "jimi@jimiaguirre.com", "securePW"));
-		System.out.println(system.login("Patient", "jimi@jimiaguirre.com", pw));
+                
+                for(int i=0;i<50;i++)
+                    System.out.println();
+                
+                
+                String password = "1";
+                char[] pw = password.toCharArray();
+                String email = "1";
+                
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1001", "1", email, "123"));
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1003", "1", "1", "123"));
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1002", "1", "12", "1234"));
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1001", "1", "123", "12345"));
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1002", "1", "1234", "12346"));
+                
+                
+//		System.out.println(system.login("Patient", email, pw)[0]);
+//                System.out.println(system.login("Patient", "12", pw)[0]);
+//                System.out.println(system.login("Patient", "1234", pw)[0]);
 		
-		system.updatePatientStatus(1007, new int[]{2,4,1,6,7});
-		system.updatePatientStatus(1007, new int[]{5,7,10,9,1});
-		system.updatePatientStatus(1007, new int[]{8,9,10,9,9});
+		System.out.println(system.updatePatientStatus(1006, new int[]{2,4,1,6,7}));
+		System.out.println(system.updatePatientStatus(1006, new int[]{5,7,10,9,1}));
+		System.out.println(system.updatePatientStatus(1006, new int[]{8,9,10,9,9}));
+                System.out.println(system.updatePatientStatus(1006, new int[]{2,4,1,6,7}));
+                System.out.println(system.updatePatientStatus(1006, new int[]{5,7,10,9,1}));
+                System.out.println(system.updatePatientStatus(1006, new int[]{8,9,10,9,9}));
+                
+                System.out.println(system.printKeys());
+                
+                
+		
+                
 		
 		//populate a list of 10 RANDOM health conditions to simulate past medical condition update submissions
 		//Random data to be used in std. dev. calculations		
-		ArrayList<int[]> pHistory = new ArrayList<int[]>();		
+//		ArrayList<int[]> pHistory = new ArrayList<int[]>();
+//                
 		for (int historyIndex = 0; historyIndex < 10; historyIndex++)
 		{
-			for(int conditionIndex = 0; conditionIndex < curCon.length; conditionIndex++)
-				curCon[conditionIndex] = generator.nextInt(((10 - 0) + 1) - 0);
-			system.updatePatientStatus(1007,Arrays.copyOf(curCon, curCon.length));						
+			for(int conditionIndex = 0; conditionIndex < curCon.length; conditionIndex++){
+				curCon[conditionIndex] = generator.nextInt(10 - 1 + 1) + 1;}
+			System.out.println(system.updatePatientStatus(1006,Arrays.copyOf(curCon, curCon.length)));
+                        System.out.println(system.updatePatientStatus(1008,Arrays.copyOf(curCon, curCon.length)));
+                        System.out.println(system.updatePatientStatus(1010,Arrays.copyOf(curCon, curCon.length)));
 		}	
+                
+                
+		System.out.println(system.printKeys());
+                
+//		System.out.println();
+                
+                
 		
-		System.out.println();
-		
-		String emailCheck = "jimi@jimiaguirre.com";
-		String memberType = "Patient";
-		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
-		
-		emailCheck = "docBishop@fringe.com";
-		memberType = "Doctor";		
-		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
-		
-		emailCheck = "newAddy@unique.com";
-		memberType = "Patient";
-		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
-		
-		emailCheck = "newDoc@uniqueID.com";
-		memberType = "Doctor";		
-		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+//		String emailCheck = "jimi@jimiaguirre.com";
+//		String memberType = "Patient";
+//		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+//		
+//		emailCheck = "docBishop@fringe.com";
+//		memberType = "Doctor";		
+//		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+//		
+//		emailCheck = "newAddy@unique.com";
+//		memberType = "Patient";
+//		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
+//		
+//		emailCheck = "newDoc@uniqueID.com";
+//		memberType = "Doctor";		
+//		System.out.format("Email[%s]: Unique Email ID: [%s]%n%n", emailCheck, system.isUniqueEmailId(memberType, emailCheck));
 		
 		
 		

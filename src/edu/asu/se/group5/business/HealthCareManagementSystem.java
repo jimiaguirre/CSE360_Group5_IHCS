@@ -1,6 +1,7 @@
 package edu.asu.se.group5.business;
 
 import java.lang.reflect.Array;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -9,6 +10,7 @@ import java.util.Set;
 import edu.asu.se.group5.beans.HealthserviceProvider;
 import edu.asu.se.group5.beans.Member;
 import edu.asu.se.group5.beans.Patient;
+import java.util.Arrays;
 
 public class HealthCareManagementSystem 
 {		
@@ -16,7 +18,10 @@ public class HealthCareManagementSystem
 	private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();		
 	private  String facility;
 	private  int referenceNumberGenerator = 1001;  	
-	private int patients, healthcareProviders, logins, transactions;
+	private int patients, healthcareProviders, logins, transactions, submissions, samples;
+        private  ArrayList<Integer> patientKeys = new ArrayList();
+        private double standardDeviation, populationMean, populationVariance, minStdDev, maxStdDev;
+        
 
 	public HealthCareManagementSystem(){this("Unspecified");}	
 	public HealthCareManagementSystem(String facilityName)
@@ -29,6 +34,14 @@ public class HealthCareManagementSystem
 		this.registerDoctor("Lecter, Hannibal", new char[]{'f','a','c','e','S','t','e','a','k','!'}, "Cardiology","0", "hungry@humans.com", "(223) 543-0929");
 		this.registerDoctor("Evil, Doctor", new char[]{'m','i','n','i','m','e'}, "Surgeon","0","evil@doctor.com", "(325) 943-1264");		
 	}
+        public String printKeys()
+        {
+            String result = "";
+            for(int i = 0; i < this.patientKeys.size(); i++)
+                result = result.concat(String.format("%s%n", this.patientKeys.get(i)));
+            
+            return result;
+        }
 	
 	public boolean passwordsMatch(char[] password, char[] passwordConfirmation)
 	{
@@ -69,7 +82,7 @@ public class HealthCareManagementSystem
 		if (!passwordsMatch(password, passwordConfirmation))
 		{
 			result = "Passwords do not match.";
-			System.out.println(result);
+			//System.out.println(result);
 		}
                 
 		
@@ -84,8 +97,8 @@ public class HealthCareManagementSystem
 				registerDoctor(userName, password, otherInfo, info, emailId, phone);
 			}
 			
-			result = String.format("Registration Complete!");	
-			System.out.format("[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);	
+			//result = String.format("Registration Complete!");	
+			result = String.format("Registration Complete!%n[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);	
 			referenceNumberGenerator++;
 		}
 		
@@ -99,9 +112,11 @@ public class HealthCareManagementSystem
 		//create arrayList for multiple values per single key of hashmap entry
 		ArrayList<Object> patientValues = new ArrayList<Object>();
 		patientValues.add(emailId);
-		patientValues.add(new Patient(userName, Integer.parseInt(otherInfo), temp.getName(), emailId, password, phone, "Condition", referenceNumberGenerator));				
+		patientValues.add(new Patient(userName, Integer.parseInt(otherInfo), temp.getName(), emailId, password, phone, "Condition", this.referenceNumberGenerator));				
 		//add patient to hash map
-		patientList.put(referenceNumberGenerator, patientValues);
+		this.patientList.put(referenceNumberGenerator, patientValues);
+                this.patientKeys.add(referenceNumberGenerator);
+                
 
 		this.patients++;
 	}
@@ -159,81 +174,150 @@ public class HealthCareManagementSystem
 
 	//update patient medical condition status
 		//assuming already logged in, the reference number is provided from the caller
-		public String updatePatientStatus(int referenceNumber, int[] condition)
-		{
-			String result="";
-			
-			
-			if(patientList.containsKey(referenceNumber))
-			{
-				Patient p = (Patient)patientList.get(referenceNumber).get(1);
+        public String updatePatientStatus(int referenceNumber, int[] condition)
+        {
+                String result="";
+                Patient p;
 
-				result = String.format("%s%n",p.setCurrentCondition(condition));
+                if(patientList.containsKey(referenceNumber))
+                {
+                        p = (Patient)patientList.get(referenceNumber).get(1);
+                        if(p.isActiveSession())
+                        {
+                            result = String.format("%s%n",p.setCurrentCondition(condition));
+                            result = String.format("%s%s",result, p.printHistory());
 
-			}
-			
-			return result;	
-		}
+                            ArrayList<int[]> ph = p.getConditionHistory();
+                            result = String.format("%s%s", result, evaluate(p));
+                            calculateStdDev();
+                        }
+                }
+                p = null;
+                return result;	
+        }
 	
-	private int[] evaluate(Patient patient)
+	public String evaluate(Patient patient)
 	{
 		//Array of int[] containing data needed for assessment evaluation
-		int[] evaluationData[] = {patient.getCurrentCondition(), patient.getAssessmentEvaluationThreshold(), new int[]{0,0,0,0,0}};		
-		
-		
-		
-		
-		for(int arrayIndex = 0; arrayIndex < Array.getLength(evaluationData[0]); arrayIndex++)
-		{	
-			System.out.println(evaluationData[0][arrayIndex]);
-			System.out.println(patient.getCurrentCondition()[arrayIndex]);
-			//if threshold exceeded, then place 1 to signify specified action must be taken.
-			if(evaluationData[0][arrayIndex] >= evaluationData[1][arrayIndex])
-				evaluationData[2][arrayIndex] = 1;
-			
-			//may need to implement average for further evaluation.
-			if(evaluationData[0][arrayIndex] < evaluationData[1][arrayIndex])
-				evaluationData[2][arrayIndex] = 0;
-		}
-		
-		
-		//testing std.dev method to verify results, can be used in threshold eval. above to
-		//trigger appropriate course of action
-		System.out.println(calculateStdDev(patient.getCurrentCondition()));
-		
-		return  evaluationData[2];
+		int[] evaluationData[] = {patient.getCurrentCondition(), patient.getAssessmentEvaluationThreshold(), new int[]{0,0,0,0,0}};
+                
+                double patientScore = 0;
+                
+                final int[] shift = {0,1};
+                int pickShift = 0;
+                
+                String result="";
+                
+                patientScore =  calculateAverage(patient.getCurrentCondition());
+                
+                result = String.format("%nPatient[%s] - SCORE: %s%n<", patient.getReferenceNumber() ,patientScore);
+                
+                    if(patientScore >= evaluationData[1][4])
+                    {
+                        result = String.format("%sLevel %s Reached -> 5[%s] <= s[%s]%n", result, 5 ,patientScore, evaluationData[1][4]);
+                    }
+                    if(patientScore >= evaluationData[1][3] && patientScore < evaluationData[1][4])
+                    {
+                        result = String.format("%sLevel %s Reached> (5[%s] > s[%s] >= 3[%s]", result, 4, evaluationData[1][4] ,patientScore, evaluationData[1][2]);
+                    }
+                    if(patientScore >= evaluationData[1][2] && patientScore < evaluationData[1][3])
+                    {
+                        result = String.format("%sLevel %s Reached> (4[%s] > s[%s] >= 2[%s]", result, 3 ,evaluationData[1][3] ,patientScore, evaluationData[1][1]);
+
+                    }
+                    if(patientScore >= evaluationData[1][1] && patientScore < evaluationData[1][2])
+                    {
+                        result = String.format("%sLevel %s Reached> (3[%s] > s[%s] >= 1[%s]", result, 2 ,evaluationData[1][2] ,patientScore, evaluationData[1][0]);
+                    }
+                    if(patientScore < evaluationData[1][1])
+                    {
+                        result = String.format("%sLevel %s Reached> (s[%s] < 1[%s]", result, 1 ,patientScore, evaluationData[1][1]);
+                    }
+                    
+                result = String.format("%s)", result);
+
+		return  result;
 	}
 	
 	//std dev calculator
 	//uses each element of the current condition array to calculate std dev. based on all severity ratings
 	//provided by the patient
-	private double calculateStdDev(int[] patientData)
+	public String calculateStdDev()
 	{
 		double result = 0;
-		double[] calc = new double[patientData.length];		
-		double average = calculateAverage(toDoubleArray(patientData));
-		double test = 0;
+                Patient patient;
+                ArrayList<int[]> patientHistory;
+                ArrayList<double[]> patientCalculation = new ArrayList();
+                ArrayList<double[]> systemCalculation = new ArrayList();
+                double average;
 		
-		System.out.println("AVG:"+average);
+                System.out.println("***STARTING STD DEV. CAlCULATION***");
+                
+                for(int key = 0; key < this.patientKeys.size(); key++)
+                {
+                    patient = (Patient)this.patientList.get(this.patientKeys.get(key)).get(1);
+                    
+                    if(patient.hasHistory())
+                    {
+                        
+                        patientHistory = patient.getConditionHistory();
+                        patientCalculation = toDoubleArrayList(patientHistory);
+                        average = calculateAverage(patientCalculation);
+                        this.populationMean = average;
+                    
+                    
+                        for(int listIndex = 0; listIndex < patientHistory.size(); listIndex++)
+                        {   
+                            this.submissions++;
+                            for(int arrayIndex = 0; arrayIndex < patientHistory.get(listIndex).length; arrayIndex++)
+                            {
+                                patientCalculation.get(listIndex)[arrayIndex] = Math.pow(patientHistory.get(listIndex)[arrayIndex] - average,2);
+                                this.samples++;
+                            }
+                            systemCalculation.add(patientCalculation.get(listIndex));
+                        }
 
-		for(int index = 0; index < patientData.length; index++)
-		{		
-			calc[index] = Math.pow(patientData[index]-average, 2); 
-			System.out.format("diff[%s]: %s%n ",index,calc[index]);
-		}		
-		result = Math.sqrt(calculateAverage(calc));						
-		return result;
+                    }
+                }
+                
+                this.populationVariance = calculateAverage(systemCalculation);
+                this.standardDeviation = Math.sqrt(this.populationVariance);
+		
+                System.out.println("***ENDING STD DEV. CAlCULATION***");
+                
+		return String.format("MEAN: %s, VAR: %s, STD DEV:%s, Submissions: %s, Samples: %s", this.populationMean, this.populationVariance, this.standardDeviation, this.submissions, this.samples);
 	}
 	//helper function for calculating average
-	private double calculateAverage(double[] input)
+	private double calculateAverage(ArrayList<double[]> input)
 	{
+                int count=0;
+                String values="";
 		double result = 0;
-		for(int index = 0; index < input.length; index++)
-			result += input[index];
-		result /= (input.length);
-		
+                
+                for(int listIndex = 0; listIndex < input.size(); listIndex++)
+                {
+                    for(int arrayIndex = 0; arrayIndex < input.get(listIndex).length; arrayIndex++)
+                    {
+                            result += input.get(listIndex)[arrayIndex];
+                            values = values.concat(input.get(listIndex)[arrayIndex]+ ",");
+                            count++;
+                    }
+                }
+		result /= (input.size() * input.get(0).length);
 		return result;
 	}
+        
+        private int calculateAverage(int[] input)
+        {
+            int result = 0;
+            
+            for(int i = 0; i < input.length; i++)
+                result += input[i];
+            
+            result /= input.length;
+            
+            return result;
+        }
 	
 	//if patient exists, retrieve patient object from database
 //	private Patient getPatient(String referenceNumber) 
@@ -250,13 +334,20 @@ public class HealthCareManagementSystem
 //	}
 	
 	//helper method to convert int[] double []
-	private double[] toDoubleArray(int[] array)
+	private ArrayList<double[]> toDoubleArrayList(ArrayList<int[]> arrayList)
 	{
-		double[] result = new double[array.length];
-		
-		for(int index=0; index < array.length; index++)
-			result[index] = array[index];
-		
+            ArrayList<double[]> result = new ArrayList<double[]>(arrayList.size());
+            double[] temp;
+            
+		for(int listIndex = 0; listIndex < arrayList.size(); listIndex++)
+                    {
+                        temp = new double[arrayList.get(listIndex).length];
+                        for(int arrayIndex = 0; arrayIndex < arrayList.get(listIndex).length; arrayIndex++)
+                        {
+                            temp[arrayIndex] = arrayList.get(listIndex)[arrayIndex];
+                        }
+                        result.add(temp);
+                    } 
 		return result;
 	}
 	
