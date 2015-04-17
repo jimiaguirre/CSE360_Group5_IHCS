@@ -54,11 +54,11 @@ public class test
                 char[] pw = password.toCharArray();
                 String email = "1";
                 
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1001", "1", email, "123"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1003", "1", "1", "123"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1002", "1", "12", "1234"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1001", "1", "123", "12345"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "1002", "1", "1234", "12346"));
+                System.out.println("Jimi :" + system.register("Patient", "Jimi Aguirre", pw, pw, "1", "1", email, "123"));
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "4", "1", "1", "123"));
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "2", "1", "12", "1234"));
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "3", "1", "123", "12345"));
+                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "5", "1", "1234", "12346"));
                 
                 
 //		System.out.println(system.login("Patient", email, pw)[0]);

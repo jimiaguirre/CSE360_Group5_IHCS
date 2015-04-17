@@ -10,7 +10,7 @@ public abstract class Member {
 	//private String password;
 	private char[] password;
 	private List<String> history;
-	private boolean activeSession;
+	private boolean activeSession = false;
 	
 	public abstract String register();
 	public abstract String sendMessage();
@@ -100,7 +100,8 @@ public abstract class Member {
 	}
 	private void logIn(){ this.activeSession = true;}
 	public void logOff(){ this.activeSession = false;}
-	protected boolean isActive()
+	
+        protected boolean isActive()
 	{
 		boolean sessionActive = false;
 		if(this.activeSession)
@@ -120,10 +121,23 @@ public abstract class Member {
 	public void setHistory(List<String> history) {
 		this.history = history;
 	}
+        
+        public String toString(int[] value, String[] category)
+        {
+            String result = "";
+            
+            for (int index = 0; index < category.length; index++)
+                result += String.format("|%-15s%15d|%n", category[index], value[index]);
+           
+            return result;
+                
+        }
+        
+        
 	
 	public String toString()
 	{								
-		return String.format("--Name: %s%n--Ref. #: %s%n--Email: %s%n--Password: %s%n%n", this.name, this.referenceNumber, this.emailId, String.copyValueOf(this.password));
+		return String.format("%s, %s%n%n", this.name, this.emailId);
 	}
 	
 	

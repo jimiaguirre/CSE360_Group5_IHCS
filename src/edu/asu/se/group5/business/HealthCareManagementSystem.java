@@ -21,6 +21,15 @@ public class HealthCareManagementSystem
 	private int patients, healthcareProviders, logins, transactions, submissions, samples;
         private  ArrayList<Integer> patientKeys = new ArrayList();
         private double standardDeviation, populationMean, populationVariance, minStdDev, maxStdDev;
+        private final String[] conditionCategory = {"Pain","Anxiety","Depression","Nausea","Dizziness"};
+        private final String[] action = {"Bed Rest","Take Medication","Call Doctor","Emergency Room","911"};
+        private final String[] medicalField = {"Select Field","Cardiology","Neurology","Oncology","Pediatrics","Geriatics","Critical Care"}; 
+        private final String[] underlyingConditions = {"Select Condition", "Post Surgery", "Pre Surgery", "Maternity", "Special Needs", "Heart Related", "Other"};
+        private  ArrayList<String[]> doctors = new ArrayList();
+        
+    
+
+    
         
 
 	public HealthCareManagementSystem(){this("Unspecified");}	
@@ -28,11 +37,15 @@ public class HealthCareManagementSystem
 	{
 		this.facility = facilityName;
 		this.patients = this.healthcareProviders = 0;
-		this.registerDoctor("Bishop, Walter",new char[]{'i','m','N','o','t','C','r','a','z','y'},"Neuro Surgeon", "0","docBishop@fringe.com", "(555) 555-1512");
-		this.registerDoctor("Jekyll, Henry", new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, "Plastic Surgeon","0","biPolar@ontheedge.com", "(555) 531-3357");
-		this.registerDoctor("Dre, Doctor", new char[]{'g','i','n','N','J','u','i','c','e'}, "Orthopedics","0", "dreDay@beats.com", "(234) 333-9382");
-		this.registerDoctor("Lecter, Hannibal", new char[]{'f','a','c','e','S','t','e','a','k','!'}, "Cardiology","0", "hungry@humans.com", "(223) 543-0929");
-		this.registerDoctor("Evil, Doctor", new char[]{'m','i','n','i','m','e'}, "Surgeon","0","evil@doctor.com", "(325) 943-1264");		
+                
+                doctors.add(new String[]{"Select Doctor","0000"});
+                this.register("Doctor", "Walter Bishop",new char[]{'1'},new char[]{'1'},"Neuro Surgeon", "0","1", "(555) 555-1512");
+
+//		this.register("Doctor", "Bishop, Walter",new char[]{'i','m','N','o','t','C','r','a','z','y'},new char[]{'i','m','N','o','t','C','r','a','z','y'},"Neuro Surgeon", "0","docBishop@fringe.com", "(555) 555-1512");
+		this.register("Doctor", "Henry Jekyll", new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, "Plastic Surgeon","0","biPolar@ontheedge.com", "(555) 531-3357");
+		this.register("Doctor", "Doctor Dre", new char[]{'g','i','n','N','J','u','i','c','e'}, new char[]{'g','i','n','N','J','u','i','c','e'}, "Orthopedics","0", "dreDay@beats.com", "(234) 333-9382");
+		this.register("Doctor", "Hannibal Lecter", new char[]{'f','a','c','e','S','t','e','a','k','!'}, new char[]{'f','a','c','e','S','t','e','a','k','!'}, "Cardiology","6", "hungry@humans.com", "(223) 543-0929");
+		this.register("Doctor", "Doctor Evil", new char[]{'m','i','n','i','m','e'}, new char[]{'m','i','n','i','m','e'}, "Surgeon","0","evil@doctor.com", "(325) 943-1264");		
 	}
         public String printKeys()
         {
@@ -97,9 +110,9 @@ public class HealthCareManagementSystem
 				registerDoctor(userName, password, otherInfo, info, emailId, phone);
 			}
 			
-			//result = String.format("Registration Complete!");	
-			result = String.format("Registration Complete!%n[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);	
-			referenceNumberGenerator++;
+			result = String.format("Registration Complete!");	
+			this.transactions++;
+                        this.referenceNumberGenerator++;
 		}
 		
 		
@@ -108,12 +121,16 @@ public class HealthCareManagementSystem
 	
 	private void registerPatient(String userName, char[] password, String otherInfo, String info, String emailId, String phone)
 	{
-		HealthserviceProvider temp = (HealthserviceProvider)doctorList.get(Integer.parseInt(otherInfo)).get(1);					
+		HealthserviceProvider temp = (HealthserviceProvider)doctorList.get(getDoctorNumber(Integer.parseInt(otherInfo))).get(1);					
 		//create arrayList for multiple values per single key of hashmap entry
 		ArrayList<Object> patientValues = new ArrayList<Object>();
 		patientValues.add(emailId);
-		patientValues.add(new Patient(userName, Integer.parseInt(otherInfo), temp.getName(), emailId, password, phone, "Condition", this.referenceNumberGenerator));				
+		patientValues.add(new Patient(userName, Integer.parseInt(otherInfo), temp.getName(), temp.getPhone(), temp.getEmailId(), emailId, password, phone, "Condition", this.referenceNumberGenerator));
+                
+                temp.addPatient( userName,String.valueOf(referenceNumberGenerator));
+                
 		//add patient to hash map
+                
 		this.patientList.put(referenceNumberGenerator, patientValues);
                 this.patientKeys.add(referenceNumberGenerator);
                 
@@ -123,8 +140,7 @@ public class HealthCareManagementSystem
 	
 	private void registerDoctor(String userName, char[] password, String otherInfo, String info, String emailId, String phone) 
 	{
-		HealthserviceProvider h1 = new HealthserviceProvider();
-		ArrayList<Object> doctorValues = new ArrayList<Object>();		
+		ArrayList<Object> doctorValues = new ArrayList();		
 		doctorValues.add(emailId);
 		doctorValues.add(new HealthserviceProvider(userName, emailId, password, phone, referenceNumberGenerator, otherInfo, info));
 		
@@ -133,13 +149,14 @@ public class HealthCareManagementSystem
 		System.out.format("[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);		
 		
 		this.healthcareProviders++;
-		referenceNumberGenerator++;
+                addDoctor(userName, String.valueOf(this.referenceNumberGenerator));
+		
 	}
 	
 	//update patient medical condition status
 	//assuming already logged in, the reference number is provided from the caller
 	
-	private String memberDetail(String memberType, int referenceNumber)
+	private String memberDetails(String memberType, int referenceNumber)
 	{
 		String result;
 		
@@ -153,22 +170,22 @@ public class HealthCareManagementSystem
 	
 	private String patientDetails(int referenceNumber) 
 	{				
-		String result = String.format("<Reference Number [%s]: Invalid>%n", referenceNumber);				
+//		String result = String.format("<Reference Number [%s]: Invalid>%n", referenceNumber);				
 		
-		if(patientList.containsKey(referenceNumber))
-			result = String.format("<Reference Number [%s] : Retrieved>%n%s%n", referenceNumber, patientList.get(referenceNumber).get(1).toString());		
+//		if(patientList.containsKey(referenceNumber))
+//			result = String.format("<Reference Number [%s] : Retrieved>%n%s%n", referenceNumber, patientList.get(referenceNumber).get(1).toString());		
 		
-		return result;
+		return patientList.get(referenceNumber).get(1).toString();
 	}
 	
 	private String healthcareProviderDetails(int referenceNumber) 
 	{				
-		String result = String.format("<Reference Number [%s]: Invalid>%n", referenceNumber);				
-		
-		if(doctorList.containsKey(referenceNumber));
-			result = String.format("<Reference Number [%s]: Found>%n%s%n", referenceNumber, doctorList.get(referenceNumber).get(1).toString());		
-		
-		return result;
+//		String result = String.format("<Reference Number [%s]: Invalid>%n", referenceNumber);				
+//		
+//		if(doctorList.containsKey(referenceNumber));
+//			result = String.format("<Reference Number [%s]: Found>%n%s%n", referenceNumber, doctorList.get(referenceNumber).get(1).toString());		
+//		
+		return doctorList.get(referenceNumber).get(1).toString();
 	}
 
 
@@ -184,16 +201,25 @@ public class HealthCareManagementSystem
                         p = (Patient)patientList.get(referenceNumber).get(1);
                         if(p.isActiveSession())
                         {
-                            result = String.format("%s%n",p.setCurrentCondition(condition));
-                            result = String.format("%s%s",result, p.printHistory());
+                            result = String.format("%n%s%n", p.setCurrentCondition(condition, this.conditionCategory));
+                            result = String.format("%s%s", result, p.printHistory());
 
-                            ArrayList<int[]> ph = p.getConditionHistory();
                             result = String.format("%s%s", result, evaluate(p));
                             calculateStdDev();
+                            this.transactions++;
+                            logout(p);
                         }
                 }
                 p = null;
                 return result;	
+        }
+        
+        
+        
+        public String updateThreshold(int referenceNumber, int patientIndex, int[] threshold)
+        {
+            HealthserviceProvider d = getDoctor(referenceNumber);
+            return d.updateThreshold(getPatient(d.getPatientNumber(patientIndex)), threshold);
         }
 	
 	public String evaluate(Patient patient)
@@ -203,38 +229,38 @@ public class HealthCareManagementSystem
                 
                 double patientScore = 0;
                 
-                final int[] shift = {0,1};
+                
                 int pickShift = 0;
                 
                 String result="";
                 
                 patientScore =  calculateAverage(patient.getCurrentCondition());
                 
-                result = String.format("%nPatient[%s] - SCORE: %s%n<", patient.getReferenceNumber() ,patientScore);
+                result = String.format("Health Score: %s%nEvaluation: ", patientScore);
                 
                     if(patientScore >= evaluationData[1][4])
                     {
-                        result = String.format("%sLevel %s Reached -> 5[%s] <= s[%s]%n", result, 5 ,patientScore, evaluationData[1][4]);
+                        result += this.action[4];
                     }
                     if(patientScore >= evaluationData[1][3] && patientScore < evaluationData[1][4])
                     {
-                        result = String.format("%sLevel %s Reached> (5[%s] > s[%s] >= 3[%s]", result, 4, evaluationData[1][4] ,patientScore, evaluationData[1][2]);
+                        result += this.action[3];
                     }
                     if(patientScore >= evaluationData[1][2] && patientScore < evaluationData[1][3])
                     {
-                        result = String.format("%sLevel %s Reached> (4[%s] > s[%s] >= 2[%s]", result, 3 ,evaluationData[1][3] ,patientScore, evaluationData[1][1]);
+                        result += this.action[2];
 
                     }
                     if(patientScore >= evaluationData[1][1] && patientScore < evaluationData[1][2])
                     {
-                        result = String.format("%sLevel %s Reached> (3[%s] > s[%s] >= 1[%s]", result, 2 ,evaluationData[1][2] ,patientScore, evaluationData[1][0]);
+                        result += this.action[1];
                     }
                     if(patientScore < evaluationData[1][1])
                     {
-                        result = String.format("%sLevel %s Reached> (s[%s] < 1[%s]", result, 1 ,patientScore, evaluationData[1][1]);
+                        result += this.action[0];
                     }
                     
-                result = String.format("%s)", result);
+                //result = String.format("%s)", result);
 
 		return  result;
 	}
@@ -320,18 +346,33 @@ public class HealthCareManagementSystem
         }
 	
 	//if patient exists, retrieve patient object from database
-//	private Patient getPatient(String referenceNumber) 
-//	{				
-//		Patient p = (Patient)patientList.get(referenceNumber).get(1);
-//		
-//		if(p == null)
-//		{
-//			System.out.println("Patient with this id is not present in the system");				
-//		}
-//		else
-//			System.out.println(p.getName());
-//		return p;
-//	}
+	private Member getMember(String memberType, int referenceNumber) 
+	{	
+            Member result;
+            
+            if(memberType.equalsIgnoreCase("Patient"))
+                result = getPatient(referenceNumber);
+            else
+                result = getDoctor(referenceNumber);
+	
+            return result;
+	}
+        private HealthserviceProvider getDoctor(int referenceNumber)
+        {
+            HealthserviceProvider d = new HealthserviceProvider();
+            if(this.doctorList.containsKey(referenceNumber))
+               d = (HealthserviceProvider)this.doctorList.get(referenceNumber).get(1);
+            
+            return d;
+        }
+        private Patient getPatient(int referenceNumber)
+        {
+            Patient p = new Patient();
+            if(this.patientList.containsKey(referenceNumber))
+               p = (Patient)this.patientList.get(referenceNumber).get(1);
+            
+            return p;
+        }
 	
 	//helper method to convert int[] double []
 	private ArrayList<double[]> toDoubleArrayList(ArrayList<int[]> arrayList)
@@ -363,8 +404,9 @@ public class HealthCareManagementSystem
                     if(!emailId.isEmpty())
                     {
 
-                        if(memberType.equals("Patient")) key = verifyEmail(this.patientList ,emailId);
-                        else key = verifyEmail(this.doctorList ,emailId); 
+//                        if(memberType.equals("Patient")) key = verifyEmail(this.patientList ,emailId);
+//                        else key = verifyEmail(this.doctorList ,emailId);
+                        key = verifyEmail(memberType, emailId);
 
                         if(key != 0)
                         {
@@ -376,7 +418,8 @@ public class HealthCareManagementSystem
                                 if(user.authenticate(password))
                                 { 
                                 	report[0] = "Logged In."; 
-                                	report[1] = this.patientDetails(emailToReferenceNumber(memberType, emailId));
+                                	report[1] = this.memberDetails(memberType, emailToReferenceNumber(memberType, emailId));
+                                        this.logins++;
                             	}
                                 else report[0] = "Invalid Password.";
                         }
@@ -392,14 +435,35 @@ public class HealthCareManagementSystem
 
                         return report;
 	}	
+        
+        public void logout(Patient p){p.logOff();}
 	
-	public int verifyEmail(HashMap<Integer, ArrayList<Object>> memberList, String emailId)
+//	public int verifyEmail(HashMap<Integer, ArrayList<Object>> memberList, String emailId)
+//	{
+//                if(memberType)
+//		int result = 0;
+//		//search for email. if found, return reference Number
+//		for(Integer key: memberList.keySet())
+//			if(memberList.get(key).get(0).equals(emailId))
+//				result = key;		
+//		
+//		return result;
+//	}
+        
+        public int verifyEmail(String memberType, String emailId)
 	{
-		int result = 0;
+            HashMap<Integer, ArrayList<Object>> memberList;
+            int result = 0;
+                
+            if(memberType.equalsIgnoreCase("patient"))
+                 memberList = this.patientList;
+            else
+                memberList = this.doctorList;
+            
 		//search for email. if found, return reference Number
-		for(Integer key: memberList.keySet())
-			if(memberList.get(key).get(0).equals(emailId))
-				result = key;		
+            for(Integer key: memberList.keySet())
+                    if(memberList.get(key).get(0).equals(emailId))
+                            result = key;		
 		
 		return result;
 	}
@@ -410,14 +474,17 @@ public class HealthCareManagementSystem
 	{
 		boolean result = false;
 		
-		if(memberType.equals("Patient"))
-		{
-			if(verifyEmail(this.patientList, emailId) == 0)
+//		if(memberType.equals("Patient"))
+//		{
+//			if(verifyEmail(this.patientList, emailId) == 0)
+//				result = true;
+//		}
+//		else
+//			if(verifyEmail(this.doctorList, emailId) == 0)
+//				result = true
+                if(verifyEmail(memberType, emailId) == 0)
 				result = true;
-		}
-		else
-			if(verifyEmail(this.doctorList, emailId) == 0)
-				result = true;
+                
 		
 		return result;
 		
@@ -425,15 +492,63 @@ public class HealthCareManagementSystem
 	
 	public int emailToReferenceNumber(String memberType, String emailId)
 	{
-		int result = 0;		
-		
-		if(memberType.equals("Patient"))
-			result = verifyEmail(this.patientList,emailId);								
-		else
-			result = verifyEmail(this.doctorList,emailId);	
+//		int result = 0;		
+//		
+//		if(memberType.equals("Patient"))
+//			result = verifyEmail(this.patientList,emailId);								
+//		else
+//			result = verifyEmail(this.doctorList,emailId);	
 						
-		return result;
+		return verifyEmail(memberType,emailId);
 	}
+        
+    public String[] getConditionCategory() {
+        return conditionCategory;
+    }
+
+    public String[] getAction() {
+        return action;
+    }
+
+    public String[] getMedicalField() {
+        return medicalField;
+    }
+    
+    public String[] getPatientsAssigned(HealthserviceProvider doctor)
+    {
+        return doctor.getPatientList();
+    }
+   
+    
+    
+    //{"Select Doctor", "Walter Bishop", "Henry Jekyll", "Dr. Dre", "Hannibal Lecter", "Dr. Evil"};
+
+    public ArrayList<String[]> getDoctors() {
+        return this.doctors;
+    }
+    public String[] getDoctorList()
+    {
+        String[] result = new String[this.doctors.size()];
+        
+        for(int i = 0; i < this.doctors.size(); i++)
+           result[i] = this.doctors.get(i)[0];
+        
+        return result;
+    }
+    
+    public int getDoctorNumber(int index)
+    {
+        return Integer.parseInt(this.doctors.get(index)[1]);
+    }
+
+    public void addDoctor(String doctor, String referenceNumber) 
+    {
+        this.doctors.add(new String[]{doctor, referenceNumber});
+    }
+
+    public String[] getUnderlyingConditions() {
+        return underlyingConditions;
+    }
 
 	public String getFacilityName(){return this.facility;}
 	

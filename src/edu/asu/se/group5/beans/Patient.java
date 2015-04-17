@@ -7,7 +7,23 @@ import java.util.Arrays;
 
 public class Patient extends Member
 {
-	private String doctorAssignedName;
+	private String doctorAssignedName, doctorAssignedPhone, doctorAssignedEmail;
+
+    public String getDoctorAssignedPhone() {
+        return doctorAssignedPhone;
+    }
+
+    public void setDoctorAssignedPhone(String doctorAssignedPhone) {
+        this.doctorAssignedPhone = doctorAssignedPhone;
+    }
+
+    public String getDoctorAssignedEmail() {
+        return doctorAssignedEmail;
+    }
+
+    public void setDoctorAssignedEmail(String doctorAssignedEmail) {
+        this.doctorAssignedEmail = doctorAssignedEmail;
+    }
 	private int doctorAssignedReferenceNumber;
 	
 	private String underlyingCondition;
@@ -15,13 +31,26 @@ public class Patient extends Member
 	private int[] assessmentEvaluationThreshold = {2,4,5,6,9};
 	private int[] currentCondition;
 	private int historySize = 0;
+        private int thresholdUpdates = 1;
+
+    public int getThresholdUpdates() {
+        return thresholdUpdates;
+    }
+
+    public void setThresholdUpdates(int thresholdUpdates) {
+        this.thresholdUpdates = thresholdUpdates;
+    }
+        
+        private String[] conditions;
 	
 	
-	public Patient(){this("name", 0000, "doctor", "email", new char[]{0,0,0,0,0}, "phone", "underlying condition", 0000);}
+	public Patient(){this("name", 0000, "doctor Name","doctor Phone","doctor Email", "email", new char[]{0,0,0,0,0}, "phone", "underlying condition", 0000);}
 	
-	public Patient(String name, int doctorReferenceNumber, String doctorName, String email, char[] password, String phone, String underlyingCondition, int referenceNumber)
+	public Patient(String name, int doctorReferenceNumber, String doctorName, String doctorPhone, String doctorEmail, String email, char[] password, String phone, String underlyingCondition, int referenceNumber)
 	{
 		super(name,email,password,phone,referenceNumber);
+                this.doctorAssignedPhone = doctorPhone;
+                this.doctorAssignedEmail = doctorEmail;
 		this.doctorAssignedName = doctorName;
 		this.doctorAssignedReferenceNumber = doctorReferenceNumber;
 		this.underlyingCondition = underlyingCondition;
@@ -55,53 +84,58 @@ public class Patient extends Member
 	
 	//return the assessment threshold for a given patient
 	public int[] getAssessmentEvaluationThreshold() {return assessmentEvaluationThreshold;}
+        
+        
 	
 	//for Health care provider use, to set and update the threshold for a given patient.
-	protected void setAssessmentEvaluationThreshold(int[] assessmentEvaluationThreshold) {this.assessmentEvaluationThreshold = assessmentEvaluationThreshold;}
+	protected void setAssessmentEvaluationThreshold(int[] assessmentEvaluationThreshold) 
+        {
+            this.assessmentEvaluationThreshold = assessmentEvaluationThreshold;
+            this.thresholdUpdates++;
+        }
 	
 	//set the current patient condition
-	public String setCurrentCondition(int[] currentCondition)
+	public String setCurrentCondition(int[] currentCondition, String[] category)
 	{
-		String result;
+		String result = "";
 		if(super.isActive())
 		{
-			this.currentCondition = Arrays.copyOf(currentCondition, currentCondition.length);//update current
-                        updateConditionHistory(this.currentCondition);
-			result = String.format("<Patient [%s]: %s> --> Update %s Added %s%n", this.getReferenceNumber(), this.getName(),this.getHistoryCount(), printConditions(this.currentCondition));
+                    this.conditions = category;
+                    this.currentCondition = Arrays.copyOf(currentCondition, currentCondition.length);//update current
+                    updateConditionHistory(this.currentCondition);
+                    result = result.concat(String.format("Update Submitted!%n%s%n", printConditions(this.currentCondition, category)));
 		}
+                
 		else {result = "You have been logged out, Please Login.";}
                 
-		return result;
+                System.out.println(result);
+		
+                return result;
 	}
         
-        private String printConditions(int[] conditions)
+        private String printConditions(int[] condition, String[] category)
         {
-            String result = "{";
-            for (int index = 0; index < conditions.length; index++)
-                result = result.concat(String.format("[%d]", conditions[index]));
+            String result = "";
+            for (int index = 0; index < condition.length; index++)
+                result = result.concat(String.format("%-10s %2d%n", category[index], condition[index]));
             
-            return result.concat("}");
+            return String.format("%s" , result);
                 
         }
         
         public String printHistory()
         {
-            String result = "";
+            String result = " #|";
             
-            result = (String.format("<%s  Total Updates [%d]>%n",getReferenceNumber(), this.patientHistory.size()));
-            
+            for (int category = 0; category < this.conditions.length; category++)
+                result += String.format("%-10s|", conditions[category]);
+           
             for (int historyIndex = 0; historyIndex < this.patientHistory.size(); historyIndex++)
-		{
-                        result = result.concat(String.format("History [%2d]: {", historyIndex + 1));
-                        
+            {
+                    result += String.format("%n%2d)", historyIndex + 1);
 			for(int conditionIndex = 0; conditionIndex < this.patientHistory.get(historyIndex).length; conditionIndex++)
-                        {
-                           
-				result = result.concat(String.format("[%2d]", this.patientHistory.get(historyIndex)[conditionIndex]));
-                            if(conditionIndex == this.patientHistory.get(historyIndex).length){result = result.concat(String.format("}%n"));}
-                        }
-			result = result.concat(String.format("}%n"));
-		}
+                            result += String.format("%-11d", this.patientHistory.get(historyIndex)[conditionIndex]);
+            }
             return result;
         }
 	
@@ -118,7 +152,8 @@ public class Patient extends Member
 	
 	public int getHistoryCount(){return this.patientHistory.size();}
 	
-	public String toString(){return String.format("<Primary Care Physician [%s]: %s>%n<Underlying Condition: %s>%n%s",this.doctorAssignedReferenceNumber, this.doctorAssignedName, this.underlyingCondition, super.toString());}
+	public String toString(){return String.format(
+                "%sPhysician: %s%n - Ph: %s%n - Email: %s%n", super.toString(), this.doctorAssignedName, this.doctorAssignedPhone, this.doctorAssignedEmail);}
 		
 	
 }
