@@ -1042,10 +1042,72 @@ public class InitialMenu extends javax.swing.JFrame
 //	        else if (additionalInfo_1 == "Hannibal Lecter") {additionalInfo_1 = "1004";}
 //	        else if (additionalInfo_1 == "Dr. Evil") {additionalInfo_1 = "1005";}
 //                else if(additionalInfo_1.equals("Select Doctor")) {result = "Please Select A Doctor!";}
-//        } 
+//        }
+        
+        result = "Please Enter:";
+        boolean done = false;
+        
+        while(!done)
+        {
+            if(isEmpty(this.PatientRegistrationTextFieldFirstName))
+            {
+                this.PatientRegistrationLabelFirstName.requestFocusInWindow();
+                result += "  First Name\n";
+                break;
+            }
+            if(isEmpty(this.PatientRegistrationTextFieldLastName))
+            {
+                this.PatientRegistrationTextFieldLastName.requestFocusInWindow();
+                result += "  Last Name\n";
+                break;
+            }
+
+            if(isEmpty(this.PatientRegistrationPasswordFieldPassword))
+            {
+                this.PatientRegistrationPasswordFieldPassword.requestFocusInWindow();
+                result += "  Password\n";
+                break;
+            }
+
+            if(isEmpty(this.PatientRegistrationPasswordFieldConfirm))
+            {
+                result += "  Password Confirmation\n";
+                this.PatientRegistrationLabelConfirmPassword.requestFocusInWindow();
+                break;
+            }
+            
+            if(isEmpty(this.PatientRegistrationTextFieldPhoneNumber))
+            {
+                result += "  Phone\n";
+                this.PatientRegistrationLabelPhoneNumber.requestFocusInWindow();
+                break;
+            }
+
+            if(isEmpty(this.PatientRegistrationTextFieldEmail))
+            {
+                result += "  Email\n";
+                this.PatientRegistrationTextFieldEmail.requestFocusInWindow();
+                break;
+            }
+            result = "";
+            done = true;
+        }
+       
         
         
-        if(!additionalInfo_1.contains("Select"))
+        
+        if(this.registrationComboBoxOne.getSelectedIndex()==0)
+        {
+            if(this.memberType.equalsIgnoreCase("Patient"))
+                result = "Please Select a Doctor";
+            else
+                result = "Please Select a Medical Field";
+        }
+       
+        
+        
+        
+        if(this.registrationComboBoxOne.getSelectedIndex()!=0 && !result.contains("Please"))
         {
             result = HCMS.register
                             (
@@ -1078,8 +1140,8 @@ public class InitialMenu extends javax.swing.JFrame
                    this.PatientRegistrationPasswordFieldConfirm.requestFocusInWindow();
                    this.PatientRegistrationPasswordFieldConfirm.selectAll();
                 }
-                else if(result.contains("Select"))
-                {
+                else if(this.registrationComboBoxOne.getSelectedIndex()==0)
+                {  
                     this.registrationComboBoxOne.requestFocus();
                     this.registrationComboBoxOne.getEditor().getEditorComponent().requestFocusInWindow();
                     this.registrationComboBoxOne.setSelectedIndex(0);
@@ -1096,6 +1158,21 @@ public class InitialMenu extends javax.swing.JFrame
 	        	   
     }//GEN-LAST:event_PatientRegistrationButtonSubmitMouseClicked
 
+    private boolean isEmpty(JTextField field)
+    {
+        boolean result = false;
+        
+        if(field.getText().isEmpty())
+            result = true;
+        
+        return result;
+    }
+    
+    private boolean allEmpty(JTextField[] fields)
+    {
+        return false;
+    }
+    
     
     
     private void appendUIDisplay(String input)
