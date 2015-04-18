@@ -1,6 +1,8 @@
 package edu.asu.se.group5.connection.database;
 
 import java.sql.CallableStatement;
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.asu.se.group5.beans.HealthCondition;
@@ -16,7 +19,10 @@ import edu.asu.se.group5.beans.HealthserviceProvider;
 import edu.asu.se.group5.beans.Patient;
 
 public class PostgresConnection {
-	public static void main(String[] argv) {
+	private final String username = "postgres";
+	private final String password = "postgres";
+	
+	/*public static void main(String[] argv) {
 		 
 		System.out.println("-------- PostgreSQL "
 				+ "JDBC Connection Testing ------------");
@@ -58,7 +64,7 @@ public class PostgresConnection {
 		} else {
 			System.out.println("Failed to make connection!");
 		}
-	}
+	}*/
 
 	public Integer registerPatient(Patient p1) {
 		Connection connection = null;
@@ -387,6 +393,227 @@ public class PostgresConnection {
 			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
 			return 3;//"failure";
+		}
+	}
+
+	public String[] getConditionCategory() {
+		String[] conditionCategory = null;
+		List<String> conditionCategoryList = new ArrayList<String>(); 
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			if(connection!=null){
+				try {
+					Statement st = connection.createStatement();
+					PreparedStatement statement = connection.prepareStatement("select *  from condition_category");    
+					//statement.setString(1, String.valueOf(patientId));
+					ResultSet rs = statement.executeQuery();
+					
+					while (rs.next())
+					{
+					  String condition = rs.getString(1);
+					  conditionCategoryList.add(condition);
+					} rs.close();
+					st.close();
+					Iterator<String> it = conditionCategoryList.iterator();
+					conditionCategory = new String[conditionCategoryList.size()];
+					for(int i=0;i<conditionCategoryList.size();i++){
+						conditionCategory[i] = it.next();
+					}
+					return conditionCategory;
+				} catch (SQLException e) {
+					System.out.println("SQL exception, please contact administrator"); 
+					e.printStackTrace();
+					HealthCondition h1 = new HealthCondition();
+					return null;
+				}
+			}else{
+				System.out.println("Failed to make connection!");
+				HealthCondition h1 = new HealthCondition();
+				h1.setDoctor_remark("Failure");
+				return null;
+			}
+		} catch (SQLException e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
+			HealthCondition h1 = new HealthCondition();
+			h1.setDoctor_remark("Failure");
+			return null;
+		}
+		
+	}
+	
+	public String[] getAction() {
+		String[] conditionCategory = null;
+		List<String> conditionCategoryList = new ArrayList<String>(); 
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			if(connection!=null){
+				try {
+					Statement st = connection.createStatement();
+					PreparedStatement statement = connection.prepareStatement("select *  from action");    
+					//statement.setString(1, String.valueOf(patientId));
+					ResultSet rs = statement.executeQuery();
+					
+					while (rs.next())
+					{
+					  String condition = rs.getString(1);
+					  conditionCategoryList.add(condition);
+					} rs.close();
+					st.close();
+					Iterator<String> it = conditionCategoryList.iterator();
+					conditionCategory = new String[conditionCategoryList.size()];
+					for(int i=0;i<conditionCategoryList.size();i++){
+						conditionCategory[i] = it.next();
+					}
+					return conditionCategory;
+				} catch (SQLException e) {
+					System.out.println("SQL exception, please contact administrator"); 
+					e.printStackTrace();
+					HealthCondition h1 = new HealthCondition();
+					return null;
+				}
+			}else{
+				System.out.println("Failed to make connection!");
+				HealthCondition h1 = new HealthCondition();
+				h1.setDoctor_remark("Failure");
+				return null;
+			}
+		} catch (SQLException e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
+			HealthCondition h1 = new HealthCondition();
+			h1.setDoctor_remark("Failure");
+			return null;
+		}
+		
+	}
+	
+	public String[] getMedicalField() {
+		String[] conditionCategory = null;
+		List<String> conditionCategoryList = new ArrayList<String>(); 
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			if(connection!=null){
+				try {
+					Statement st = connection.createStatement();
+					PreparedStatement statement = connection.prepareStatement("select *  from medical_field");    
+					//statement.setString(1, String.valueOf(patientId));
+					ResultSet rs = statement.executeQuery();
+					
+					while (rs.next())
+					{
+					  String condition = rs.getString(1);
+					  conditionCategoryList.add(condition);
+					} rs.close();
+					st.close();
+					Iterator<String> it = conditionCategoryList.iterator();
+					conditionCategory = new String[conditionCategoryList.size()];
+					for(int i=0;i<conditionCategoryList.size();i++){
+						conditionCategory[i] = it.next();
+					}
+					return conditionCategory;
+				} catch (SQLException e) {
+					System.out.println("SQL exception, please contact administrator"); 
+					e.printStackTrace();
+					HealthCondition h1 = new HealthCondition();
+					return null;
+				}
+			}else{
+				System.out.println("Failed to make connection!");
+				HealthCondition h1 = new HealthCondition();
+				h1.setDoctor_remark("Failure");
+				return null;
+			}
+		} catch (SQLException e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
+			HealthCondition h1 = new HealthCondition();
+			h1.setDoctor_remark("Failure");
+			return null;
+		}
+		
+	}
+	
+	public String[] getunderlyingConditions() {
+		String[] conditionCategory = null;
+		List<String> conditionCategoryList = new ArrayList<String>(); 
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			if(connection!=null){
+				try {
+					Statement st = connection.createStatement();
+					PreparedStatement statement = connection.prepareStatement("select *  from underlying_condition");    
+					//statement.setString(1, String.valueOf(patientId));
+					ResultSet rs = statement.executeQuery();
+					
+					while (rs.next())
+					{
+					  String condition = rs.getString(1);
+					  conditionCategoryList.add(condition);
+					} rs.close();
+					st.close();
+					Iterator<String> it = conditionCategoryList.iterator();
+					conditionCategory = new String[conditionCategoryList.size()];
+					for(int i=0;i<conditionCategoryList.size();i++){
+						conditionCategory[i] = it.next();
+					}
+					return conditionCategory;
+				} catch (SQLException e) {
+					System.out.println("SQL exception, please contact administrator"); 
+					e.printStackTrace();
+					HealthCondition h1 = new HealthCondition();
+					return null;
+				}
+			}else{
+				System.out.println("Failed to make connection!");
+				HealthCondition h1 = new HealthCondition();
+				h1.setDoctor_remark("Failure");
+				return null;
+			}
+		} catch (SQLException e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
+			HealthCondition h1 = new HealthCondition();
+			h1.setDoctor_remark("Failure");
+			return null;
+		}
+		
+	}
+
+	public void updatePateintStatus(int referenceNumber, int[] object) {
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			if(connection!=null){
+				try {
+					Statement st = connection.createStatement();
+					PreparedStatement statement = connection.prepareStatement("insert into patient_health_status(patient_reference_number,pain,drowsiness,nausea,anxiety,depression) values(?,?,?,?,?,?)");    
+					statement.setString(1, String.valueOf(referenceNumber));
+					statement.setInt(2, object[0]);
+					statement.setInt(3, object[4]);
+					statement.setInt(4, object[3]);
+					statement.setInt(5, object[1]);
+					statement.setInt(6, object[2]);
+					statement.executeUpdate();
+					st.close();
+				} catch (SQLException e) {
+					System.out.println("SQL exception, please contact administrator"); 
+					e.printStackTrace();
+				}
+			}else{
+				System.out.println("Failed to make connection!");
+			}
+		} catch (SQLException e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
 		}
 	}
 

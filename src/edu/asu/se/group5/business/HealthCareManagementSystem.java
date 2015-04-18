@@ -10,10 +10,13 @@ import java.util.Set;
 import edu.asu.se.group5.beans.HealthserviceProvider;
 import edu.asu.se.group5.beans.Member;
 import edu.asu.se.group5.beans.Patient;
+import edu.asu.se.group5.util.Util;
+
 import java.util.Arrays;
 
 public class HealthCareManagementSystem 
 {		
+	Util util = new Util();
 	private  HashMap<Integer,ArrayList<Object>> patientList = new HashMap<Integer,ArrayList<Object>>();
 	private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();		
 	private  String facility;
@@ -21,20 +24,59 @@ public class HealthCareManagementSystem
 	private int patients, healthcareProviders, logins, transactions, submissions, samples;
         private  ArrayList<Integer> patientKeys = new ArrayList();
         private double standardDeviation, populationMean, populationVariance, minStdDev, maxStdDev;
-        private final String[] conditionCategory = {"Pain","Anxiety","Depression","Nausea","Dizziness"};
-        private final String[] action = {"Bed Rest","Take Medication","Call Doctor","Emergency Room","911"};
-        private final String[] medicalField = {"Select Field","Cardiology","Neurology","Oncology","Pediatrics","Geriatics","Critical Care"}; 
-        private final String[] underlyingConditions = {"Select Condition", "Post Surgery", "Pre Surgery", "Maternity", "Special Needs", "Heart Related", "Other"};
+        private String[] conditionCategory = util.getConditionCategory();
+        private String[] action = util.getAction();
+        private String[] medicalField =  util.getMedicalField();
+        private String[] underlyingConditions = util.getunderlyingConditions();
         private  ArrayList<String[]> doctors = new ArrayList();
         
-    
-
-    
-        
-
-	public HealthCareManagementSystem(){this("Unspecified");}	
+	public HealthCareManagementSystem(){
+		
+		this("Unspecified");
+		
+	}	
+	
 	public HealthCareManagementSystem(String facilityName)
 	{
+		 if(conditionCategory == null){
+	        	conditionCategory = new String[5];
+	        	conditionCategory[0] = "Pain";
+	        	conditionCategory[1] = "Anxiety";
+	        	conditionCategory[2] = "Depression";
+	        	conditionCategory[3] = "Nausea";
+	        	conditionCategory[4] = "Dizziness";
+	        }
+		 
+		 if(action == null){
+	        	conditionCategory = new String[5];
+	        	conditionCategory[0] = "Bed Rest";
+	        	conditionCategory[1] = "Take Medication";
+	        	conditionCategory[2] = "Call Doctor";
+	        	conditionCategory[3] = "Emergency Room";
+	        	conditionCategory[4] = "911";
+	        }
+		 
+		 if(medicalField == null){
+	        	conditionCategory = new String[7];
+	        	conditionCategory[0] = "Select Field";
+	        	conditionCategory[1] = "Cardiology";
+	        	conditionCategory[2] = "Neurology";
+	        	conditionCategory[3] = "Oncology";
+	        	conditionCategory[4] = "Pediatrics";
+	        	conditionCategory[5] = "Geriatics";
+	        	conditionCategory[6] = "Critical Care";
+	        }
+		 
+		 if(underlyingConditions == null){
+	        	conditionCategory = new String[7];
+	        	conditionCategory[0] = "Select Condition";
+	        	conditionCategory[1] = "Post Surgery";
+	        	conditionCategory[2] = "Pre Surgery";
+	        	conditionCategory[3] = "Maternity";
+	        	conditionCategory[4] = "Special Needs";
+	        	conditionCategory[5] = "Heart Related";
+	        	conditionCategory[6] = "Other";
+	        }
 		this.facility = facilityName;
 		this.patients = this.healthcareProviders = 0;
                 
@@ -46,6 +88,7 @@ public class HealthCareManagementSystem
 		this.register("Doctor", "Doctor Dre", new char[]{'g','i','n','N','J','u','i','c','e'}, new char[]{'g','i','n','N','J','u','i','c','e'}, "Orthopedics","0", "dreDay@beats.com", "(234) 333-9382");
 		this.register("Doctor", "Hannibal Lecter", new char[]{'f','a','c','e','S','t','e','a','k','!'}, new char[]{'f','a','c','e','S','t','e','a','k','!'}, "Cardiology","6", "hungry@humans.com", "(223) 543-0929");
 		this.register("Doctor", "Doctor Evil", new char[]{'m','i','n','i','m','e'}, new char[]{'m','i','n','i','m','e'}, "Surgeon","0","evil@doctor.com", "(325) 943-1264");		
+		
 	}
         public String printKeys()
         {
@@ -127,10 +170,18 @@ public class HealthCareManagementSystem
 		patientValues.add(emailId);
 		patientValues.add(new Patient(userName, Integer.parseInt(otherInfo), temp.getName(), temp.getPhone(), temp.getEmailId(), emailId, password, phone, "Condition", this.referenceNumberGenerator));
                 
-                temp.addPatient( userName,String.valueOf(referenceNumberGenerator));
+        temp.addPatient( userName,String.valueOf(referenceNumberGenerator));
                 
 		//add patient to hash map
-                
+        Patient p1 = new Patient();
+        p1.setName(userName);
+        p1.setPassword(password);
+        p1.setDoctorAssignedName(info);
+        p1.setEmailId(emailId);
+        p1.setPhone(phone);
+        
+        Util util = new Util();
+        int registration = util.registerPatient(p1);
 		this.patientList.put(referenceNumberGenerator, patientValues);
                 this.patientKeys.add(referenceNumberGenerator);
                 
@@ -147,6 +198,16 @@ public class HealthCareManagementSystem
 		doctorList.put(referenceNumberGenerator, doctorValues);		
 				
 		System.out.format("[Reference Number: %s]%n - %s has been added to \"%s Healthcare Management System\"%n%n", referenceNumberGenerator, userName, this.facility);		
+		
+		HealthserviceProvider h1 = new HealthserviceProvider();
+		h1.setName(userName);
+		h1.setPassword(password);
+		h1.setMedicalField(otherInfo);
+		h1.setEmailId(emailId);
+		h1.setPhone(phone);
+		
+		 Util util = new Util();
+	     int registration = util.registerDoctor(h1);
 		
 		this.healthcareProviders++;
                 addDoctor(userName, String.valueOf(this.referenceNumberGenerator));
@@ -211,7 +272,11 @@ public class HealthCareManagementSystem
                         }
                 }
                 p = null;
+                Util util = new Util();
+                util.updatePateintStatus(referenceNumber,condition);
                 return result;	
+                
+               
         }
         
         
