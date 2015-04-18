@@ -32,11 +32,8 @@ public abstract class Member {
 	{
 		boolean valid = true;
 		boolean active = true;
-		
-		
 				
 		char[] t = input;	
-		
 		
 		if(this.password.length == input.length)
                 {
