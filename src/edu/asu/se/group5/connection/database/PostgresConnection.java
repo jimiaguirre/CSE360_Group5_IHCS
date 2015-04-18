@@ -47,7 +47,7 @@ public class PostgresConnection {
 		try {
  
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/postgres", "postgres",
+					"jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres",
 					"postgres");
  
 		} catch (SQLException e) {
@@ -70,7 +70,7 @@ public class PostgresConnection {
 		Connection connection = null;
 		String password = new String(p1.getPassword());
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres1111", "postgres","postgres");
 			if(connection!=null){
 				try {
 					CallableStatement patientRegistrationProc = connection.prepareCall("{ ? = call register_patient(?,?,?,?,?) }");
@@ -106,7 +106,7 @@ public class PostgresConnection {
 		List<String> patientId = new ArrayList<String>();
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -142,7 +142,7 @@ public class PostgresConnection {
 		List<String> doctorId = new ArrayList<String>();
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -178,7 +178,7 @@ public class PostgresConnection {
 		Connection connection = null;
 		String password = new String(h1.getPassword());
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					CallableStatement doctorRegistrationProc = connection.prepareCall("{ ? = call register_doctor(?,?,?,?,?) }");
@@ -214,7 +214,7 @@ public class PostgresConnection {
 		Patient patient = new Patient();
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -258,7 +258,7 @@ public class PostgresConnection {
 		HealthserviceProvider h1 = new HealthserviceProvider();
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -303,7 +303,7 @@ public class PostgresConnection {
 		int count = 0;
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -362,7 +362,7 @@ public class PostgresConnection {
 	public int updateHealthStatusAsPatient(HealthCondition hc1) {
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					CallableStatement updateHealthProcedure = connection.prepareCall("{ ? = call update_health_condition(?,?,?,?,?,?,?) }");
@@ -402,7 +402,7 @@ public class PostgresConnection {
 		int count = 0;
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -450,7 +450,7 @@ public class PostgresConnection {
 		int count = 0;
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -498,7 +498,7 @@ public class PostgresConnection {
 		int count = 0;
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -546,7 +546,7 @@ public class PostgresConnection {
 		int count = 0;
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
@@ -591,7 +591,7 @@ public class PostgresConnection {
 	public void updatePateintStatus(int referenceNumber, int[] object) {
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres11", "postgres","postgres");
 			if(connection!=null){
 				try {
 					Statement st = connection.createStatement();
