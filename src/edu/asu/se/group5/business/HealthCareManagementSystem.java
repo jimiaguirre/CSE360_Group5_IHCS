@@ -24,10 +24,10 @@ public class HealthCareManagementSystem
 	private int patients, healthcareProviders, logins, transactions, submissions, samples;
         private  ArrayList<Integer> patientKeys = new ArrayList();
         private double standardDeviation, populationMean, populationVariance, minStdDev, maxStdDev;
-        private String[] conditionCategory = util.getConditionCategory();
-        private String[] action = util.getAction();
-        private String[] medicalField =  util.getMedicalField();
-        private String[] underlyingConditions = util.getunderlyingConditions();
+        private final String[] conditionCategory = {"Pain","Anxiety","Depression","Nausea","Dizziness"};
+        private final String[] action = {"Bed Rest","Take Medication","Call Doctor","Emergency Room","911"};
+        private final String[] medicalField = {"Select Field","Cardiology","Neurology","Oncology","Pediatrics","Geriatics","Critical Care"}; 
+        private final String[] underlyingConditions = {"Select Condition", "Post Surgery", "Pre Surgery", "Maternity", "Special Needs", "Heart Related", "Other"};
         private  ArrayList<String[]> doctors = new ArrayList();
         
 	public HealthCareManagementSystem(){
@@ -38,7 +38,7 @@ public class HealthCareManagementSystem
 	
 	public HealthCareManagementSystem(String facilityName)
 	{
-		 if(conditionCategory == null){
+		/* if(conditionCategory == null){
 	        	conditionCategory = new String[5];
 	        	conditionCategory[0] = "Pain";
 	        	conditionCategory[1] = "Anxiety";
@@ -76,7 +76,7 @@ public class HealthCareManagementSystem
 	        	conditionCategory[4] = "Special Needs";
 	        	conditionCategory[5] = "Heart Related";
 	        	conditionCategory[6] = "Other";
-	        }
+	        }*/
 		this.facility = facilityName;
 		this.patients = this.healthcareProviders = 0;
                 
@@ -181,7 +181,7 @@ public class HealthCareManagementSystem
         p1.setPhone(phone);
         
         Util util = new Util();
-        int registration = util.registerPatient(p1);
+       // int registration = //util.registerPatient(p1);
 		this.patientList.put(referenceNumberGenerator, patientValues);
                 this.patientKeys.add(referenceNumberGenerator);
                 
@@ -207,7 +207,7 @@ public class HealthCareManagementSystem
 		h1.setPhone(phone);
 		
 		 Util util = new Util();
-	     int registration = util.registerDoctor(h1);
+	     int registration = //util.registerDoctor(h1);
 		
 		this.healthcareProviders++;
                 addDoctor(userName, String.valueOf(this.referenceNumberGenerator));
@@ -273,7 +273,7 @@ public class HealthCareManagementSystem
                 }
                 p = null;
                 Util util = new Util();
-                util.updatePateintStatus(referenceNumber,condition);
+                //util.updatePateintStatus(referenceNumber,condition);
                 return result;	
                 
                
