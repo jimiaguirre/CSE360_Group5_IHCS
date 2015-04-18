@@ -1,5 +1,7 @@
 package edu.asu.se.group5.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import edu.asu.se.group5.beans.HealthCondition;
@@ -55,4 +57,34 @@ public class Util {
 		int returnStatus = conn.updateHealthStatusAsPatient(hc1);
 		return returnStatus;
 	}
+
+	public String[] getConditionCategory() {
+		PostgresConnection conn = new PostgresConnection();
+		String[] conditionCategory = conn.getConditionCategory();
+		return conditionCategory;
+	}
+	
+	public String[] getAction() {
+		PostgresConnection conn = new PostgresConnection();
+		String[] conditionCategory = conn.getAction();
+		return conditionCategory;
+	}
+	
+	public String[] getMedicalField() {
+		PostgresConnection conn = new PostgresConnection();
+		String[] conditionCategory = conn.getMedicalField();
+		return conditionCategory;
+	}
+	
+	public String[] getunderlyingConditions() {
+		PostgresConnection conn = new PostgresConnection();
+		String[] conditionCategory = conn.getunderlyingConditions();
+		return conditionCategory;
+	}
+
+	public void updatePateintStatus(int referenceNumber, int[] object) {
+		PostgresConnection conn = new PostgresConnection();
+		conn.updatePateintStatus(referenceNumber,object);
+	}
+
 }
