@@ -35,7 +35,7 @@ public class PostgresConnection {
  
 			System.out.println("Where is your PostgreSQL JDBC Driver? "
 					+ "Include in your library path!");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return;
  
 		}
@@ -53,7 +53,7 @@ public class PostgresConnection {
 		} catch (SQLException e) {
  
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return;
  
 		}
@@ -88,7 +88,7 @@ public class PostgresConnection {
 					return registration_number;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					return 2;//"SQL exception, please contact administrator";
 				}
 			}else{
@@ -97,7 +97,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return 3;//"failure";
 		}
 	}
@@ -121,7 +121,7 @@ public class PostgresConnection {
 					return patientId;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					patientId.add("Failure");
 					return patientId;
 				}
@@ -132,7 +132,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			patientId.add("Failure");
 			return patientId;
 		}
@@ -157,7 +157,7 @@ public class PostgresConnection {
 					return doctorId;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					doctorId.add("Failure");
 					return doctorId;
 				}
@@ -168,7 +168,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			doctorId.add("Failure");
 			return doctorId;
 		}
@@ -195,7 +195,7 @@ public class PostgresConnection {
 					return registration_number;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					return 2; //"SQL exception, please contact administrator";
 				}
 			}else{
@@ -204,7 +204,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return 3; //"failure";
 		}
 
@@ -237,7 +237,7 @@ public class PostgresConnection {
 					return patient;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					patient.setName("Failure");
 					return patient;
 				}
@@ -248,7 +248,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			patient.setName("Failure");
 			return patient;
 		}
@@ -281,7 +281,7 @@ public class PostgresConnection {
 					return h1;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					h1.setName("Failure");
 					return h1;
 				}
@@ -292,7 +292,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			h1.setName("Failure");
 			return h1;
 		}
@@ -335,7 +335,7 @@ public class PostgresConnection {
 					return hlist;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					HealthCondition h1 = new HealthCondition();
 					h1.setDoctor_remark("Failure");
 					hlist.add(h1);
@@ -350,7 +350,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			HealthCondition h1 = new HealthCondition();
 			h1.setDoctor_remark("Failure");
 			hlist.add(h1);
@@ -382,7 +382,7 @@ public class PostgresConnection {
 					return registration_number;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					return 2;//"SQL exception, please contact administrator";
 				}
 			}else{
@@ -391,7 +391,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return 3;//"failure";
 		}
 	}
@@ -424,7 +424,7 @@ public class PostgresConnection {
 					return conditionCategory;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					HealthCondition h1 = new HealthCondition();
 					return null;
 				}
@@ -436,7 +436,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			HealthCondition h1 = new HealthCondition();
 			h1.setDoctor_remark("Failure");
 			return null;
@@ -472,7 +472,7 @@ public class PostgresConnection {
 					return conditionCategory;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					HealthCondition h1 = new HealthCondition();
 					return null;
 				}
@@ -484,7 +484,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			HealthCondition h1 = new HealthCondition();
 			h1.setDoctor_remark("Failure");
 			return null;
@@ -520,7 +520,7 @@ public class PostgresConnection {
 					return conditionCategory;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					HealthCondition h1 = new HealthCondition();
 					return null;
 				}
@@ -532,7 +532,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			HealthCondition h1 = new HealthCondition();
 			h1.setDoctor_remark("Failure");
 			return null;
@@ -568,7 +568,7 @@ public class PostgresConnection {
 					return conditionCategory;
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 					HealthCondition h1 = new HealthCondition();
 					return null;
 				}
@@ -580,7 +580,7 @@ public class PostgresConnection {
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 			HealthCondition h1 = new HealthCondition();
 			h1.setDoctor_remark("Failure");
 			return null;
@@ -606,14 +606,14 @@ public class PostgresConnection {
 					st.close();
 				} catch (SQLException e) {
 					System.out.println("SQL exception, please contact administrator"); 
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}else{
 				System.out.println("Failed to make connection!");
 			}
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
