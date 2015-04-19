@@ -490,7 +490,7 @@ public class HealthCareManagementSystem
     public String[] getMedicalField() {return medicalField;}
     
     //used by GUI to generate list of patients assigned to doctor
-    public String[] getPatientsAssigned(HealthserviceProvider doctor){return doctor.getPatientList();}
+    public String[] getPatientsAssigned(int referenceNumber){return this.getDoctor(referenceNumber).getPatientList();}
 //</editor-fold>    
 
 }
