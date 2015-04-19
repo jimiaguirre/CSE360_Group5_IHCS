@@ -98,8 +98,8 @@ public class HealthCareManagementSystem
                     }
                     else report[0] = "Invalid Password.";
                 }
-                
                 else report[0] = "Invalid Email";
+                System.out.println(emailId);
                 
             }
             else
@@ -111,7 +111,7 @@ public class HealthCareManagementSystem
         return report;
     }
     
-    public void logout(Patient p){p.logOff();}
+    public void logout(Member m){m.logOff();}
     
     //add doctor to the doctor list that is used by GUI
     public void addDoctor(String doctor, String referenceNumber){this.doctors.add(new String[]{doctor, referenceNumber});}
@@ -414,6 +414,7 @@ public class HealthCareManagementSystem
     //verify that both passwords match
     public int verifyEmail(String memberType, String emailId)
     {
+        System.out.println("Verify: "+emailId);
         HashMap<Integer, ArrayList<Object>> memberList;
         int result = 0;
         
@@ -424,9 +425,8 @@ public class HealthCareManagementSystem
         
         //search for email. if found, return reference Number
         for(Integer key: memberList.keySet())
-            if(memberList.get(key).get(0).equals(emailId))
+            if(memberList.get(key).get(0).equals(emailId))       
                 result = key;
-        
         return result;
     }
     //determine if email already exists within the systems
