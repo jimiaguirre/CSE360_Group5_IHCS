@@ -125,17 +125,26 @@ public class Patient extends Member
         
         public String printHistory()
         {
-            String result = " #|";
-            
-            for (int category = 0; category < this.conditions.length; category++)
-                result += String.format("%-10s|", conditions[category]);
-           
-            for (int historyIndex = 0; historyIndex < this.patientHistory.size(); historyIndex++)
+            String result = "";
+            if(this.hasHistory())
             {
-                    result += String.format("%n%2d)", historyIndex + 1);
-			for(int conditionIndex = 0; conditionIndex < this.patientHistory.get(historyIndex).length; conditionIndex++)
-                            result += String.format("%-11d", this.patientHistory.get(historyIndex)[conditionIndex]);
+                result = String.format("%s's History%n", this.getName());
+                result += " #|";
+
+                for (int category = 0; category < this.conditions.length; category++)
+                    result += String.format("%-10s|", conditions[category]);
+
+                for (int historyIndex = 0; historyIndex < this.patientHistory.size(); historyIndex++)
+                {
+                        result += String.format("%n%2d)", historyIndex + 1);
+                            for(int conditionIndex = 0; conditionIndex < this.patientHistory.get(historyIndex).length; conditionIndex++)
+                                result += String.format("%-11d", this.patientHistory.get(historyIndex)[conditionIndex]);
+                }
+                
             }
+            else
+                result = String.format("%s has not made any updates.", super.getName());
+            
             return result;
         }
 	

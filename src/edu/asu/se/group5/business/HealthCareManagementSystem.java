@@ -221,6 +221,11 @@ public class HealthCareManagementSystem
         HealthserviceProvider d = getDoctor(referenceNumber);
         return d.updateThreshold(getPatient(d.getPatientNumber(patientIndex)), threshold);
     }
+    public String getPatientHistory(int referenceNumber, int patientIndex)
+    {
+        HealthserviceProvider d = getDoctor(referenceNumber);
+        return d.getPatientHistory(getPatient(d.getPatientNumber(patientIndex)));
+    }
     
     //retrieve HealthserviceProvider object
     private HealthserviceProvider getDoctor(int referenceNumber)

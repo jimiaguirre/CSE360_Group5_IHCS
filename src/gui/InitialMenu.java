@@ -112,6 +112,7 @@ public class InitialMenu extends javax.swing.JFrame
         MainUserInterfaceLabelComments = new javax.swing.JLabel();
         main_UI_Cancel = new javax.swing.JButton();
         patientSelectComboBox = new javax.swing.JComboBox();
+        viewButton = new javax.swing.JButton();
         LoginSuccessWindow = new javax.swing.JDialog();
         SuccessWindowLabelSuccess = new javax.swing.JLabel();
         SuccessWindowButtonSubmit = new javax.swing.JButton();
@@ -485,6 +486,13 @@ public class InitialMenu extends javax.swing.JFrame
             }
         });
 
+        viewButton.setText("View");
+        viewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout MainUserInterfaceLayout = new javax.swing.GroupLayout(MainUserInterface.getContentPane());
         MainUserInterface.getContentPane().setLayout(MainUserInterfaceLayout);
         MainUserInterfaceLayout.setHorizontalGroup(
@@ -509,9 +517,6 @@ public class InitialMenu extends javax.swing.JFrame
                                     .addComponent(MainUserInterfaceSliderTHREE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(MainUserInterfaceSliderFOUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(MainUserInterfaceSliderFIVE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(MainUserInterfaceLayout.createSequentialGroup()
-                                .addComponent(MainUserInterfaceLabelComments)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainUserInterfaceLayout.createSequentialGroup()
                                 .addComponent(patientSelectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -519,11 +524,16 @@ public class InitialMenu extends javax.swing.JFrame
                                 .addComponent(MainUserInterfaceButtonSubmit)
                                 .addGap(18, 18, 18)
                                 .addComponent(main_UI_Cancel))
-                            .addComponent(jScrollPane2))))
+                            .addComponent(jScrollPane2)
+                            .addGroup(MainUserInterfaceLayout.createSequentialGroup()
+                                .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(viewButton)
+                                    .addComponent(MainUserInterfaceLabelComments))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(20, 20, 20))
         );
 
-        MainUserInterfaceLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {MainUserInterfaceButtonSubmit, main_UI_Cancel, patientSelectComboBox});
+        MainUserInterfaceLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {MainUserInterfaceButtonSubmit, main_UI_Cancel, patientSelectComboBox, viewButton});
 
         MainUserInterfaceLayout.setVerticalGroup(
             MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,10 +571,12 @@ public class InitialMenu extends javax.swing.JFrame
                     .addComponent(MainUserInterfaceButtonSubmit)
                     .addComponent(main_UI_Cancel)
                     .addComponent(patientSelectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(viewButton)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
-        MainUserInterfaceLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {MainUserInterfaceButtonSubmit, main_UI_Cancel, patientSelectComboBox});
+        MainUserInterfaceLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {MainUserInterfaceButtonSubmit, main_UI_Cancel, patientSelectComboBox, viewButton});
 
         LoginSuccessWindow.setBounds(new java.awt.Rectangle(0, 22, 316, 130));
         LoginSuccessWindow.setResizable(false);
@@ -917,9 +929,15 @@ public class InitialMenu extends javax.swing.JFrame
     private void setupMainUI()
     {
         if(this.memberType.equals("Patient"))
+        {
             this.patientSelectComboBox.setVisible(false);
+            this.viewButton.setVisible(false);
+        }
         else
         {
+            this.viewButton.setVisible(true);
+            this.viewButton.setEnabled(true);
+            this.patientSelectComboBox.setEnabled(true);
             this.patientSelectComboBox.setVisible(true);
             this.setupComboBox(patientSelectComboBox, this.HCMS.getPatientsAssigned(this.userReferenceNumber));
         }
@@ -1278,8 +1296,7 @@ public class InitialMenu extends javax.swing.JFrame
         this.setVisible(false);
         clearLogin();
         this.MainUserInterfaceTextPaneHistory.setText(String.format("Welcome, %s", this.activeUserDetails));
-        if(this.memberType.equalsIgnoreCase("Patient"))
-            this.patientSelectComboBox.setVisible(false);
+        
         setupMainUI();
         MainUserInterface.setVisible(true);
     }//GEN-LAST:event_SuccessWindowButtonSubmitMouseClicked
@@ -1451,6 +1468,7 @@ public class InitialMenu extends javax.swing.JFrame
             trashDocument();
             this.MainUserInterfaceButtonSubmit.setEnabled(true);           
             this.main_UI_Cancel.setText("Clear");
+            this.MainUserInterfaceButtonSubmit.setText("Submit");
             closeWindow(this.MainUserInterface);
             openWindow(this);            
         }
@@ -1475,11 +1493,27 @@ public class InitialMenu extends javax.swing.JFrame
 
     private void MainUserInterfaceButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainUserInterfaceButtonSubmitActionPerformed
         
-        updateStatus();
-        this.MainUserInterfaceButtonSubmit.setEnabled(false);
-        this.main_UI_Cancel.setText("Exit");
-        this.buttonState = "Logout";
-        this.main_UI_Cancel.requestFocusInWindow();
+        if(!this.MainUserInterfaceButtonSubmit.getText().equalsIgnoreCase("Continue"))
+        {
+            updateStatus();
+            if(this.memberType.equals("Patient"))
+                this.MainUserInterfaceButtonSubmit.setEnabled(false);
+            else
+                this.MainUserInterfaceButtonSubmit.setText("Continue");
+            
+            this.viewButton.setEnabled(false);
+            this.patientSelectComboBox.setEnabled(false);
+            this.main_UI_Cancel.setText("Exit");
+            this.buttonState = "Logout";
+            this.main_UI_Cancel.requestFocusInWindow();
+        }
+        else
+        {
+            this.MainUserInterfaceButtonSubmit.setText("Submit");
+            this.main_UI_Cancel.setText("Clear");
+            this.viewButton.setEnabled(true);
+            this.patientSelectComboBox.setEnabled(true);
+        }
     }//GEN-LAST:event_MainUserInterfaceButtonSubmitActionPerformed
 
     private void updateStatus()
@@ -1535,6 +1569,11 @@ public class InitialMenu extends javax.swing.JFrame
     private void patientSelectComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientSelectComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_patientSelectComboBoxActionPerformed
+
+    private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
+        this.appendUIDisplay(this.HCMS.getPatientHistory(this.userReferenceNumber, this.patientSelectComboBox.getSelectedIndex()+1));
+        
+    }//GEN-LAST:event_viewButtonActionPerformed
 
     private void clearRegistration()
     {
@@ -1616,6 +1655,7 @@ public class InitialMenu extends javax.swing.JFrame
     private javax.swing.JComboBox registrationComboBoxTwo;
     private javax.swing.JButton selectDoctor;
     private javax.swing.JButton selectPatient;
+    private javax.swing.JButton viewButton;
     // End of variables declaration//GEN-END:variables
     
     //Variable Declarations
@@ -1625,7 +1665,7 @@ public class InitialMenu extends javax.swing.JFrame
     private JSlider[] sliders;
     private Component frame;
     private Component component;
-    private String buttonState = "";
+    private String buttonState = "", buttonsStateSubmit = "";
     private String doctors[][];
     ArrayList<Object> vals = new ArrayList<Object>();
 }
