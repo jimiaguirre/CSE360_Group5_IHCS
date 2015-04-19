@@ -15,11 +15,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HealthCareManagementSystem 
-{		
+{	
+	
     private  HashMap<Integer,ArrayList<Object>> patientList = new HashMap<Integer,ArrayList<Object>>();
     private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();		
     private  String facility;
-    private  int referenceNumberGenerator = 1001;  	
+  //private static int referenceNumber = Util.getRefenceNumberGenerator();    //commented for database
+	private  int referenceNumberGenerator = 1001;//referenceNumber + 1;  
+	//private int writeToDatabase = 0;										  //required when writing to database
     private int patients, healthcareProviders, logins, transactions, submissions, samples;
     private  ArrayList<Integer> patientKeys = new ArrayList();
     private double standardDeviation, populationMean, populationVariance, minStdDev, maxStdDev;
@@ -34,17 +37,17 @@ public class HealthCareManagementSystem
     public HealthCareManagementSystem(){this("Unspecified");}
     public HealthCareManagementSystem(String facilityName)
     {
+    	/**************************************************************
+		 * commenting code block for database perisistance
+		 */
+		/*if(referenceNumber == 0){
+			referenceNumberGenerator = 1001;
+		}*/
         this.facility = facilityName;
         this.patients = this.healthcareProviders = 0;
         
         doctors.add(new String[]{"Select Doctor","0000"});
-        this.register("Doctor", "Walter Bishop",new char[]{'1'},new char[]{'1'},"Neuro Surgeon", "0","1", "(555) 555-1512");
         
-//		this.register("Doctor", "Bishop, Walter",new char[]{'i','m','N','o','t','C','r','a','z','y'},new char[]{'i','m','N','o','t','C','r','a','z','y'},"Neuro Surgeon", "0","docBishop@fringe.com", "(555) 555-1512");
-        this.register("Doctor", "Henry Jekyll", new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, "Plastic Surgeon","0","biPolar@ontheedge.com", "(555) 531-3357");
-        this.register("Doctor", "Doctor Dre", new char[]{'g','i','n','N','J','u','i','c','e'}, new char[]{'g','i','n','N','J','u','i','c','e'}, "Orthopedics","0", "dreDay@beats.com", "(234) 333-9382");
-        this.register("Doctor", "Hannibal Lecter", new char[]{'f','a','c','e','S','t','e','a','k','!'}, new char[]{'f','a','c','e','S','t','e','a','k','!'}, "Cardiology","6", "hungry@humans.com", "(223) 543-0929");
-        this.register("Doctor", "Doctor Evil", new char[]{'m','i','n','i','m','e'}, new char[]{'m','i','n','i','m','e'}, "Surgeon","0","evil@doctor.com", "(325) 943-1264");
     }
     
     //if Member exists, retrieve Member object from database
@@ -190,6 +193,25 @@ public class HealthCareManagementSystem
         this.patientList.put(referenceNumberGenerator, patientValues);
         this.patientKeys.add(referenceNumberGenerator);
         
+        /*******
+         * commenting code for data persistance
+         */
+        /*Patient p1 = new Patient();
+        p1.setName(userName);
+        p1.setPassword(password);
+        p1.setDoctorAssignedName(info);
+        p1.setDoctorAssignedEmail(temp.getEmailId());
+        p1.setDoctorAssignedPhone(temp.getPhone());
+        p1.setDoctorAssignedReferenceNumber(Integer.parseInt(otherInfo));
+        p1.setEmailId(emailId);
+        p1.setPhone(phone);
+        p1.setReferenceNumber(referenceNumberGenerator);
+        p1.setUnderlyingCondition("condition");
+        
+        
+        Util util = new Util();
+        int registration = util.registerPatient(p1); */
+        
         this.patients++;
     }
     
@@ -207,6 +229,20 @@ public class HealthCareManagementSystem
         //add doctor to heashmap/database
         this.healthcareProviders++;
         addDoctor(userName, String.valueOf(this.referenceNumberGenerator));
+        
+        /*******
+         * commenting code for data persistance
+         */
+		/*
+		HealthserviceProvider h1 = new HealthserviceProvider();
+		h1.setReferenceNumber(referenceNumberGenerator);
+		h1.setName(userName);
+		h1.setPassword(password);
+		h1.setMedicalField(otherInfo);
+		h1.setEmailId(emailId);
+		h1.setPhone(phone);
+		 Util util = new Util();
+	     int registration = util.registerDoctor(h1);*/
     }
     
 //</editor-fold>
@@ -262,9 +298,21 @@ public class HealthCareManagementSystem
                 logout(p);//log out the patient
             }
         }
-        
+        //writeToDatabase(referenceNumber,condition,writeToDatabase);    //commented for database
         return result;
     }
+    
+    
+    /*******
+     * commenting code for data persistance
+     */
+  /*  private void writeToDatabase(int referenceNumber, int[] condition,
+			int i) {
+    	 Util util = new Util();
+         util.updatePateintStatus(referenceNumber,condition,i);
+	}*/
+    
+    
     
     private Patient getPatient(int referenceNumber)
     {
@@ -492,5 +540,23 @@ public class HealthCareManagementSystem
     //used by GUI to generate list of patients assigned to doctor
     public String[] getPatientsAssigned(int referenceNumber){return this.getDoctor(referenceNumber).getPatientList();}
 //</editor-fold>    
-
+	public HashMap<Integer, ArrayList<Object>> getPatientList() {
+		return patientList;
+	}
+	public void setPatientList(HashMap<Integer, ArrayList<Object>> patientList) {
+		this.patientList = patientList;
+	}
+	public int getPatients() {
+		return patients;
+	}
+	public void setPatients(int patients) {
+		this.patients = patients;
+	}
+	public void setDoctorList(HashMap<Integer, ArrayList<Object>> doctorList) {
+		this.doctorList = doctorList;
+	}
+	public void setDoctors(ArrayList<String[]> doctors) {
+		this.doctors = doctors;
+	}
+    
 }

@@ -3,7 +3,9 @@ package edu.asu.se.group5.beans;
 //import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
+
 
 
 
@@ -46,31 +48,116 @@ public class test
 		//System.out.println(system.login("Patient", "docj@doctor.com", "docPassword"));
 		//System.out.println(system.login("Patient", "jimi@jimiaguirre.com", "securePW"));
                 
+		 
+		
+		
                 for(int i=0;i<50;i++)
                     System.out.println();
                 
+                /************************************************************************
+                 * code block commented for database persistence
+                 *
+                 *
+                 *
+                Util util = new Util(); 
                 
-                String password = "1";
-                char[] pw = password.toCharArray();
-                String email = "1";
+                HashMap<Integer,ArrayList<Object>> doctorList = util.loadDoctors();
+                system.setDoctorList(doctorList);
+                Set<Integer> doc_ref = doctorList.keySet();
+                Iterator<Integer> doc_it = doc_ref.iterator();
+                while(doc_it.hasNext()){
+                	ArrayList add = doctorList.get(doc_it.next());
+                	System.out.println("add get 1 is " + add.get(1));
+                	HealthserviceProvider h1 = (HealthserviceProvider) add.get(1);
+                	//System.out.println("name of doc is " + h1.getName() + " and ref number is  + " h1.getReferenceNumber());
+                	system.doctors.add(new String[]{h1.getName(),String.valueOf(h1.getReferenceNumber())});
+                }
                 
-                System.out.println("Jimi :" + system.register("Patient", "Jimi Aguirre", pw, pw, "1", "1", email, "123"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "4", "1", "1", "123"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "2", "1", "12", "1234"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "3", "1", "123", "12345"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "5", "1", "1234", "12346"));
+               // System.out.println("doctor 1 name is " + system.doctors.get(1)[0]);
+               // System.out.println("doctor 2 name is " + system.doctors.get(2)[0]);
+                
+                if(doctorList == null){
+                */
+                system.setDoctorList(new HashMap<Integer, ArrayList<Object>>());
+                system.register("Doctor", "Walter Bishop",new char[]{'1'},new char[]{'1'},"Neuro Surgeon", "0","1", "(555) 555-1512");
+                
+//        		system.register("Doctor", "Bishop, Walter",new char[]{'i','m','N','o','t','C','r','a','z','y'},new char[]{'i','m','N','o','t','C','r','a','z','y'},"Neuro Surgeon", "0","docBishop@fringe.com", "(555) 555-1512");
+                system.register("Doctor", "Henry Jekyll", new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, new char[]{'i','m','f','i','n','e','i','m','n','o','t'}, "Plastic Surgeon","0","biPolar@ontheedge.com", "(555) 531-3357");
+                system.register("Doctor", "Doctor Dre", new char[]{'g','i','n','N','J','u','i','c','e'}, new char[]{'g','i','n','N','J','u','i','c','e'}, "Orthopedics","0", "dreDay@beats.com", "(234) 333-9382");
+                system.register("Doctor", "Hannibal Lecter", new char[]{'f','a','c','e','S','t','e','a','k','!'}, new char[]{'f','a','c','e','S','t','e','a','k','!'}, "Cardiology","6", "hungry@humans.com", "(223) 543-0929");
+                system.register("Doctor", "Doctor Evil", new char[]{'m','i','n','i','m','e'}, new char[]{'m','i','n','i','m','e'}, "Surgeon","0","evil@doctor.com", "(325) 943-1264");
+            //  }
+                
+                
+                /************************************************************************
+                 * code block commented for database persistence
+                 *
+                 *
+		            HashMap<Integer,ArrayList<Object>> patList = util.loadPatients();
+		            system.setPatientList(patList);
+		            system.setPatients(patList.size());
+		            system.patientKeys = util.getPatientIds();
+		            if(patList == null){*/
+		                HashMap<Integer,ArrayList<Object>> patList1 = new HashMap<Integer,ArrayList<Object>>();
+		            	system.setPatientList(patList1);
+		                String password = "1";
+		                char[] pw = password.toCharArray();
+		                String email = "1";
+		                
+		                System.out.println("Jimi :" + system.register("Patient", "Jimi Aguirre", pw, pw, "1", "1", email, "123"));
+		                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "4", "1", "1", "123"));
+		                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "2", "1", "12", "1234"));
+		                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "3", "1", "123", "12345"));
+		                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "5", "1", "1234", "12346"));
+		                
+		                System.out.println(system.updatePatientStatus(1006, new int[]{2,4,1,6,7}));
+		        		System.out.println(system.updatePatientStatus(1006, new int[]{5,7,10,9,1}));
+		        		System.out.println(system.updatePatientStatus(1006, new int[]{8,9,10,9,9}));
+		                System.out.println(system.updatePatientStatus(1006, new int[]{2,4,1,6,7}));
+		                System.out.println(system.updatePatientStatus(1006, new int[]{5,7,10,9,1}));
+		                System.out.println(system.updatePatientStatus(1006, new int[]{8,9,10,9,9}));
+		                /************************************************************************
+		                 * code block commented for database persistence
+		                 *
+		                 *
+		                  }else{
+	                	system.setWriteToDatabase(1);
+	                	Set patientIds = system.getPatientList().keySet();
+	                	Iterator ids = patientIds.iterator();
+	                	
+	                	while(ids.hasNext()){
+	                		int id = (int)ids.next();
+	                		Patient p1 = (Patient) system.getPatientList().get(id).get(1);
+	                		System.out.println("patient name is " + p1.getName());
+	                		List<HealthCondition> hlist = util.getLastKHealthStatusUpdates(id);
+	                		
+	                		Iterator<HealthCondition> condition = hlist.iterator();
+	                		ArrayList<int[]> conditionHistory = new ArrayList<int[]>();
+	                		while(condition.hasNext()){
+	                			HealthCondition h1 = condition.next();
+	                			int[] cond = new int[5];
+	                			cond[0] = h1.getPain();
+	                			cond[1] = h1.getAnxiety();
+	                			cond[2] = h1.getDepression();
+	                			cond[3] = h1.getNausea();
+	                			System.out.println("for patient " + id + "there are " + hlist.size() +" medical updates in database");
+	                			cond[4] = h1.getDrowsiness();
+	                			system.setWriteToDatabase(1);
+	                			system.updatePatientStatus(id, cond);
+	                			conditionHistory.add(cond);
+	                		}
+	                		p1.setPatientHistory(conditionHistory);
+	                	}
+	                	system.setWriteToDatabase(0);
+	                } */
+                
                 
                 
 //		System.out.println(system.login("Patient", email, pw)[0]);
 //                System.out.println(system.login("Patient", "12", pw)[0]);
 //                System.out.println(system.login("Patient", "1234", pw)[0]);
 		
-		System.out.println(system.updatePatientStatus(1006, new int[]{2,4,1,6,7}));
-		System.out.println(system.updatePatientStatus(1006, new int[]{5,7,10,9,1}));
-		System.out.println(system.updatePatientStatus(1006, new int[]{8,9,10,9,9}));
-                System.out.println(system.updatePatientStatus(1006, new int[]{2,4,1,6,7}));
-                System.out.println(system.updatePatientStatus(1006, new int[]{5,7,10,9,1}));
-                System.out.println(system.updatePatientStatus(1006, new int[]{8,9,10,9,9}));
+		
                 
                 System.out.println(system.printKeys());
                 
@@ -81,7 +168,9 @@ public class test
 		//populate a list of 10 RANDOM health conditions to simulate past medical condition update submissions
 		//Random data to be used in std. dev. calculations		
 //		ArrayList<int[]> pHistory = new ArrayList<int[]>();
-//                
+//        
+                
+      
 		for (int historyIndex = 0; historyIndex < 10; historyIndex++)
 		{
 			for(int conditionIndex = 0; conditionIndex < curCon.length; conditionIndex++){
