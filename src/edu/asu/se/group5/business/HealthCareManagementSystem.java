@@ -606,6 +606,7 @@ public class HealthCareManagementSystem
         return Integer.parseInt(this.doctors.get(index)[1]);
     }
 
+
     public void addDoctor(String doctor, String referenceNumber) 
     {
         this.doctors.add(new String[]{doctor, referenceNumber});
