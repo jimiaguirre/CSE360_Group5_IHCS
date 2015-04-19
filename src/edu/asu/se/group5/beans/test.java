@@ -55,10 +55,10 @@ public class test
                 String email = "1";
                 
                 System.out.println("Jimi :" + system.register("Patient", "Jimi Aguirre", pw, pw, "1", "1", email, "123"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "4", "1", "1", "123"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "2", "1", "12", "1234"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "3", "1", "123", "12345"));
-                System.out.println(system.register("Patient", "Jimi Aguirre", pw, pw, "5", "1", "1234", "12346"));
+                System.out.println(system.register("Patient", "Savannah", pw, pw, "1", "1", "savannah@email.com", "123"));
+                System.out.println(system.register("Patient", "Edison", pw, pw, "1", "1", "edison@wolfpack.com", "1234"));
+                System.out.println(system.register("Patient", "Nishant", pw, pw, "1", "1", "nishant@email.com", "12345"));
+                System.out.println(system.register("Patient", "Deepak", pw, pw, "1", "1", "pak@pak.com", "12346"));
                 
                 
 //		System.out.println(system.login("Patient", email, pw)[0]);
