@@ -10,6 +10,8 @@ import java.util.Set;
 import edu.asu.se.group5.beans.HealthserviceProvider;
 import edu.asu.se.group5.beans.Member;
 import edu.asu.se.group5.beans.Patient;
+import edu.asu.se.group5.util.Util;
+
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,9 +22,9 @@ public class HealthCareManagementSystem
     private  HashMap<Integer,ArrayList<Object>> patientList = new HashMap<Integer,ArrayList<Object>>();
     private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();		
     private  String facility;
-  //private static int referenceNumber = Util.getRefenceNumberGenerator();    //commented for database
-	private  int referenceNumberGenerator = 1001;//referenceNumber + 1;  
-	//private int writeToDatabase = 0;										  //required when writing to database
+    private static int referenceNumber = Util.getRefenceNumberGenerator();    //commented for database
+	private  int referenceNumberGenerator = referenceNumber + 1; //1001;//referenceNumber + 1;  
+	private int writeToDatabase = 0;										  //required when writing to database
     private int patients, healthcareProviders, logins, transactions, submissions, samples;
     private  ArrayList<Integer> patientKeys = new ArrayList();
     private double standardDeviation, populationMean, populationVariance, minStdDev, maxStdDev;
@@ -40,9 +42,9 @@ public class HealthCareManagementSystem
     	/**************************************************************
 		 * commenting code block for database perisistance
 		 */
-		/*if(referenceNumber == 0){
+		if(referenceNumber == 0){
 			referenceNumberGenerator = 1001;
-		}*/
+		}
         this.facility = facilityName;
         this.patients = this.healthcareProviders = 0;
         
@@ -189,14 +191,22 @@ public class HealthCareManagementSystem
         //add patient to the Doctors list of patients
         temp.addPatient( userName, String.valueOf(referenceNumberGenerator));
         
+        //add patient to database
+        Util util = new Util();
+        util.addPatientToDoctor(temp.getReferenceNumber(),userName, String.valueOf(referenceNumberGenerator));
+        
+        
         //add patient to hash map
         this.patientList.put(referenceNumberGenerator, patientValues);
         this.patientKeys.add(referenceNumberGenerator);
         
+        
+        
+        
         /*******
          * commenting code for data persistance
          */
-        /*Patient p1 = new Patient();
+        Patient p1 = new Patient();
         p1.setName(userName);
         p1.setPassword(password);
         p1.setDoctorAssignedName(info);
@@ -209,8 +219,8 @@ public class HealthCareManagementSystem
         p1.setUnderlyingCondition("condition");
         
         
-        Util util = new Util();
-        int registration = util.registerPatient(p1); */
+       
+        int registration = util.registerPatient(p1); 
         
         this.patients++;
     }
@@ -233,7 +243,7 @@ public class HealthCareManagementSystem
         /*******
          * commenting code for data persistance
          */
-		/*
+		
 		HealthserviceProvider h1 = new HealthserviceProvider();
 		h1.setReferenceNumber(referenceNumberGenerator);
 		h1.setName(userName);
@@ -242,7 +252,7 @@ public class HealthCareManagementSystem
 		h1.setEmailId(emailId);
 		h1.setPhone(phone);
 		 Util util = new Util();
-	     int registration = util.registerDoctor(h1);*/
+	     int registration = util.registerDoctor(h1);
     }
     
 //</editor-fold>
@@ -298,23 +308,35 @@ public class HealthCareManagementSystem
                 logout(p);//log out the patient
             }
         }
-        //writeToDatabase(referenceNumber,condition,writeToDatabase);    //commented for database
+        writeToDatabase(referenceNumber,condition,writeToDatabase);    //commented for database
         return result;
     }
     
     
-    /*******
+    public int getWriteToDatabase() {
+		return writeToDatabase;
+	}
+	public void setWriteToDatabase(int writeToDatabase) {
+		this.writeToDatabase = writeToDatabase;
+	}
+	/*******
      * commenting code for data persistance
      */
-  /*  private void writeToDatabase(int referenceNumber, int[] condition,
+    private void writeToDatabase(int referenceNumber, int[] condition,
 			int i) {
     	 Util util = new Util();
          util.updatePateintStatus(referenceNumber,condition,i);
-	}*/
+	}
     
     
     
-    private Patient getPatient(int referenceNumber)
+    public ArrayList<Integer> getPatientKeys() {
+		return patientKeys;
+	}
+	public void setPatientKeys(ArrayList<Integer> patientKeys) {
+		this.patientKeys = patientKeys;
+	}
+	private Patient getPatient(int referenceNumber)
     {
         Patient p = new Patient();
         if(this.patientList.containsKey(referenceNumber))

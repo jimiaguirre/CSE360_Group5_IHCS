@@ -179,4 +179,9 @@ public class Util {
 		return ref;
 	}
 
+	public void addPatientToDoctor(int i, String userName, String ref) {
+		PostgresConnection conn = new PostgresConnection();
+		conn.addPatientToDoctor(i,userName,ref);
+	}
+
 }

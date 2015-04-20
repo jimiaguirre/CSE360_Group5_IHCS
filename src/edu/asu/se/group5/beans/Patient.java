@@ -13,7 +13,15 @@ public class Patient extends Member
         return doctorAssignedPhone;
     }
 
-    public void setDoctorAssignedPhone(String doctorAssignedPhone) {
+    public ArrayList<int[]> getPatientHistory() {
+		return patientHistory;
+	}
+
+	public void setPatientHistory(ArrayList<int[]> patientHistory) {
+		this.patientHistory = patientHistory;
+	}
+
+	public void setDoctorAssignedPhone(String doctorAssignedPhone) {
         this.doctorAssignedPhone = doctorAssignedPhone;
     }
 

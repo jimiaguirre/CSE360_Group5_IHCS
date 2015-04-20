@@ -4,18 +4,19 @@ package edu.asu.se.group5.beans;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
-
-
-
-
+import java.util.Set;
 
 import edu.asu.se.group5.business.HealthCareManagementSystem;
+import edu.asu.se.group5.util.Util;
 import gui.InitialMenu;
 
 public class test 
 {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) 
 	{
             
@@ -58,7 +59,7 @@ public class test
                  * code block commented for database persistence
                  *
                  *
-                 *
+                 **/
                 Util util = new Util(); 
                 
                 HashMap<Integer,ArrayList<Object>> doctorList = util.loadDoctors();
@@ -70,14 +71,16 @@ public class test
                 	System.out.println("add get 1 is " + add.get(1));
                 	HealthserviceProvider h1 = (HealthserviceProvider) add.get(1);
                 	//System.out.println("name of doc is " + h1.getName() + " and ref number is  + " h1.getReferenceNumber());
-                	system.doctors.add(new String[]{h1.getName(),String.valueOf(h1.getReferenceNumber())});
+                	ArrayList<String[]> doctors = system.getDoctors();
+                	doctors.add(new String[]{h1.getName(),String.valueOf(h1.getReferenceNumber())});
+                	system.setDoctors(doctors);
                 }
                 
                // System.out.println("doctor 1 name is " + system.doctors.get(1)[0]);
                // System.out.println("doctor 2 name is " + system.doctors.get(2)[0]);
                 
                 if(doctorList == null){
-                */
+                
                 system.setDoctorList(new HashMap<Integer, ArrayList<Object>>());
                 system.register("Doctor", "Walter Bishop",new char[]{'1'},new char[]{'1'},"Neuro Surgeon", "0","1", "(555) 555-1512");
                 
@@ -86,18 +89,18 @@ public class test
                 system.register("Doctor", "Doctor Dre", new char[]{'g','i','n','N','J','u','i','c','e'}, new char[]{'g','i','n','N','J','u','i','c','e'}, "Orthopedics","0", "dreDay@beats.com", "(234) 333-9382");
                 system.register("Doctor", "Hannibal Lecter", new char[]{'f','a','c','e','S','t','e','a','k','!'}, new char[]{'f','a','c','e','S','t','e','a','k','!'}, "Cardiology","6", "hungry@humans.com", "(223) 543-0929");
                 system.register("Doctor", "Doctor Evil", new char[]{'m','i','n','i','m','e'}, new char[]{'m','i','n','i','m','e'}, "Surgeon","0","evil@doctor.com", "(325) 943-1264");
-            //  }
+             }
                 
                 
                 /************************************************************************
                  * code block commented for database persistence
                  *
-                 *
+                 **/
 		            HashMap<Integer,ArrayList<Object>> patList = util.loadPatients();
 		            system.setPatientList(patList);
 		            system.setPatients(patList.size());
-		            system.patientKeys = util.getPatientIds();
-		            if(patList == null){*/
+		            system.setPatientKeys(util.getPatientIds());
+		            if(patList == null){
 		                HashMap<Integer,ArrayList<Object>> patList1 = new HashMap<Integer,ArrayList<Object>>();
 		            	system.setPatientList(patList1);
 		                String password = "1";
@@ -119,7 +122,7 @@ public class test
 		                /************************************************************************
 		                 * code block commented for database persistence
 		                 *
-		                 *
+		                 **/
 		                  }else{
 	                	system.setWriteToDatabase(1);
 	                	Set patientIds = system.getPatientList().keySet();
@@ -149,7 +152,7 @@ public class test
 	                		p1.setPatientHistory(conditionHistory);
 	                	}
 	                	system.setWriteToDatabase(0);
-	                } */
+	                } 
                 
                 
                 
@@ -170,7 +173,7 @@ public class test
 //		ArrayList<int[]> pHistory = new ArrayList<int[]>();
 //        
                 
-      
+    
 		for (int historyIndex = 0; historyIndex < 10; historyIndex++)
 		{
 			for(int conditionIndex = 0; conditionIndex < curCon.length; conditionIndex++){
@@ -179,7 +182,7 @@ public class test
                         System.out.println(system.updatePatientStatus(1008,Arrays.copyOf(curCon, curCon.length)));
                         System.out.println(system.updatePatientStatus(1010,Arrays.copyOf(curCon, curCon.length)));
 		}	
-                
+               
                 
 		System.out.println(system.printKeys());
                 

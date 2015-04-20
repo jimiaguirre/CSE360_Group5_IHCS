@@ -799,7 +799,7 @@ public class PostgresConnection {
 					Statement st = connection.createStatement();
 					PreparedStatement statement = connection.prepareStatement("select "
 							+ "reference_number,username,password,emailid,phone,"
-							+ " department  from doctor_details");  
+							+ " department,patient_list  from doctor_details");  
 								
 					//statement.setString(1, String.valueOf(patientId));
 					ResultSet rs = statement.executeQuery();
@@ -821,7 +821,16 @@ public class PostgresConnection {
 					  p1.setPhone(rs.getString(5));
 					  p1.setReferenceNumber(rs.getInt(1));
 					  p1.setMedicalField(rs.getString(6));
-					  
+					  String listOfPatients = rs.getString(7);
+					  if(listOfPatients != null){
+						  String[] patients = listOfPatients.split(":");
+					 
+					  for(int i=0;i<patients.length;i++){
+						  String name = patients[i];
+						  i++;
+						  p1.addPatient(name, patients[i]);
+					  }
+					  }
 					  add.add(emailID);
 					  add.add(p1);
 					  patientList.put(reference_number, add);
@@ -907,5 +916,58 @@ public class PostgresConnection {
 				
 			}
 		}
+	}
+
+	public void addPatientToDoctor(int i, String userName, String ref) {
+		String list = "";
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres","postgres");
+			if(connection!=null){
+				try {
+					Statement st = connection.createStatement();
+					PreparedStatement statement = connection.prepareStatement("select patient_list from doctor_details");
+								
+					//statement.setString(1, String.valueOf(patientId));
+					ResultSet rs = statement.executeQuery();
+					
+					while (rs.next())
+					{
+					  list = rs.getString(1);
+					} rs.close();
+					
+					if(list!=null){
+						list +=  userName + ":" + ref + ":";
+					}else{
+						list = userName + ":" + ref + ":";
+					}
+					
+					statement = connection.prepareStatement("update doctor_details set patient_list = ? where reference_number = ?");
+					statement.setString(1, list);
+					statement.setInt(2,i);
+					statement.executeUpdate();
+					st.close();
+					
+				} catch (Exception e) {
+					System.out.println("SQL exception, please contact administrator while loading  doctor "); 
+					e.printStackTrace();
+				}
+			}else{
+				System.out.println("Failed to make connection!");
+				HealthCondition h1 = new HealthCondition();
+				h1.setDoctor_remark("Failure");
+			}
+		} catch (Exception e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
+		}finally{
+			try {
+				connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+			}
+		}
+		
 	}
 }
