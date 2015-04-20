@@ -172,6 +172,14 @@ public class Patient extends Member
 	
 	public String toString(){return String.format(
                 "%sPhysician: %s%n - Ph: %s%n - Email: %s%n", super.toString(), this.doctorAssignedName, this.doctorAssignedPhone, this.doctorAssignedEmail);}
+
+	public ArrayList<int[]> getPatientHistory() {
+		return patientHistory;
+	}
+
+	public void setPatientHistory(ArrayList<int[]> patientHistory) {
+		this.patientHistory = patientHistory;
+	}
 		
 	
 }
