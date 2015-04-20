@@ -1,21 +1,69 @@
 package edu.asu.se.group5.beans;
 
 import java.util.List;
+import java.util.ArrayList;
 
-public abstract class Member {
+public abstract class Member 
+{
 	private int referenceNumber;
 	private String name;
 	private String phone;
 	private String emailId;
-	//private String password;
+	private String outgoing, incoming;
+        private ArrayList<String[]> messages = new ArrayList();
+        private boolean messageOut , messageIn;
 	private char[] password;
 	private List<String> history;
 	private boolean activeSession = false;
 	
 	public abstract String register();
-	public abstract String sendMessage();
 	
-	//public Member(){this("name", "default@email.com", new char[] {0,0,0,0,0,0}, "(000) 000-0000", 0000);}
+        public void inbox(String message) 
+        {
+            this.setMessageIn(message);
+            this.messageIn = true;
+        }
+        
+        public void outbox(String message) 
+        {
+            this.setMessageOut(message);
+            this.messageOut = true;
+        }
+        
+        public void setMessageOut(String message){this.outgoing = this.name + ": "+message;}
+            
+        public void setMessageIn(String response){this.incoming = response;}
+        
+        public void logMessage(String message){this.messages.add(new String[] {message, ""});}
+        public void logResponse(String message){this.messages.add(new String[] {message, ""});}
+        
+        public String getInbox()
+        {
+            String msg = this.incoming;
+            this.messageIn = false;
+            return msg;
+        }
+        public String getOutbox()
+        {
+            String msg = this.outgoing;
+            this.messageOut = false;
+            return msg;    
+        }
+        
+        public boolean hasOutgoing(){return this.messageOut;}
+        public boolean hasIncoming(){return this.messageIn;}
+                
+        
+        public ArrayList<String[]> getMessageLog() {return this.messages;}
+        
+        public String printMessageLog()
+        {
+            return"";
+        }
+        
+        
+       
+	
 	
 	public Member(String name, String email, char[] password, String phone, int referenceNumber)
 	{

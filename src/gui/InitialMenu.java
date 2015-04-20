@@ -388,6 +388,9 @@ public class InitialMenu extends javax.swing.JFrame
         MainUserInterface.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         MainUserInterface.setAlwaysOnTop(true);
         MainUserInterface.setBounds(new java.awt.Rectangle(0, 22, 500, 750));
+        MainUserInterface.setMaximumSize(new java.awt.Dimension(500, 740));
+        MainUserInterface.setResizable(false);
+        MainUserInterface.setSize(new java.awt.Dimension(500, 750));
 
         MainUserInterfaceTextPaneHistory.setEditable(false);
         MainUserInterfaceTextPaneHistory.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
@@ -510,7 +513,7 @@ public class InitialMenu extends javax.swing.JFrame
                                     .addComponent(MainUserInterfaceLabelTHREE)
                                     .addComponent(MainUserInterfaceLabelFOUR)
                                     .addComponent(MainUserInterfaceLabelFIVE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
                                 .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(MainUserInterfaceSliderONE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(MainUserInterfaceSliderTWO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -522,7 +525,7 @@ public class InitialMenu extends javax.swing.JFrame
                                 .addComponent(patientSelectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(MainUserInterfaceButtonSubmit)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(main_UI_Cancel))
                             .addComponent(jScrollPane2)
                             .addGroup(MainUserInterfaceLayout.createSequentialGroup()
@@ -533,7 +536,7 @@ public class InitialMenu extends javax.swing.JFrame
                 .addGap(20, 20, 20))
         );
 
-        MainUserInterfaceLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {MainUserInterfaceButtonSubmit, main_UI_Cancel, patientSelectComboBox, viewButton});
+        MainUserInterfaceLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {MainUserInterfaceButtonSubmit, main_UI_Cancel, viewButton});
 
         MainUserInterfaceLayout.setVerticalGroup(
             MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -568,12 +571,12 @@ public class InitialMenu extends javax.swing.JFrame
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(MainUserInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MainUserInterfaceButtonSubmit)
                     .addComponent(main_UI_Cancel)
+                    .addComponent(MainUserInterfaceButtonSubmit)
                     .addComponent(patientSelectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(viewButton)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         MainUserInterfaceLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {MainUserInterfaceButtonSubmit, main_UI_Cancel, patientSelectComboBox, viewButton});
@@ -922,7 +925,10 @@ public class InitialMenu extends javax.swing.JFrame
                     sliders[(sliders.length-1)- index].setExtent(index);
             }
             else
+            {
+                sliders[index].setExtent(0);
                 sliders[index].setValue(1);
+            }
     	}
     }
     
@@ -932,6 +938,9 @@ public class InitialMenu extends javax.swing.JFrame
         {
             this.patientSelectComboBox.setVisible(false);
             this.viewButton.setVisible(false);
+            String msg = this.HCMS.getMessage(this.memberType, this.userReferenceNumber);
+            
+            this.appendUIDisplay(msg);
         }
         else
         {
@@ -940,6 +949,11 @@ public class InitialMenu extends javax.swing.JFrame
             this.patientSelectComboBox.setEnabled(true);
             this.patientSelectComboBox.setVisible(true);
             this.setupComboBox(patientSelectComboBox, this.HCMS.getPatientsAssigned(this.userReferenceNumber));
+            
+            if(this.HCMS.drHasPendingMessages(userReferenceNumber))
+            {
+                this.appendUIDisplay("\n You Have " +this.HCMS.drMessagesPendingCount(userReferenceNumber) +" New Message\n");
+            }
         }
         
         setupSlider();
@@ -1076,18 +1090,6 @@ public class InitialMenu extends javax.swing.JFrame
         String additionalInfo_2 = this.registrationComboBoxTwo.getSelectedItem().toString();
         
         String result = "";
-
-        //handle patient reg.
-//        if(this.memberType.equals("Patient"))
-//        {
-//	        if(additionalInfo_1 == "Walter Bishop") {additionalInfo_1 = "1001";}
-//	        else if (additionalInfo_1 == "Henry Jekyll") {additionalInfo_1 = "1002";}
-//	        else if (additionalInfo_1 == "Dr. Dre") {additionalInfo_1 = "1003";}
-//	        else if (additionalInfo_1 == "Hannibal Lecter") {additionalInfo_1 = "1004";}
-//	        else if (additionalInfo_1 == "Dr. Evil") {additionalInfo_1 = "1005";}
-//                else if(additionalInfo_1.equals("Select Doctor")) {result = "Please Select A Doctor!";}
-//        }
-        
         result = "Please Enter:";
         boolean done = false;
         
@@ -1520,31 +1522,32 @@ public class InitialMenu extends javax.swing.JFrame
     {
         if(isPatient())
     	{
-	    	this.appendUIDisplay(    	
-		    	this.HCMS.updatePatientStatus(
-		    			this.userReferenceNumber, 
-		    			new int[]{  this.MainUserInterfaceSliderONE.getValue(), 
+            this.appendUIDisplay(    	
+                    this.HCMS.updatePatientStatus(
+                                    this.userReferenceNumber, 
+                                    new int[]{  this.MainUserInterfaceSliderONE.getValue(), 
+                                                this.MainUserInterfaceSliderTWO.getValue(),
+                                                this.MainUserInterfaceSliderTHREE.getValue(),
+                                                this.MainUserInterfaceSliderFOUR.getValue(),
+                                                this.MainUserInterfaceSliderFIVE.getValue()})    	
+                    );
+            this.appendUIDisplay(this.HCMS.sendMessage(memberType, userReferenceNumber, this.MainUserInterfaceTextAreaComments.getText()));
+    	}
+    	else
+    	{
+            this.appendUIDisplay(    	
+                    this.HCMS.updateThreshold(
+                                    this.userReferenceNumber,
+                                    this.patientSelectComboBox.getSelectedIndex()+1,
+                                    new int[]{this.MainUserInterfaceSliderONE.getValue(), 
                                                     this.MainUserInterfaceSliderTWO.getValue(),
                                                     this.MainUserInterfaceSliderTHREE.getValue(),
                                                     this.MainUserInterfaceSliderFOUR.getValue(),
                                                     this.MainUserInterfaceSliderFIVE.getValue()})    	
-		    	);
+                    );
+            this.appendUIDisplay(this.HCMS.sendPatientResponse(userReferenceNumber, this.patientSelectComboBox.getSelectedIndex()+1, this.MainUserInterfaceTextAreaComments.getText()));
     	}
-    	else
-    	{
-    		this.appendUIDisplay(    	
-    		    	this.HCMS.updateThreshold(
-    		    			this.userReferenceNumber,
-                                        this.patientSelectComboBox.getSelectedIndex()+1,
-    		    			new int[]{this.MainUserInterfaceSliderONE.getValue(), 
-    		    					this.MainUserInterfaceSliderTWO.getValue(),
-    		    					this.MainUserInterfaceSliderTHREE.getValue(),
-    		    					this.MainUserInterfaceSliderFOUR.getValue(),
-    		    					this.MainUserInterfaceSliderFIVE.getValue()})    	
-    		    	);
-                
-                
-    	}
+        
     }
     
     private void main_UI_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_main_UI_CancelActionPerformed
@@ -1572,6 +1575,7 @@ public class InitialMenu extends javax.swing.JFrame
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
         this.appendUIDisplay(this.HCMS.getPatientHistory(this.userReferenceNumber, this.patientSelectComboBox.getSelectedIndex()+1));
+        this.appendUIDisplay(this.HCMS.getPatientMessage(this.userReferenceNumber, this.patientSelectComboBox.getSelectedIndex()+1));
         
     }//GEN-LAST:event_viewButtonActionPerformed
 

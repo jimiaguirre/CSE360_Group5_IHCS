@@ -19,7 +19,8 @@ public class HealthCareManagementSystem
     private  HashMap<Integer,ArrayList<Object>> patientList = new HashMap<Integer,ArrayList<Object>>();
     private  HashMap<Integer,ArrayList<Object>> doctorList = new HashMap<Integer,ArrayList<Object>>();		
     private  String facility;
-    private  int referenceNumberGenerator = 1001;  	
+    private  int referenceNumberGenerator = 1001;
+    private boolean hasMessages;
     private int patients, healthcareProviders, logins, transactions, submissions, samples;
     private  ArrayList<Integer> patientKeys = new ArrayList();
     private double standardDeviation, populationMean, populationVariance, minStdDev, maxStdDev;
@@ -226,6 +227,22 @@ public class HealthCareManagementSystem
         HealthserviceProvider d = getDoctor(referenceNumber);
         return d.getPatientHistory(getPatient(d.getPatientNumber(patientIndex)));
     }
+    
+    
+    
+    public String getPatientMessage(int referenceNumber, int patientIndex)
+    {
+        HealthserviceProvider d = getDoctor(referenceNumber);
+        return d.getPatientMessage(getPatient(d.getPatientNumber(patientIndex)));
+    }
+    
+    public String sendPatientResponse(int referenceNumber, int patientIndex, String message)
+    {
+        HealthserviceProvider d = getDoctor(referenceNumber);
+        d.sendPatientResponse(getPatient(d.getPatientNumber(patientIndex)), message);
+        return "Response Sent.";
+    }
+    
     
     //retrieve HealthserviceProvider object
     private HealthserviceProvider getDoctor(int referenceNumber)
@@ -495,7 +512,68 @@ public class HealthCareManagementSystem
     public String[] getMedicalField() {return medicalField;}
     
     //used by GUI to generate list of patients assigned to doctor
-    public String[] getPatientsAssigned(int referenceNumber){return this.getDoctor(referenceNumber).getPatientList();}
+    public String[] getPatientsAssigned(int referenceNumber)
+    {
+        
+        return checkPatientMessages(referenceNumber ,this.getDoctor(referenceNumber).getPatientList());
+    }
+    
+    public String[] checkPatientMessages(int referenceNumber ,String[] patientList)
+    {
+        HealthserviceProvider d;
+        d = this.getDoctor(referenceNumber);
+        String result = "";
+        
+        for(int i = 0; i < patientList.length; i++)
+        {
+            if(d.checkPatientOutbox(this.getPatient(d.getPatientNumber(i+1))))
+            {
+                result = "** ";
+                result += patientList[i];
+                patientList[i] = result;
+                d.setMessagesFlag(true);
+                d.addMessagePendingCount();
+            }
+        }
+        
+        return patientList;
+        
+    }
+    
+    public boolean drHasPendingMessages(int referenceNumber)
+    {
+        return this.getDoctor(referenceNumber).hasMessages();
+    }
+    
+    public int drMessagesPendingCount(int referenceNumber)
+    {
+        return this.getDoctor(referenceNumber).getMessagesPendingCount();
+    }
+    
+    
+
+    public String sendMessage(String memberType, int referenceNumber, String message)
+    {
+        Member m = this.getMember(memberType, referenceNumber); 
+        
+        m.outbox(message); 
+        
+        return "Message Sent.";      
+    }
+    
+    public String getMessage(String memberType, int referenceNumber)
+    {
+       String msg = "\nNew Message!\n";
+       Member m = this.getMember(memberType, referenceNumber);
+       
+       if(m.hasIncoming())
+           msg += m.getInbox();
+       else
+           msg = "\nNo New Messages.\n";
+       
+       return msg;
+       
+    }
 //</editor-fold>    
 
 }

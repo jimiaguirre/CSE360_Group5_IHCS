@@ -46,25 +46,35 @@ public class test
 		//System.out.println(system.login("Patient", "docj@doctor.com", "docPassword"));
 		//System.out.println(system.login("Patient", "jimi@jimiaguirre.com", "securePW"));
                 
-                
+                ArrayList<String[]> logins = new ArrayList();
                 
                 
                 String password = "1";
                 
-                String[] jimiLogin = {"jimi@jimiaguirre.com", "jimiPassword"};
+                //String[] jimiLogin = {"jimi@jimiaguirre.com", "jimiPassword"};
+                String[] jimiLogin = {"1", "1"};
                 String[] savannahLogin = {"savannah@email.com", "savannahPassword"};
                 String[] edisonLogin = {"edison@wolfpack.com", "wolfpackPassword"};
                 String[] nishantLogin = {"nishant@email.com", "nishantPassword"};
                 String[] deepakLogin = {"pak@pak.com", "deepakPassword"};
                 
+                logins.add(jimiLogin);
+                logins.add(savannahLogin);
+                logins.add(edisonLogin);
+                logins.add(nishantLogin);
+                logins.add(deepakLogin);
+                
                 String[] firstNames = {"John", "Jim", "Tom", "Edward", "Walter", "Eddie", "Josh", "Craig", "Alex", "Timothy", "Deepak", "Nishant", "Jimi", "Jill", "Stephanie", "Susan", "Natalie", "Nicole", "Savannah", "Milla", "Megan", "Joanne", "Breanne", "Gertrude" , "Mona", "Gaylord", "Bart", "Lisa", "Maggie", "Homer"};
                 String[] lastNames = {"Daniels","Smith", "Adams", "Parameshawaran", "Kumar", "Puckett", "Cooper", "Schweitzer", "Chae", "Burger", "Martinez", "Aguirre", "Jovovich", "Fox", "Portman", "Sanchez", "Flanders", "Simpson", "Focker", "Norton", "Sandler"};
                 int[] doctorRefNumbers = {1001,1002,1003,1004,1005};
                 
-                String firstName, lastName, phone, doctor, uCondition, email;
+                String firstName, lastName, phone, doctor, uCondition, email, result;
+                
+                
+                
                 char[] pw = password.toCharArray();
                 
-                for(int i = 0; i < 100; i++)
+                for(int i = 0; i < 50; i++)
                 {
                     firstName = firstNames[generator.nextInt(firstNames.length)];
                     lastName = lastNames[generator.nextInt(lastNames.length)];
@@ -80,8 +90,12 @@ public class test
                     
                     doctor = String.valueOf(generator.nextInt(5)+1);
                     uCondition = String.valueOf(generator.nextInt(5)+1);
-                    System.out.println(system.register("Patient", firstName+" "+lastName, pw, pw, doctor, uCondition, email, phone));
-  
+                    result = (system.register("Patient", firstName+" "+lastName, pw, pw, doctor, uCondition, email, phone));
+                    
+                    if(result.equalsIgnoreCase("Registration Complete!"))
+                        logins.add(new String[] {email, firstName + "Password"});
+                    
+                    
                            
                     }
                     
@@ -127,16 +141,16 @@ public class test
 		//Random data to be used in std. dev. calculations		
 //		
 //                
-//		for(int memberIndex = 0; memberIndex < memberLogins.length; memberIndex++)
-//                {
-//                    for (int historyIndex = 0; historyIndex < 50; historyIndex++)
-//                    {
-//                        for(int conditionIndex = 0; conditionIndex < curCon.length; conditionIndex++){
-//                                curCon[conditionIndex] = generator.nextInt(10 - 1 + 1) + 1;}
-//                        System.out.println(system.login("Patient", memberLogins[memberIndex][0], memberLogins[memberIndex][1].toCharArray())); 
-//                        System.out.println(system.updatePatientStatus(1006+memberIndex,Arrays.copyOf(curCon, curCon.length)));
-//                    }
-//                }
+		for(int memberIndex = 0; memberIndex < logins.size(); memberIndex++)
+                {
+                    for (int historyIndex = 0; historyIndex < 10; historyIndex++)
+                    {
+                        for(int conditionIndex = 0; conditionIndex < curCon.length; conditionIndex++){
+                                curCon[conditionIndex] = generator.nextInt(10 - 1 + 1) + 1;}
+                        System.out.println(system.login("Patient", logins.get(memberIndex)[0], logins.get(memberIndex)[1].toCharArray())); 
+                        System.out.println(system.updatePatientStatus(system.emailToReferenceNumber("Patient", logins.get(memberIndex)[0]), Arrays.copyOf(curCon, curCon.length)));
+                    }
+                }
         
                 
 		System.out.println(system.printKeys());

@@ -8,7 +8,10 @@ public class HealthserviceProvider extends Member
 	//private String password;	
 	private String medicalField;
 	private ArrayList<String[]> patientList = new ArrayList();
+        private ArrayList<Boolean> pendingMessages = new ArrayList();
 	private int numberOfPatients;
+        private boolean messagesPending;
+        private int messagesPendingCount;
         private String[] action = {"Bed Rest","Take Medication","Call Doctor","Emergency Room","911"};
 	
 	public HealthserviceProvider()
@@ -24,6 +27,39 @@ public class HealthserviceProvider extends Member
                 this.numberOfPatients = Integer.parseInt(numberOfPatients);
                 System.out.println(this.toString());
 	}
+        
+        public String getPatientMessage(Patient p)
+        {
+            this.messagesPendingCount--;
+            return p.getOutbox();
+        }
+        
+        public void sendPatientResponse(Patient p, String msg)
+        {
+            p.inbox("Dr. " + super.getName() + ": " + msg);
+            
+        }
+        
+        public boolean hasMessages()
+        {
+            return this.messagesPending;
+        }
+        
+        public void setMessagesFlag(boolean flag)
+        {
+            this.messagesPending = flag;
+        }
+        
+        public void addMessagePendingCount()
+        {
+            this.messagesPendingCount++;
+        }
+        
+        public int getMessagesPendingCount()
+        {
+            return this.messagesPendingCount;
+        }
+        
 	
 	public String getMedicalField() {
 		return medicalField;
@@ -38,11 +74,7 @@ public class HealthserviceProvider extends Member
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public String sendMessage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 	public String updateThreshold(Patient patient, int[] thresholdArray)
         {
@@ -63,9 +95,12 @@ public class HealthserviceProvider extends Member
 	public void addPatient(String name, String referenceNumber)
         {
             this.patientList.add(new String[]{name, referenceNumber});
+            this.pendingMessages.add(false);
             this.numberOfPatients++;
             System.out.format("%n<[%s] %s>  added to patient list for: %s%n Total Patients: %s%n",referenceNumber, name,this.getName(), this.getNumberOfPatients() );
 	}
+        
+        
 	
 	public void deletePatient(int referenceNumber){
 		this.patientList.remove(referenceNumber);
@@ -80,6 +115,11 @@ public class HealthserviceProvider extends Member
         
             return result;
 	}
+        
+        public boolean checkPatientOutbox(Patient p)
+        {
+            return p.hasOutgoing();
+        }
         
         public int getPatientNumber(int index)
         {

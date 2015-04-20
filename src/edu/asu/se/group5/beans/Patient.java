@@ -32,6 +32,7 @@ public class Patient extends Member
 	private int[] currentCondition;
 	private int historySize = 0;
         private int thresholdUpdates = 1;
+        private String messageOut, messageIn;
 
     public int getThresholdUpdates() {
         return thresholdUpdates;
@@ -67,7 +68,15 @@ public class Patient extends Member
 
 	public String register() {return null;}
 
-	public String sendMessage() {return null;}
+	public void sendMessage(String message) 
+        {
+            String msg="";
+            
+            msg = String.format("%nMessages:%n%s: %s%n", super.getName(), message);
+            
+            super.outbox(message);
+        }
+        
 	
 	public String submitStatus(int[] status){return null;}
 	
